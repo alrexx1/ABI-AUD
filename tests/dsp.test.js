@@ -248,5 +248,57 @@ describe('Motor DSP: Filtros y Similitud', () => {
     assert.ok(verdictKey.pJunk >= 75, `Una llave debe ser identificada como chatarra >= 75% (obtenido: ${verdictKey.pJunk}%)`);
   });
 
+  it('debe exportar, importar y reiniciar estadísticas de forma segura con validación defensiva', async () => {
+    const { state, resetTrainerStats, getStatsExportPayload, importStatsPayload } = await import('../src/core/state.js');
+
+    // 1. Configurar estado de prueba
+    state.trainer.streak = 5;
+    state.trainer.bestStreak = 8;
+    state.trainer.correctCount = 14;
+    state.trainer.totalCount = 20;
+    state.trainer.virtualKoens = 1500000;
+    state.trainer.round = 21;
+
+    // 2. Exportar payload
+    const exported = getStatsExportPayload();
+    assert.strictEqual(exported.app, 'ABI Sound Master');
+    assert.strictEqual(exported.schemaVersion, '1.0');
+    assert.strictEqual(exported.stats.correctCount, 14);
+    assert.strictEqual(exported.stats.totalCount, 20);
+    assert.strictEqual(exported.stats.accuracy, '70.0%');
+    assert.strictEqual(exported.stats.virtualKoens, 1500000);
+
+    // 3. Reiniciar estadísticas
+    resetTrainerStats();
+    assert.strictEqual(state.trainer.streak, 0);
+    assert.strictEqual(state.trainer.bestStreak, 0);
+    assert.strictEqual(state.trainer.correctCount, 0);
+    assert.strictEqual(state.trainer.totalCount, 0);
+    assert.strictEqual(state.trainer.virtualKoens, 0);
+    assert.strictEqual(state.trainer.round, 1);
+
+    // 4. Importar payload válido
+    const importSuccess = importStatsPayload(exported);
+    assert.strictEqual(importSuccess, true);
+    assert.strictEqual(state.trainer.streak, 5);
+    assert.strictEqual(state.trainer.bestStreak, 8);
+    assert.strictEqual(state.trainer.correctCount, 14);
+    assert.strictEqual(state.trainer.totalCount, 20);
+    assert.strictEqual(state.trainer.virtualKoens, 1500000);
+
+    // 5. Rechazar payload con datos corruptos o inconsistentes (Defensa AppSec)
+    assert.throws(() => {
+      importStatsPayload({ stats: { streak: -1, correctCount: 5, totalCount: 5, virtualKoens: 0 } });
+    }, /inválidos/);
+
+    assert.throws(() => {
+      importStatsPayload({ stats: { streak: 0, correctCount: 15, totalCount: 10, virtualKoens: 0 } });
+    }, /Inconsistencia/);
+
+    assert.throws(() => {
+      importStatsPayload(null);
+    }, /inválido/);
+  });
+
 });
 

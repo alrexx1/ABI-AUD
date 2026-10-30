@@ -3,7 +3,13 @@
  * Enlace desacoplado de botones, selectores, controles de radar y atajos tácticos de teclado.
  */
 
-import { state, saveStats } from '../core/state.js';
+import { 
+  state, 
+  saveStats, 
+  resetTrainerStats, 
+  getStatsExportPayload, 
+  importStatsPayload 
+} from '../core/state.js';
 import { playSoundFile, playAudioCycle, playSynthSFX } from '../audio/audioEngine.js';
 import { generateNewMysteryRound, handleTrainerDecision, updateStatsDisplay } from '../trainer/trainerEngine.js';
 import { renderAssistantCards } from '../assistant/assistantView.js';
@@ -25,6 +31,30 @@ import {
 import { setScopeMode } from '../radar/scopeRenderer.js';
 import { toggleRadarPiP } from './pipOverlay.js';
 import { startVisionTracking, stopVisionTracking } from '../vision/visionEngine.js';
+
+export function showToast(message, type = 'info') {
+  let toastContainer = document.getElementById('toast-container');
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.id = 'toast-container';
+    toastContainer.className = 'toast-container';
+    document.body.appendChild(toastContainer);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = `tactical-toast ${type}`;
+  toast.textContent = message;
+  toastContainer.appendChild(toast);
+
+  requestAnimationFrame(() => {
+    toast.classList.add('visible');
+  });
+
+  setTimeout(() => {
+    toast.classList.remove('visible');
+    setTimeout(() => toast.remove(), 250);
+  }, 3200);
+}
 
 export function switchTab(tabId) {
   state.currentTab = tabId;
@@ -157,19 +187,75 @@ export function initDOMController() {
     });
   }
 
+  // 3b. Gestión de Progreso: Exportar, Importar y Reiniciar
+  const btnExportStats = document.getElementById('btn-export-stats');
+  if (btnExportStats) {
+    btnExportStats.addEventListener('click', () => {
+      playSynthSFX('click');
+      const payload = getStatsExportPayload();
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const dateStr = new Date().toISOString().slice(0, 10);
+      a.href = url;
+      a.download = `abi-sound-master-stats-${dateStr}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Estadísticas exportadas correctamente en JSON.', 'success');
+    });
+  }
+
+  const btnImportTrigger = document.getElementById('btn-import-stats-trigger');
+  const fileInput = document.getElementById('import-stats-file-input');
+  if (btnImportTrigger && fileInput) {
+    btnImportTrigger.addEventListener('click', () => {
+      playSynthSFX('click');
+      fileInput.value = '';
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      // Límite defensivo de tamaño: 1 MB
+      if (file.size > 1024 * 1024) {
+        showToast('El archivo supera el tamaño máximo permitido (1 MB).', 'error');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const parsed = JSON.parse(event.target.result);
+          importStatsPayload(parsed);
+          updateStatsDisplay();
+          generateNewMysteryRound();
+          playSynthSFX('positive');
+          showToast('Progreso e historial importados con éxito.', 'success');
+        } catch (err) {
+          console.error('[Import Stats Error]', err);
+          showToast(`Error al importar: ${err.message}`, 'error');
+        }
+      };
+      reader.onerror = () => {
+        showToast('Error al leer el archivo seleccionado.', 'error');
+      };
+      reader.readAsText(file);
+    });
+  }
+
   const btnResetStats = document.getElementById('btn-reset-stats');
   if (btnResetStats) {
     btnResetStats.addEventListener('click', () => {
-      if (confirm('¿Deseas reiniciar tus estadísticas y rango de entrenamiento?')) {
-        state.trainer.streak = 0;
-        state.trainer.bestStreak = 0;
-        state.trainer.correctCount = 0;
-        state.trainer.totalCount = 0;
-        state.trainer.virtualKoens = 0;
-        state.trainer.round = 1;
-        saveStats();
+      if (confirm('¿Estás seguro de que deseas reiniciar tus estadísticas y balance de Koens a cero?\n\n(Recomendación: Puedes pulsar "Exportar" antes para guardar una copia de respaldo)')) {
+        playSynthSFX('click');
+        resetTrainerStats();
         updateStatsDisplay();
         generateNewMysteryRound();
+        showToast('Estadísticas reiniciadas a cero.', 'info');
       }
     });
   }

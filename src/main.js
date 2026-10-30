@@ -43,7 +43,7 @@ function bootstrap() {
   // 7. Exponer objeto de diagnóstico para consola del navegador
   window.ABI_APP = {
     state,
-    version: '2.0.9',
+    version: '2.0.10',
     switchTab,
     renderEncyclopedia,
     renderAssistantCards,

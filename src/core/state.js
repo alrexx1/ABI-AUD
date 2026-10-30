@@ -111,6 +111,7 @@ export const state = {
  */
 export function loadSavedStats() {
   try {
+    if (typeof localStorage === 'undefined') return;
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
@@ -130,6 +131,7 @@ export function loadSavedStats() {
  */
 export function saveStats() {
   try {
+    if (typeof localStorage === 'undefined') return;
     const payload = JSON.stringify({
       streak: state.trainer.streak,
       bestStreak: state.trainer.bestStreak,
@@ -141,5 +143,82 @@ export function saveStats() {
   } catch (e) {
     console.warn('[State] Error al escribir en LocalStorage:', e);
   }
+}
+
+/**
+ * Reinicia las estadísticas del entrenador a cero
+ */
+export function resetTrainerStats() {
+  state.trainer.streak = 0;
+  state.trainer.bestStreak = 0;
+  state.trainer.correctCount = 0;
+  state.trainer.totalCount = 0;
+  state.trainer.virtualKoens = 0;
+  state.trainer.round = 1;
+  saveStats();
+}
+
+/**
+ * Genera el objeto de exportación de estadísticas
+ */
+export function getStatsExportPayload() {
+  const t = state.trainer;
+  const acc = t.totalCount > 0 ? ((t.correctCount / t.totalCount) * 100).toFixed(1) + '%' : '0.0%';
+  return {
+    app: 'ABI Sound Master',
+    schemaVersion: '1.0',
+    exportedAt: new Date().toISOString(),
+    stats: {
+      streak: t.streak,
+      bestStreak: t.bestStreak,
+      correctCount: t.correctCount,
+      totalCount: t.totalCount,
+      accuracy: acc,
+      virtualKoens: t.virtualKoens,
+      round: t.round
+    }
+  };
+}
+
+/**
+ * Valida defensivamente e importa un objeto de estadísticas
+ */
+export function importStatsPayload(parsedData) {
+  if (!parsedData || typeof parsedData !== 'object') {
+    throw new Error('Formato de archivo inválido.');
+  }
+
+  const rawStats = parsedData.stats && typeof parsedData.stats === 'object' ? parsedData.stats : parsedData;
+
+  const streak = parseInt(rawStats.streak, 10);
+  let bestStreak = parseInt(rawStats.bestStreak, 10);
+  if (isNaN(bestStreak)) bestStreak = isNaN(streak) ? 0 : streak;
+
+  const correctCount = parseInt(rawStats.correctCount, 10);
+  const totalCount = parseInt(rawStats.totalCount, 10);
+  const virtualKoens = parseInt(rawStats.virtualKoens, 10);
+  const round = parseInt(rawStats.round, 10) || 1;
+
+  if (isNaN(streak) || streak < 0 ||
+      bestStreak < 0 ||
+      isNaN(correctCount) || correctCount < 0 ||
+      isNaN(totalCount) || totalCount < 0 ||
+      isNaN(virtualKoens)) {
+    throw new Error('Los datos numéricos de estadísticas están corruptos o son inválidos.');
+  }
+
+  if (correctCount > totalCount) {
+    throw new Error('Inconsistencia en los datos: los aciertos superan el total de rondas.');
+  }
+
+  state.trainer.streak = streak;
+  state.trainer.bestStreak = Math.max(bestStreak, streak);
+  state.trainer.correctCount = correctCount;
+  state.trainer.totalCount = totalCount;
+  state.trainer.virtualKoens = virtualKoens;
+  state.trainer.round = Math.max(1, round);
+
+  saveStats();
+  return true;
 }
 
