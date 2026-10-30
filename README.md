@@ -1,5 +1,10 @@
 # 🎧 ABI SOUND MASTER — Entrenador de Oído y Asistente de Vendedor de Campo
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/alrexx1/ABI-AUD)
+[![Tests Passing](https://img.shields.io/badge/tests-14%2F14%20passing-brightgreen.svg)](#)
+[![Zero Dependencies](https://img.shields.io/badge/dependencies-zero-blue.svg)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 > **Herramienta táctica para Arena Breakout: Infinite (Temporada 7: Utopia)**  
 > Entrena tu oído para detectar **Ítems Rojos (Rareza 6)** en las Cajas Misteriosas (*Mystery Cargo*) del Vendedor de Campo (*Field Merchant*) antes de gastar tus Koens en raid.
 
