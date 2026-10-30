@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment variables
+.env
+.env.local
+
+# Logs and traces
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+

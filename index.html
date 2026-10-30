@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ABI Sound Master | Entrenador de Oído y Asistente de Vendedor de Campo (Arena Breakout: Infinite)</title>
+  <meta name="description" content="Entrena tu oído para detectar ítems rojos en el vendedor de campo de Arena Breakout: Infinite. Calculador de probabilidades por audio en raid y soundboard oficial.">
+  <meta name="keywords" content="Arena Breakout Infinite, ABI, Vendedor de campo, Field Merchant, Sonidos de items rojos, Audio drop trick, Entrenador de oido">
+  
+  <!-- Tipografías de Calidad Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos Principales -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Manifest PWA Offline -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#06b6d4">
+</head>
+<body>
+
+  <!-- CABECERA PRINCIPAL -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="#" class="brand" id="brand-home-btn">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" x2="12" y1="19" y2="22"/>
+          </svg>
+        </div>
+        <div class="brand-titles">
+          <div class="brand-title">
+            ABI SOUND MASTER <span class="brand-badge">S7 UTOPIA</span>
+          </div>
+          <span class="brand-subtitle">Entrenador Auditivo & Detector de Rojos en Vendedor de Campo</span>
+        </div>
+      </a>
+
+      <!-- Pestañas de Navegación -->
+      <nav class="nav-tabs" role="tablist">
+        <button class="nav-tab active" data-tab="trainer" id="tab-trainer-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="12" r="6"/>
+            <circle cx="12" cy="12" r="2"/>
+          </svg>
+          Entrenador de Oído
+        </button>
+        <button class="nav-tab" data-tab="radar" id="tab-radar-btn">
+          <span class="live-dot-pulse"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 2a10 10 0 0 1 10 10"/>
+            <path d="M12 6a6 6 0 0 1 6 6"/>
+            <circle cx="12" cy="12" r="2"/>
+          </svg>
+          Radar Acústico en Vivo 🔴
+        </button>
+        <button class="nav-tab" data-tab="assistant" id="tab-assistant-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/>
+            <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/>
+            <circle cx="12" cy="12" r="2"/>
+            <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/>
+            <path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1"/>
+          </svg>
+          Asistente de Raid
+        </button>
+        <button class="nav-tab" data-tab="encyclopedia" id="tab-encyclopedia-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="6 2 18 2 22 7 12 22 2 7 6 2"/>
+            <polyline points="2 7 12 13 22 7"/>
+            <polyline points="12 22 12 13"/>
+          </svg>
+          Enciclopedia de Rojos (45 Ítems) 🔴
+        </button>
+        <button class="nav-tab" data-tab="compare" id="tab-compare-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 3 21 3 21 8"/>
+            <line x1="4" y1="20" x2="21" y2="3"/>
+            <polyline points="21 16 21 21 16 21"/>
+            <line x1="15" y1="15" x2="21" y2="21"/>
+            <line x1="4" y1="4" x2="9" y2="9"/>
+          </svg>
+          Comparador A/B
+        </button>
+        <button class="nav-tab" data-tab="guide" id="tab-guide-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+          Guía de Sonidos
+        </button>
+      </nav>
+
+      <!-- Controles de Utilidad -->
+      <div class="header-actions">
+        <button class="btn-icon" id="btn-toggle-sfx" title="Efectos de sonido de interfaz">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BARRA DE REPRODUCCIÓN Y VISUALIZADOR HUD -->
+  <section class="audio-hud-bar" aria-label="Reproductor de audio en vivo">
+    <div class="audio-hud-container">
+      <div class="audio-track-info">
+        <div class="audio-status-dot" id="audio-status-dot"></div>
+        <div class="audio-title-group">
+          <span class="audio-playing-name" id="hud-audio-title">Sistema Acústico Listo</span>
+          <span class="audio-playing-desc" id="hud-audio-desc">Haz clic en cualquier sonido para reproducir</span>
+        </div>
+      </div>
+
+      <!-- Canvas Visualizador de Espectro / Ondas -->
+      <canvas id="visualizer-canvas" class="visualizer-canvas" width="400" height="36"></canvas>
+
+      <!-- Control de Volumen -->
+      <div class="volume-control">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        </svg>
+        <input type="range" id="master-volume" min="0" max="1" step="0.05" value="0.8" title="Volumen principal">
+        <span id="volume-val" style="font-family: var(--font-mono); font-size: 0.75rem; min-width: 30px;">80%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENIDO PRINCIPAL DINÁMICO -->
+  <main class="main-content">
+
+    <!-- ===================================================================
+         VISTA 1: ENTRENADOR DE OÍDO (TRAINER / QUIZ)
+         =================================================================== -->
+    <section class="view-section active" id="view-trainer">
+      <div class="trainer-dashboard">
+        
+        <!-- Tarjeta Central de la Prueba Acústica -->
+        <div class="trainer-card">
+          <div class="trainer-hud-top">
+            <span class="hud-badge" id="trainer-round-tag">Ronda #1</span>
+            <span class="hud-badge accent" id="trainer-diff-tag">Modo Estándar (Cajas 250k - 550k)</span>
+            <span class="hud-badge" id="trainer-time-tag">Vendedor de Campo</span>
+          </div>
+
+          <h1 style="font-family: var(--font-hud); font-size: 1.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #fff;">
+            ¿ESTA CAJA CONTIENE UN ÍTEM ROJO?
+          </h1>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+            Escucha atentamente el sonido que emite al moverla o soltarla en el inventario del vendedor:
+          </p>
+
+          <!-- Escenario de la Caja Misteriosa -->
+          <div class="mystery-box-stage">
+            <div class="mystery-box-halo" id="box-halo"></div>
+            <div class="mystery-box-container" id="mystery-box" title="Haz clic para escuchar el sonido de la caja">
+              <span class="box-size-tag" id="box-size-display">2x2</span>
+              
+              <!-- Icono Caja Cerrada -->
+              <svg class="box-icon-crate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+                <path d="m3.3 7 8.7 5 8.7-5"/>
+                <path d="M12 22V12"/>
+              </svg>
+
+              <!-- Imagen Revelada al Responder -->
+              <img src="" alt="Ítem Revelado" class="revealed-item-img" id="revealed-img">
+
+              <span class="box-price-tag" id="box-price-display">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="12" cy="12" r="10"/>
+                </svg>
+                470,000 K
+              </span>
+            </div>
+          </div>
+
+          <!-- Botones para Escuchar el Audio -->
+          <div class="audio-trigger-panel">
+            <button class="btn-sound-play" id="btn-play-drop">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+              Escuchar DROP (Soltar Ítem)
+            </button>
+            <button class="btn-sound-play secondary" id="btn-play-pickup">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="18 15 12 9 6 15"/>
+              </svg>
+              Escuchar PICKUP (Arrastrar)
+            </button>
+            <button class="btn-sound-play secondary" id="btn-play-cycle" title="Simula arrastrar y soltar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+              </svg>
+              Ciclo Completo
+            </button>
+          </div>
+
+          <div class="sound-instruction">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <span>Consejo: En el juego real, el sonido de <strong>DROP</strong> es el más claro para identificar el material.</span>
+          </div>
+
+          <!-- Botones de Decisión (Rojo vs No Rojo) -->
+          <div class="decision-panel" id="decision-panel">
+            <button class="btn-decision btn-decision-red" id="btn-choose-red">
+              <span class="decision-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="6 2 18 2 22 7 12 22 2 7 6 2"/>
+                </svg>
+                ¡SÍ, ES UN ROJO!
+              </span>
+              <span class="decision-desc">Comprar Mystery Cargo (Arriesgar Koens)</span>
+            </button>
+
+            <button class="btn-decision btn-decision-skip" id="btn-choose-skip">
+              <span class="decision-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+                NO ES ROJO / PASAR
+              </span>
+              <span class="decision-desc">Ahorrar Koens (Es Chatarra o Dorado Común)</span>
+            </button>
+          </div>
+
+          <!-- Cuadro de Feedback y Análisis Acústico al Responder -->
+          <div class="feedback-box" id="feedback-box">
+            <div class="feedback-header">
+              <div class="feedback-verdict" id="feedback-verdict">
+                <!-- Se rellena con JS: ¡ACIERTO TÁCTICO! o ¡ERROR! -->
+              </div>
+              <div class="feedback-profit" id="feedback-profit">+1,450,000 Koens</div>
+            </div>
+
+            <div class="feedback-item-details">
+              <img src="" alt="" class="feedback-item-icon" id="feedback-item-img">
+              <div class="feedback-item-info">
+                <div class="feedback-item-name" id="feedback-item-name">Vase (Jarrón de Porcelana)</div>
+                <div class="feedback-item-meta" id="feedback-item-meta">Rareza: Roja (Tier 6) | Precio Mercado: 1,373,625 K | Tamaño: 2x2</div>
+              </div>
+            </div>
+
+            <div class="feedback-acoustic-tip" id="feedback-acoustic-tip">
+              <strong>Pista Acústica:</strong> Sonido #30 (Item_Misc_Med_Glass_Down). Es un sonido agudo y cristalino de porcelana fina.
+            </div>
+
+            <button class="btn-next-round" id="btn-next-round">
+              Siguiente Caja Misteriosa &rarr;
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Barra Lateral: Estadísticas, Racha y Rango -->
+        <aside class="trainer-sidebar">
+          
+          <!-- Rango Táctico -->
+          <div class="stat-card">
+            <div class="stat-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              Rango de Oído Táctico
+            </div>
+            <div class="rank-banner">
+              <div class="rank-icon-wrap" id="rank-badge-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L2 7l10 5 10-5-10-5Z"/>
+                  <path d="m2 17 10 5 10-5"/>
+                  <path d="m2 12 10 5 10-5"/>
+                </svg>
+              </div>
+              <div>
+                <div class="rank-title" id="rank-title">Recluta de Campo</div>
+                <div class="rank-subtitle" id="rank-sub">Nivel 1 &bull; 0 aciertos</div>
+              </div>
+            </div>
+
+            <!-- Mini Estadísticas -->
+            <div class="stat-grid-mini">
+              <div class="mini-stat-item">
+                <div class="mini-stat-label">Racha Actual</div>
+                <div class="mini-stat-val gold" id="stat-current-streak">0 🔥</div>
+              </div>
+              <div class="mini-stat-item">
+                <div class="mini-stat-label">Mejor Racha</div>
+                <div class="mini-stat-val" id="stat-best-streak">0</div>
+              </div>
+              <div class="mini-stat-item">
+                <div class="mini-stat-label">Precisión</div>
+                <div class="mini-stat-val green" id="stat-accuracy">0%</div>
+              </div>
+              <div class="mini-stat-item">
+                <div class="mini-stat-label">Total Cajas</div>
+                <div class="mini-stat-val" id="stat-total-games">0</div>
+              </div>
+            </div>
+
+            <!-- Balance de Koens -->
+            <div class="mini-stat-item" style="margin-top: 0.75rem;">
+              <div class="mini-stat-label">Balance Virtual de Koens</div>
+              <div class="mini-stat-val gold" id="stat-koen-profit" style="font-size: 1.4rem;">0 K</div>
+            </div>
+          </div>
+
+          <!-- Ajustes de Dificultad del Entrenador -->
+          <div class="stat-card">
+            <div class="stat-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="4" y1="21" x2="4" y2="14"/>
+                <line x1="4" y1="10" x2="4" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12" y2="3"/>
+                <line x1="20" y1="21" x2="20" y2="16"/>
+                <line x1="20" y1="12" x2="20" y2="3"/>
+                <line x1="1" y1="14" x2="7" y2="14"/>
+                <line x1="9" y1="8" x2="15" y2="8"/>
+                <line x1="17" y1="16" x2="23" y2="16"/>
+              </svg>
+              Filtro de Entrenamiento
+            </div>
+
+            <div class="filter-group">
+              <label class="filter-label" for="select-pool-tier">Nivel de Cajas:</label>
+              <select id="select-pool-tier" class="filter-select">
+                <option value="high">Cajas Raras de Alto Valor (250k - 550k)</option>
+                <option value="red_only_pool">Solo Sonidos con Posibilidad de Rojo</option>
+                <option value="all">Todas las Cajas (Incluye 70k y Baratas)</option>
+                <option value="traps">Sonidos Difíciles / Trampas (Rojos vs Dorados)</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label class="filter-label" for="select-size-filter">Filtrar Tamaño:</label>
+              <select id="select-size-filter" class="filter-select">
+                <option value="all">Cualquier Tamaño (Aleatorio)</option>
+                <option value="2x2">Solo 2x2 (Jarrón, Tetera, Módulo TI, etc.)</option>
+                <option value="2x3">Solo 2x3 (León, Escultura, Máscara, Robot)</option>
+                <option value="1x2">Solo 1x2 (Espejo Skyhook)</option>
+              </select>
+            </div>
+
+            <button class="btn-sound-play secondary" id="btn-reset-stats" style="width: 100%; margin-top: 1rem; font-size: 0.85rem; padding: 0.5rem;">
+              Reiniciar Estadísticas
+            </button>
+          </div>
+
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         VISTA 2: RADAR ACÚSTICO EN VIVO (DETECTOR AUTOMÁTICO DE ROJOS)
+         =================================================================== -->
+    <section class="view-section" id="view-radar">
+      <div class="radar-container">
+        
+        <!-- Encabezado del Radar -->
+        <div class="assistant-header-bar">
+          <div class="assistant-headline">
+            <div class="radar-live-badge-wrap">
+              <div class="radar-ping-dot"></div>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--rarity-red)" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 2a10 10 0 0 1 10 10"/>
+                <path d="M12 6a6 6 0 0 1 6 6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+            </div>
+            <div>
+              <h2>RADAR ACÚSTICO EN VIVO (DETECTOR AUTOMÁTICO DE ROJOS)</h2>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">
+                Escucha el audio de tu juego en tiempo real (vía Audio del Sistema o Micrófono) y analiza al instante si la caja misteriosa contiene un Ítem Rojo al soltarla en el inventario.
+              </p>
+            </div>
+          </div>
+
+          <!-- Barra de Configuración y Conexión -->
+          <!-- Barra de Configuración y Conexión -->
+          <div class="radar-controls-strip">
+            <div class="radar-source-select-group">
+              <label class="filter-pill-label" for="radar-source-mode">Fuente de Captura de Audio:</label>
+              <select id="radar-source-mode" class="filter-select">
+                <option value="system">🔊 Audio del Sistema (Recomendado - 100% Digital Puro)</option>
+                <option value="mic">🎤 Micrófono / Mezcla Estéreo (Stereo Mix)</option>
+              </select>
+            </div>
+
+            <div class="radar-source-select-group">
+              <label class="filter-pill-label" for="radar-gain-boost">Amplificación DSP:</label>
+              <select id="radar-gain-boost" class="filter-select">
+                <option value="1">1x (Normal)</option>
+                <option value="2.5">2.5x (Volumen medio)</option>
+                <option value="4" selected>4x (Recomendado para movimientos leves)</option>
+                <option value="6">6x (Juego bajo)</option>
+                <option value="10">10x (Ultra boost con limitador)</option>
+              </select>
+            </div>
+
+            <div class="radar-source-select-group">
+              <label class="filter-pill-label" for="radar-sensitivity-preset">Perfil de Sensibilidad:</label>
+              <select id="radar-sensitivity-preset" class="filter-select">
+                <option value="ultra" selected>🎯 Ultra-Sensible (0.008) — Movimientos e Inventario</option>
+                <option value="balanced">⚡ Equilibrado (0.015) — Recomendado Raid</option>
+                <option value="noisy">🛡️ Anti-Ruido (0.026) — Tiros o Lluvia</option>
+                <option value="custom">🎚️ Personalizado (Control manual)</option>
+              </select>
+            </div>
+
+            <div class="radar-source-select-group">
+              <label class="filter-pill-label" for="radar-detect-mode">Tipo de Movimiento:</label>
+              <select id="radar-detect-mode" class="filter-select">
+                <option value="both" selected>🔄 Soltar y Arrastrar (Drop + Pickup)</option>
+                <option value="chain">🔗 Doble Confirmación (Arrastrar ➔ Soltar)</option>
+                <option value="drop">⬇️ Solo Soltar (Drop)</option>
+                <option value="pickup">⬆️ Solo Arrastrar (Pickup)</option>
+              </select>
+            </div>
+
+            <div class="radar-source-select-group">
+              <label class="filter-pill-label" for="radar-size-filter">Tamaño de Casilla:</label>
+              <select id="radar-size-filter" class="filter-select">
+                <option value="all" selected>🔍 Todos los Tamaños (Auto)</option>
+                <option value="1x2">🔲 1x2 (EMS, Documento Secreto, etc.)</option>
+                <option value="2x2">🔲 2x2 (Módulo posición, Antena, Tetera, Jarrón)</option>
+                <option value="2x3">🔲 2x3 (Laúd doble c., León Dorado, TV Cápsula)</option>
+                <option value="1x3">🔲 1x3 (Flauta esm., Brazo T-008)</option>
+                <option value="2x1">🔲 2x1 (Módulo TI, etc.)</option>
+              </select>
+            </div>
+
+            <div class="radar-source-select-group">
+              <label class="filter-pill-label" for="radar-vision-mode">Visión de Pantalla (Multimodal):</label>
+              <select id="radar-vision-mode" class="filter-select">
+                <option value="auto" selected>👁️ Activa (Detección de Arrastre y Casillas)</option>
+                <option value="off">🔇 Desactivada (Solo Audio DSP)</option>
+              </select>
+            </div>
+
+            <div class="radar-action-buttons">
+              <button class="btn-radar-toggle" id="btn-toggle-radar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+                <span id="btn-toggle-radar-text">ACTIVAR RADAR ACÚSTICO</span>
+              </button>
+              <button class="btn-sound-play secondary" id="btn-toggle-pip" title="Abre una ventana flotante Always-on-Top sobre tu juego">
+                🪟 HUD Flotante (Overlay)
+              </button>
+              <button class="btn-sound-play secondary" id="btn-radar-autocalibrate" title="Mide el ruido ambiente de tu juego y calibra la sensibilidad óptima">
+                🎯 Auto-Calibrar Ruido
+              </button>
+              <button class="btn-sound-play secondary" id="btn-test-radar-sample" title="Simula que soltaste o arrastraste una caja para probar el detector">
+                ⚡ Probar Detección
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel Central: HUD del Radar + Osciloscopio + Sensibilidad -->
+        <div class="radar-hud-grid">
+          
+          <!-- Pantalla del Escáner y Osciloscopio -->
+          <div class="radar-scanner-card">
+            <div class="radar-card-top">
+              <div class="radar-status-indicator" id="radar-status-pill">
+                <span class="status-beacon inactive" id="radar-beacon"></span>
+                <span id="radar-status-text">RADAR INACTIVO — HAZ CLIC EN ACTIVAR</span>
+              </div>
+              <div class="radar-vision-indicator" id="radar-vision-pill" title="Visión por Computador en tiempo real">
+                <span class="vision-dot" id="radar-vision-dot"></span>
+                <span id="radar-vision-text">Visión: En Espera</span>
+              </div>
+              <div class="radar-sample-rate" id="radar-rate-info">48.0 kHz &bull; DSP Alta Precisión</div>
+            </div>
+
+            <!-- Canvas del Radar Circular y Espectro -->
+            <div class="radar-display-wrap">
+              <canvas id="radar-scope-canvas" width="600" height="230"></canvas>
+              <video id="radar-video-monitor" playsinline muted autoplay style="display: none;"></video>
+              <div class="radar-reticle-overlay">
+                <div class="reticle-center-circle"></div>
+                <div class="reticle-cross-h"></div>
+                <div class="reticle-cross-v"></div>
+                <div class="reticle-ring r1"></div>
+                <div class="reticle-ring r2"></div>
+              </div>
+            </div>
+
+            <!-- Barra de Umbral de Detección de Impacto (Sensibilidad) -->
+            <div class="radar-sensitivity-bar">
+              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; margin-bottom: 0.35rem;">
+                <span style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="color: var(--text-muted);">Umbral de Disparo:</span>
+                  <span style="font-family: var(--font-mono); color: var(--accent-gold);" id="radar-threshold-val">0.008 (Ultra-Sensible)</span>
+                </span>
+                <span style="font-size: 0.75rem; color: var(--text-dim);">
+                  Nivel en Vivo: <strong id="radar-live-rms" style="font-family: var(--font-mono); color: var(--accent-cyan);">0.000</strong>
+                </span>
+              </div>
+              <div class="threshold-slider-wrap">
+                <input type="range" id="radar-threshold-slider" min="0.003" max="0.060" step="0.001" value="0.008">
+                <!-- Barra medidora de nivel en vivo -->
+                <div class="live-energy-bar-wrap">
+                  <div class="live-energy-level" id="radar-energy-meter"></div>
+                  <div class="threshold-marker-line" id="radar-threshold-marker" style="left: 12%;"></div>
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-dim); margin-top: 0.25rem;">
+                <span>0.003 (Capta arrastres suaves de ratón)</span>
+                <span>0.060 (Solo golpes fuertes)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tarjeta del Veredicto en Tiempo Real -->
+          <div class="radar-verdict-card" id="radar-verdict-container">
+            
+            <!-- Estado en espera -->
+            <div class="verdict-banner-empty" id="verdict-idle-state">
+              <div class="radar-dish-anim">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+                  <circle cx="12" cy="12" r="10"/>
+                  <circle cx="12" cy="12" r="6"/>
+                  <circle cx="12" cy="12" r="2"/>
+                  <line x1="12" y1="2" x2="12" y2="22"/>
+                  <line x1="2" y1="12" x2="22" y2="12"/>
+                </svg>
+              </div>
+              <div style="font-family: var(--font-hud); font-size: 1.3rem; font-weight: 700; color: #fff; margin-top: 1rem;">
+                ESPERANDO IMPACTO EN RAID...
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-muted); max-width: 330px; line-height: 1.4; margin: 0.5rem auto 0;">
+                Activa el radar, entra a la tienda del vendedor de campo en ABI y suelta la caja misteriosa (Drop). El radar la identificará al instante.
+              </p>
+            </div>
+
+            <!-- Contenido cuando se detecta un impacto (Relleno con JS) -->
+            <div class="verdict-result-box" id="verdict-active-state" style="display: none;">
+              <!-- Banner Principal de Decisión Táctica -->
+              <div class="verdict-main-tag" id="verdict-badge">
+                🔴 ¡ALERTA: ÍTEM ROJO DETECTADO!
+              </div>
+
+              <div class="verdict-item-preview">
+                <img src="" id="verdict-item-img" alt="Ítem Detectado">
+                <div class="verdict-item-meta-group">
+                  <div class="verdict-item-title" id="verdict-item-name">Antique Teapot (Tetera Antigua)</div>
+                  <div class="verdict-item-price" id="verdict-item-price">Valor de Mercado: ~1,415,250 Koens</div>
+                  <div class="verdict-sound-tag" id="verdict-sound-id">Perfil Acústico #32 &bull; Certeza: 97%</div>
+                </div>
+              </div>
+
+              <div class="verdict-tactical-tip" id="verdict-tactical-tip">
+                🔥 <strong>RECOMENDACIÓN TÁCTICA:</strong> ¡COMPRA INMEDIATA! Este perfil acústico no tiene falsos ni trampas.
+              </div>
+
+              <!-- Candidatos Alternativos en caso de duda -->
+              <div class="verdict-alternatives" id="verdict-candidates-list">
+                <!-- Rellenado dinámico con JS -->
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Historial de Detecciones en la Sesión de Raid -->
+        <div class="stat-card" style="margin-top: 1.5rem;">
+          <div class="stat-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="display: flex; align-items: center; gap: 0.5rem;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              Registro Táctico de Cajas Detectadas en esta Sesión
+            </span>
+            <button class="btn-sound-play secondary" id="btn-clear-radar-history" style="font-size: 0.75rem; padding: 0.25rem 0.75rem;">
+              Limpiar Registro
+            </button>
+          </div>
+          <div class="radar-history-table-wrap">
+            <table class="radar-history-table">
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Veredicto</th>
+                  <th>Perfil Acústico Detectado</th>
+                  <th>Ítem / Posibles</th>
+                  <th>Certeza</th>
+                  <th>Comprobar Audio</th>
+                </tr>
+              </thead>
+              <tbody id="radar-history-tbody">
+                <tr>
+                  <td colspan="6" style="text-align: center; color: var(--text-dim); padding: 1.5rem;">
+                    No hay detecciones registradas aún. Activa el radar y realiza un Drop en el juego.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         VISTA 3: ASISTENTE DE RAID EN VIVO (FIELD MERCHANT CALCULATOR)
+         =================================================================== -->
+    <section class="view-section" id="view-assistant">
+      <div class="assistant-container">
+        
+        <!-- Panel de Filtro Rápido en Raid -->
+        <div class="assistant-header-bar">
+          <div class="assistant-headline">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2">
+              <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/>
+              <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/>
+              <circle cx="12" cy="12" r="2"/>
+              <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/>
+              <path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1"/>
+            </svg>
+            <div>
+              <h2>Asistente de Raid en Vivo</h2>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">
+                Usa esto frente al vendedor de campo: Selecciona el tamaño y precio de la caja misteriosa para escuchar y descartar sonidos al instante.
+              </p>
+            </div>
+          </div>
+
+          <div class="filters-row">
+            <!-- Filtro de Tamaño -->
+            <div>
+              <div class="filter-pill-label">1. Tamaño de la Caja (Grid):</div>
+              <div class="size-pill-group" id="assistant-size-pills">
+                <button class="size-pill active" data-size="all">Todos</button>
+                <button class="size-pill" data-size="1x1">1x1</button>
+                <button class="size-pill" data-size="1x2">1x2</button>
+                <button class="size-pill" data-size="2x1">2x1</button>
+                <button class="size-pill" data-size="2x2">2x2</button>
+                <button class="size-pill" data-size="2x3">2x3</button>
+                <button class="size-pill" data-size="3x2">3x2</button>
+              </div>
+            </div>
+
+            <!-- Filtro de Precio -->
+            <div>
+              <div class="filter-pill-label">2. Precio del Mystery Cargo:</div>
+              <select id="assistant-price-select" class="filter-select">
+                <option value="all">Todos los Precios</option>
+                <option value="550000">550,000 K (Rare Cargo)</option>
+                <option value="470000">470,000 K (Rare Cargo)</option>
+                <option value="450000">450,000 K (Rare Cargo)</option>
+                <option value="350000">350,000 K (Uncommon)</option>
+                <option value="270000">270,000 K (Uncommon)</option>
+                <option value="250000">250,000 K (Uncommon)</option>
+                <option value="70000">70,000 K (Mystery Cargo)</option>
+              </select>
+            </div>
+
+            <!-- Filtro de Categoría -->
+            <div>
+              <div class="filter-pill-label">3. Categoría de Caja:</div>
+              <select id="assistant-cat-select" class="filter-select">
+                <option value="all">Todas las Categorías</option>
+                <option value="Collectibles">Coleccionables</option>
+                <option value="Electronics">Electrónica</option>
+                <option value="Instruments">Instrumentos</option>
+                <option value="Household Items">Artículos del Hogar</option>
+                <option value="Miscellaneous Medical Item">Médico y Salud</option>
+                <option value="Miscellaneous Military Item">Militar y Táctico</option>
+                <option value="Computer Parts">Componentes de PC</option>
+                <option value="Building Materials">Materiales de Construcción</option>
+                <option value="Tools">Herramientas</option>
+              </select>
+            </div>
+
+            <!-- Solo Sonidos con Rojo -->
+            <div>
+              <div class="filter-pill-label">4. Veredicto:</div>
+              <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #fff; cursor: pointer; padding-top: 0.5rem;">
+                <input type="checkbox" id="assistant-only-reds-check" checked style="accent-color: var(--rarity-red); width: 16px; height: 16px;">
+                Mostrar solo sonidos con posibilidad de ROJO 🔴
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indicador de Resultados Filtrados -->
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-family: var(--font-hud); font-size: 1.1rem; color: var(--text-muted);">
+            Sonidos Candidatos Detectados: <strong style="color: #fff;" id="assistant-results-count">10</strong>
+          </span>
+          <span style="font-size: 0.8rem; color: var(--text-dim);">
+            Haz clic en <strong>DROP</strong> para comparar con lo que escuchas en la partida
+          </span>
+        </div>
+
+        <!-- Cuadrícula de Sonidos Compatibles -->
+        <div class="candidate-grid" id="assistant-cards-grid">
+          <!-- Renderizado dinámicamente con JavaScript -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         VISTA 3: ENCICLOPEDIA DE ÍTEMS ROJOS (45 COLECCIONABLES Y OBJETOS)
+         =================================================================== -->
+    <section class="view-section" id="view-encyclopedia">
+      <div class="soundboard-container">
+        
+        <div class="soundboard-toolbar">
+          <div class="search-input-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" id="encyclopedia-search" class="search-input" placeholder="Buscar por nombre (ej. Documento Secreto, León, Elysium, Máscara, Vase)...">
+          </div>
+
+          <div class="category-tags-row" id="encyclopedia-cat-tags">
+            <button class="cat-tag-btn active" data-cat="all">Todos los Rojos (45)</button>
+            <button class="cat-tag-btn" data-cat="world">Mundo / Raid (13) 💎</button>
+            <button class="cat-tag-btn" data-cat="merchant">Vendedor Campo (32)</button>
+            <button class="cat-tag-btn" data-cat="guaranteed">100% Sin Trampa 🔥</button>
+            <button class="cat-tag-btn" data-cat="ceramic">Porcelana / Vidrio</button>
+            <button class="cat-tag-btn" data-cat="sculpture">Esculturas / Oro</button>
+            <button class="cat-tag-btn" data-cat="tech">Módulos Técnicos</button>
+            <button class="cat-tag-btn" data-cat="jewelry">Joyería</button>
+            <button class="cat-tag-btn" data-cat="paper">Papel / Planos</button>
+          </div>
+        </div>
+
+        <!-- Cuadrícula de Ítems Rojos -->
+        <div class="red-items-grid" id="encyclopedia-items-grid">
+          <!-- Renderizado con JavaScript -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         VISTA 4: COMPARADOR ACÚSTICO A / B
+         =================================================================== -->
+    <section class="view-section" id="view-compare">
+      <div class="compare-container">
+        <div style="text-align: center; margin-bottom: 0.5rem;">
+          <h2 style="font-family: var(--font-hud); font-size: 1.8rem; font-weight: 700; color: #fff; text-transform: uppercase;">
+            Laboratorio Comparador Acústico A / B
+          </h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Compara frente a frente un ítem ROJO contra su trampa más común para entrenar la diferencia en frecuencias y texturas.
+          </p>
+        </div>
+
+        <!-- Selector de Batalla Predefinida -->
+        <div style="background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+          <span style="font-family: var(--font-hud); font-size: 1rem; font-weight: 700; color: var(--accent-gold);">
+            Duelo Predefinido:
+          </span>
+          <select id="compare-preset-select" class="filter-select" style="max-width: 450px;">
+            <option value="lion_vs_cheetah">Estatua León Dorado (Rojo) VS Guepardo Dorado (Dorado)</option>
+            <option value="vase_vs_mutant">Jarrón Porcelana (Rojo) VS Muestra de Corazón (Dorado)</option>
+            <option value="ti_vs_circuit">Módulo TI (Rojo) VS Carcasa Electrónica (Morado)</option>
+            <option value="mask_vs_scissors">Máscara de Oro (Rojo) VS Tijeras Médicas (Morado)</option>
+            <option value="lute_vs_monitor">Laúd Doble Mástil (Rojo) VS Monitor Estudio (Dorado)</option>
+          </select>
+        </div>
+
+        <div class="compare-box-grid">
+          <!-- Ranura A: Ítem Rojo -->
+          <div class="compare-slot slot-a">
+            <span class="compare-slot-title" id="slot-a-title">Ítem A (Rojo)</span>
+            <div style="height: 120px; display: flex; align-items: center; justify-content: center;">
+              <img src="" id="slot-a-img" style="max-height: 100px; object-fit: contain; filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.4));">
+            </div>
+            <div id="slot-a-name" style="font-family: var(--font-hud); font-size: 1.3rem; font-weight: 700; color: #fff;"></div>
+            <div id="slot-a-desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;"></div>
+            
+            <div style="display: flex; gap: 0.5rem; margin-top: auto;">
+              <button class="btn-sound-play" id="btn-play-slot-a" style="flex: 1; justify-content: center; background: rgba(239, 68, 68, 0.15); border-color: var(--rarity-red);">
+                🔊 Reproducir DROP A
+              </button>
+            </div>
+          </div>
+
+          <!-- Ranura B: Ítem Falso / Comparación -->
+          <div class="compare-slot slot-b">
+            <span class="compare-slot-title" id="slot-b-title">Ítem B (Trampa / Dorado)</span>
+            <div style="height: 120px; display: flex; align-items: center; justify-content: center;">
+              <img src="" id="slot-b-img" style="max-height: 100px; object-fit: contain; filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.3));">
+            </div>
+            <div id="slot-b-name" style="font-family: var(--font-hud); font-size: 1.3rem; font-weight: 700; color: #fff;"></div>
+            <div id="slot-b-desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;"></div>
+
+            <div style="display: flex; gap: 0.5rem; margin-top: auto;">
+              <button class="btn-sound-play" id="btn-play-slot-b" style="flex: 1; justify-content: center; background: rgba(245, 158, 11, 0.15); border-color: var(--accent-gold);">
+                🔊 Reproducir DROP B
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center;">
+          <button class="btn-sound-play" id="btn-play-compare-sequence" style="margin: 0 auto; padding: 0.85rem 2rem;">
+            🔄 Reproducir Secuencia A &rarr; Silencio (1s) &rarr; B
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         VISTA 5: GUÍA TÁCTICA DE SONIDOS
+         =================================================================== -->
+    <section class="view-section" id="view-guide">
+      <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
+        
+        <div class="assistant-header-bar">
+          <h2 style="font-family: var(--font-hud); font-size: 1.6rem; font-weight: 700; color: #fff; margin-bottom: 0.75rem;">
+            ¿CÓMO FUNCIONA EL TRUCO DEL SONIDO EN EL VENDEDOR DE CAMPO (ABI SEASON 7)?
+          </h2>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem;">
+            En la Temporada 7 de <em>Arena Breakout: Infinite</em>, el Vendedor de Campo (Field Merchant) vende cajas misteriosas (Mystery Cargo). Aunque el icono muestra una caja cerrada sin revelar el objeto, el motor del juego reproduce <strong>el sonido físico real del ítem oculto</strong> cuando lo arrastras (Pickup) o lo sueltas (Drop) en el inventario.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
+            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: var(--radius-md); border-left: 3px solid var(--accent-gold);">
+              <h4 style="font-family: var(--font-hud); color: var(--accent-gold); font-size: 1.1rem; margin-bottom: 0.35rem;">1. Arrastra y Suelta en Raid</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">
+                Toma la caja misteriosa con el mouse, elévala y déjala caer en una casilla vacía de la tienda. Escucha el chasquido o campaneo.
+              </p>
+            </div>
+            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: var(--radius-md); border-left: 3px solid var(--rarity-red);">
+              <h4 style="font-family: var(--font-hud); color: var(--rarity-red); font-size: 1.1rem; margin-bottom: 0.35rem;">2. Los 3 Sonidos 100% Seguros</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">
+                <strong>Tetera Antigua (#32):</strong> 100% Rojo garantizado.<br>
+                <strong>León Dorado (#28) en caja 3x2:</strong> No puede ser el guepardo (2x2).<br>
+                <strong>Laúd Doble Mástil (#14) en 2x3:</strong> Madera gigante inconfundible.
+              </p>
+            </div>
+            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: var(--radius-md); border-left: 3px solid var(--accent-cyan);">
+              <h4 style="font-family: var(--font-hud); color: var(--accent-cyan); font-size: 1.1rem; margin-bottom: 0.35rem;">3. Control de Riesgo</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">
+                Los sonidos #10, #18 y #22 albergan muchos ítems. Compara siempre el tamaño de la caja (ej. 2x2 vs 2x3) para eliminar sospechosos comunes.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla Resumen de los 10 Sonidos Clave de Rojos -->
+        <div class="stat-card">
+          <div class="stat-header">
+            Tabla Maestra de Sonidos de Ítems Rojos (Cheat Sheet)
+          </div>
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-dim); text-transform: uppercase; font-size: 0.75rem;">
+                  <th style="padding: 8px;">ID</th>
+                  <th style="padding: 8px;">Perfil Acústico</th>
+                  <th style="padding: 8px;">Ítem(s) Rojo(s)</th>
+                  <th style="padding: 8px;">Certeza</th>
+                  <th style="padding: 8px;">Acción</th>
+                </tr>
+              </thead>
+              <tbody id="cheat-sheet-tbody">
+                <!-- Se rellena con JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="site-footer">
+    <div style="max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
+      <div>
+        <strong>ABI SOUND MASTER</strong> &bull; Herramienta defensiva de entrenamiento auditivo y asistencia para <em>Arena Breakout: Infinite</em>.
+      </div>
+      <div>
+        Archivos de audio oficiales y metadatos extraídos de la versión oficial del juego. Desarrollado con HTML5, Vanilla CSS & Web Audio API.
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="app_data.js"></script>
+  <!-- Arquitectura Modular Escalable (ES Modules) -->
+  <script type="module" src="src/main.js"></script>
+  <!-- Fallback para entornos heredados -->
+  <script nomodule src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then((reg) => {
+          console.log('[PWA] Service Worker registrado con éxito:', reg.scope);
+        }).catch((err) => {
+          console.warn('[PWA] Error registrando Service Worker:', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

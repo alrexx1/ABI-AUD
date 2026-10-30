@@ -1,0 +1,17 @@
+{
+  "name": "ABI Sound Master - Arena Breakout Infinite",
+  "short_name": "ABI Audio Radar",
+  "description": "Entrenador auditivo y detector acústico-visual de ítems rojos en vendedor de campo para Arena Breakout: Infinite.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#070a0f",
+  "theme_color": "#06b6d4",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
+

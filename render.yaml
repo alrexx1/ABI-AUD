@@ -1,0 +1,20 @@
+# ==============================================================================
+# RENDER BLUEPRINT SPECIFICATION (IaC) - ABI SOUND MASTER
+# Despliegue automatizado con 1 clic en la nube de Render (Free Tier Compatible)
+# ==============================================================================
+
+services:
+  - type: web
+    name: abi-sound-master
+    runtime: node
+    plan: free
+    buildCommand: "" # Servidor de alto rendimiento con cero dependencias externas
+    startCommand: npm start
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+
