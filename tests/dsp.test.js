@@ -200,5 +200,12 @@ describe('Motor DSP: Filtros y Similitud', () => {
     });
   });
 
+  it('todos los módulos ES de src/ deben compilar e importarse sin errores de sintaxis', async () => {
+    await assert.doesNotReject(async () => {
+      await import('../src/radar/radarEngine.js');
+      await import('../src/ui/domController.js');
+    }, 'Todos los módulos ES deben importarse limpiamente');
+  });
+
 });
 

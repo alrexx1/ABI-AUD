@@ -201,7 +201,6 @@ function updateNoiseFilterBadge() {
     badge.textContent = isAct ? 'Filtro Sustractivo: ACTIVO' : 'Filtro Sustractivo: OFF';
   }
 }
-}
 
 export async function toggleRadarCapture() {
   playSynthSFX('click');

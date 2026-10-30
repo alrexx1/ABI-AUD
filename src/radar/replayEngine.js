@@ -190,3 +190,4 @@ function writeAscii(view, offset, str) {
     view.setUint8(offset + i, str.charCodeAt(i));
   }
 }
+
