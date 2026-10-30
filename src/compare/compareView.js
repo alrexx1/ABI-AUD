@@ -8,15 +8,15 @@ import { playSoundFile, playSynthSFX } from '../audio/audioEngine.js';
 export const COMPARE_PRESETS_DATA = Object.freeze({
   lion_vs_cheetah: {
     itemA: { id: 408080008, title: 'Estatua de León Dorado (Rojo)', desc: 'Objeto de 3x2. Pesa en el inventario. Sonido profundo de escultura maciza.' },
-    itemB: { id: 408080036, title: 'Estatua de Guepardo Dorado (Dorado)', desc: 'Objeto de 2x2. Mismo archivo acústico #28, ¡pero NUNCA cabe en una caja de 3x2!' }
+    itemB: { id: 408080001, title: 'Estatua de Guepardo Dorado (Dorado)', desc: 'Objeto de 2x1. Mismo archivo acústico #28, ¡pero NUNCA cabe en una caja de 3x2!' }
   },
   vase_vs_mutant: {
     itemA: { id: 408080003, title: 'Jarrón de Porcelana (Vase - Rojo)', desc: 'Valor: 1,373,625 K. Tintineo cristalino agudo de alta resonancia (#30).' },
-    itemB: { id: 408070001, title: 'Muestra de Corazón Mutante (Dorado)', desc: 'Frasco de vidrio biológico con muestra médica. Comparte el tintineo de vidrio.' }
+    itemB: { id: 498070010, title: 'Muestra de Corazón Mutante (Dorado)', desc: 'Frasco de vidrio biológico con muestra médica. Comparte el tintineo de vidrio.' }
   },
   ti_vs_circuit: {
     itemA: { id: 408120013, title: 'Módulo TI (Rojo - 1.33M Koens)', desc: 'Tamaño: 2x1. Dispositivo militar de computación táctica (#10).' },
-    itemB: { id: 408030008, title: 'Hebra de Paladio / Chip (Morado)', desc: 'Piezas técnicas baratas de bajo valor que emiten el mismo clic táctico.' }
+    itemB: { id: 408020026, title: 'Hebra de Paladio (Dorado - 170K)', desc: 'Tamaño 2x2. Pieza técnica que emite el mismo clic táctico de circuitos.' }
   },
   mask_vs_scissors: {
     itemA: { id: 498080006, title: 'Réplica Máscara de Oro Antigua (Rojo)', desc: 'Valor: 1,647,474 K. Tintineo metálico de alta frecuencia (#22).' },
@@ -24,7 +24,7 @@ export const COMPARE_PRESETS_DATA = Object.freeze({
   },
   lute_vs_monitor: {
     itemA: { id: 498080025, title: 'Laúd de Doble Mástil (Rojo - 1.54M K)', desc: 'Tamaño: 2x3. Caja armónica de madera gigante (#14).' },
-    itemB: { id: 408140004, title: 'Monitor de Estudio de Audio (Dorado)', desc: 'Gabinete de altavoz de madera pesada de 2x2.' }
+    itemB: { id: 408030026, title: 'Monitor de Estudio de Audio (Dorado)', desc: 'Gabinete de altavoz de madera pesada de 2x2.' }
   }
 });
 

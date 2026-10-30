@@ -105,21 +105,21 @@ const server = http.createServer((req, res) => {
     const ext = path.extname(safePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
-    // 5. Políticas de Cache-Control diferenciadas
-    let cacheControl = 'public, max-age=3600'; // 1 hora por defecto
+    // 5. Políticas de Cache-Control defensivas
+    let cacheControl = 'no-cache, must-revalidate'; // Código y estilos siempre frescos
     if (ext === '.ogg' || ext === '.png' || ext === '.jpg' || safePath.includes('radar_signatures.json')) {
       // Activos pesados inmutables: 7 días
       cacheControl = 'public, max-age=604800, immutable';
     } else if (ext === '.html' || safePath.endsWith('sw.js') || safePath.endsWith('manifest.json')) {
-      // HTML y Service Worker: Revalidación obligatoria
       cacheControl = 'no-cache, no-store, must-revalidate';
     }
 
     // Cabeceras de respuesta
     const headers = {
       'Content-Type': contentType,
+      'Content-Length': stats.size,
       'Cache-Control': cacheControl,
-      'ETag': `W/"${stats.size}-${stats.mtime.getTime()}"`,
+      'ETag': `"${stats.size}-${stats.mtime.getTime()}"`,
       ...SECURITY_HEADERS
     };
 
@@ -131,31 +131,25 @@ const server = http.createServer((req, res) => {
       return;
     }
 
-    // 7. Compresión Gzip / Deflate para archivos de texto / código / json
-    const acceptEncoding = req.headers['accept-encoding'] || '';
-    const isCompressible = /text|javascript|json|svg/.test(contentType);
-
     if (req.method === 'HEAD') {
       res.writeHead(200, headers);
       res.end();
       return;
     }
 
+    // 7. Streaming seguro de archivos con manejo de errores
+    res.writeHead(200, headers);
     const rawStream = fs.createReadStream(safePath);
-
-    if (isCompressible && acceptEncoding.includes('gzip')) {
-      headers['Content-Encoding'] = 'gzip';
-      res.writeHead(200, headers);
-      rawStream.pipe(zlib.createGzip()).pipe(res);
-    } else if (isCompressible && acceptEncoding.includes('deflate')) {
-      headers['Content-Encoding'] = 'deflate';
-      res.writeHead(200, headers);
-      rawStream.pipe(zlib.createDeflate()).pipe(res);
-    } else {
-      headers['Content-Length'] = stats.size;
-      res.writeHead(200, headers);
-      rawStream.pipe(res);
-    }
+    rawStream.on('error', (streamErr) => {
+      console.error('[Server Stream Error]', streamErr);
+      if (!res.headersSent) {
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('500 Internal Server Error');
+      } else {
+        res.destroy();
+      }
+    });
+    rawStream.pipe(res);
   });
 });
 

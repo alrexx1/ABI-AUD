@@ -33,7 +33,7 @@ export function switchTab(tabId) {
   if (tabId === 'assistant') renderAssistantCards();
   else if (tabId === 'encyclopedia') renderEncyclopedia();
   else if (tabId === 'compare') updateComparePreset(state.compare.currentPreset);
-  else if (tabId === 'cheatsheet') renderCheatSheet();
+  else if (tabId === 'guide' || tabId === 'cheatsheet') renderCheatSheet();
 }
 
 export function initDOMController() {

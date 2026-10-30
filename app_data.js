@@ -11349,6 +11349,13 @@ const ABI_DATA = {
 ]
 };
 
+if (typeof window !== 'undefined') {
+    window.ABI_DATA = ABI_DATA;
+}
+if (typeof globalThis !== 'undefined') {
+    globalThis.ABI_DATA = ABI_DATA;
+}
+
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = ABI_DATA;
 }

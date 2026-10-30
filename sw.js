@@ -2,23 +2,28 @@
  * ABI SOUND MASTER - SERVICE WORKER (OFFLINE PWA)
  */
 
-const CACHE_NAME = 'abi-sound-master-v2';
+const CACHE_NAME = 'abi-sound-master-v2.0.1';
 const STATIC_ASSETS = [
-  './',
-  './index.html',
-  './style.css',
-  './app.js',
-  './app_data.js',
-  './radar-processor.js',
-  './radar_signatures.json',
-  './manifest.json'
+  '/',
+  '/index.html',
+  '/style.css',
+  '/app_data.js',
+  '/radar_signatures.json',
+  '/radar-processor.js',
+  '/manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Precargando activos estáticos del núcleo...');
-      return cache.addAll(STATIC_ASSETS);
+    caches.open(CACHE_NAME).then(async (cache) => {
+      console.log('[Service Worker] Precargando activos estáticos del núcleo v2.0.1...');
+      for (const asset of STATIC_ASSETS) {
+        try {
+          await cache.add(asset);
+        } catch (err) {
+          console.warn('[Service Worker] Fallo leve al precargar', asset, err);
+        }
+      }
     })
   );
   self.skipWaiting();
