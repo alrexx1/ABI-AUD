@@ -91,25 +91,19 @@ export function scoreTemplateSimilarity(liveFeat, tmplFeat) {
   // 5. Discriminación Física por Tasa de Decaimiento (T60) y Factor Q
   if (liveFeat.t60 && tmplFeat.t60) {
     const t60Ratio = Math.min(liveFeat.t60, tmplFeat.t60) / Math.max(liveFeat.t60, tmplFeat.t60, 1);
-    if (t60Ratio > 0.70) {
-      score += 0.05 * t60Ratio;
-    } else if (t60Ratio < 0.30) {
-      // Discriminador clave: Si un objeto decae en 50ms y la plantilla en 600ms, penalizar fuertemente
-      score -= 0.14;
-    }
+    // Ponderación continua suave: bonifica concordancia física y penaliza desajustes extremos sin cortes bruscos
+    score += (t60Ratio - 0.5) * 0.08;
   }
 
   if (liveFeat.qFactor && tmplFeat.qFactor) {
     const qRatio = Math.min(liveFeat.qFactor, tmplFeat.qFactor) / Math.max(liveFeat.qFactor, tmplFeat.qFactor, 1);
-    if (qRatio > 0.65) {
-      score += 0.03 * qRatio;
-    }
+    score += (qRatio - 0.5) * 0.04;
   }
 
   // Penalización por diferencia drástica de brillo armónico (highRatio)
   const hrDiff = Math.abs(Math.log10(Math.max(0.01, liveFeat.highRatio)) - Math.log10(Math.max(0.01, tmplFeat.highRatio)));
   if (hrDiff > 1.2) {
-    score -= 0.08;
+    score -= 0.06;
   }
 
   return Math.min(0.99, Math.max(0, score));

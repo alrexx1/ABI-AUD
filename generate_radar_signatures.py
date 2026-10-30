@@ -212,9 +212,11 @@ console.log(JSON.stringify(data.sounds));
                 "centroid": feat["centroid"],
                 "highRatio": feat["highRatio"],
                 "spectralFlatness": feat["spectralFlatness"],
-                "dominantFreq": feat["dominantFreq"]
+                "dominantFreq": feat["dominantFreq"],
+                "t60": feat["t60"],
+                "qFactor": feat["qFactor"]
             })
-            print(f"  [OK] DROP: {drop_file} -> Pico {feat['dominantFreq']}Hz, Centroide {feat['centroid']}Hz")
+            print(f"  [OK] DROP: {drop_file} -> Pico {feat['dominantFreq']}Hz, Centroide {feat['centroid']}Hz, T60={feat['t60']}ms")
         else:
             print(f"  [ALERTA] Archivo no encontrado: {drop_path}")
             
@@ -237,7 +239,9 @@ console.log(JSON.stringify(data.sounds));
                 "centroid": feat["centroid"],
                 "highRatio": feat["highRatio"],
                 "spectralFlatness": feat["spectralFlatness"],
-                "dominantFreq": feat["dominantFreq"]
+                "dominantFreq": feat["dominantFreq"],
+                "t60": feat["t60"],
+                "qFactor": feat["qFactor"]
             })
             print(f"  [OK] PICKUP: {up_file} -> Pico {feat['dominantFreq']}Hz, Centroide {feat['centroid']}Hz")
         else:

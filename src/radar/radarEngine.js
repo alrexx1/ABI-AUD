@@ -374,8 +374,10 @@ export async function toggleRadarCapture() {
           state.radar.pendingCapture = null;
           state.radar.cooldownUntil = now + 400;
 
-          const analysisLen = 8192;
-          const preTrigger = 2048;
+          // Ventana de análisis acústico ampliada a 512ms (24576 muestras a 48kHz)
+          // Permite captar con exactitud física el ataque y la resonancia decay T60 completa
+          const analysisLen = 24576;
+          const preTrigger = 3072;
           const analysisBuffer = new Float32Array(analysisLen);
           const readStart = (trigIdx - preTrigger + ringLen) % ringLen;
 
@@ -396,7 +398,7 @@ export async function toggleRadarCapture() {
       if ((isDynamicSpike || isAbsoluteThreshold) && now > state.radar.cooldownUntil && state.radar.templatesLoaded && !state.radar.isCalibrating) {
         state.radar.pendingCapture = {
           triggerIdx: state.radar.ringWriteIdx,
-          samplesRemaining: 5120
+          samplesRemaining: 21504
         };
 
         const b = document.getElementById('radar-beacon');
@@ -407,7 +409,7 @@ export async function toggleRadarCapture() {
         setTimeout(() => {
           if (b && state.radar.active) b.className = 'status-beacon active';
           if (st && state.radar.active) st.textContent = 'RADAR ACTIVO — ESCUCHANDO RAID (DSP CONTINUO)';
-        }, 500);
+        }, 550);
       }
     };
 

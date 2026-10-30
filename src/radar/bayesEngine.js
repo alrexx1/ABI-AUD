@@ -1,7 +1,9 @@
 /**
- * ABI SOUND MASTER - MOTOR DE FUSIÓN BAYESIANA MULTIMODAL
- * Inferencia probabilística exacta combinando física acústica (T60, Factor Q),
- * conteo visual de cuadrícula (HSV) y economía de cajas del comerciante.
+ * ABI SOUND MASTER - MOTOR DE FUSIÓN BAYESIANA JERÁRQUICA MULTIMODAL
+ * Inferencia probabilística jerárquica en dos niveles:
+ * Nivel 1: Verosimilitud acústica por perfil de sonido físico (Softmax / Boltzmann).
+ * Nivel 2: Desambiguación condicionada de ítems (Geometría de casillas, Rareza y Economía).
+ * Elimina matemáticamente la dilución por acumulación de chatarra en perfiles no ganadores.
  */
 
 import { scoreTemplateSimilarity } from '../dsp/similarity.js';
@@ -10,8 +12,8 @@ import { scoreTemplateSimilarity } from '../dsp/similarity.js';
  * Calcula la distribución posterior de probabilidad para todos los ítems candidatos
  * @param {object} liveFeat - Huella física del audio en vivo (espectro, T60, Factor Q)
  * @param {Array} templates - Plantillas acústicas cargadas
- * @param {string} detectedSize - Tamaño detectado por visión ('2x2', '2x3', etc.)
- * @param {number} gridConfidence - Confianza visual (0.0 a 1.0)
+ * @param {string} detectedSize - Tamaño detectado por visión o asistente ('all', '2x2', '3x2', etc.)
+ * @param {number} gridConfidence - Confianza visual o de selección (0.0 a 1.0)
  * @param {number|null} boxPrice - Precio simulado o detectado de la caja
  * @returns {object} Veredicto bayesiano completo con probabilidades porcentuales
  */
@@ -21,14 +23,18 @@ export function computeBayesianVerdict(liveFeat, templates, detectedSize = 'all'
     return null;
   }
 
-  // 1. Evaluar verosimilitud acústica para cada plantilla
-  const soundAcousticScores = new Map();
+  // =========================================================================
+  // NIVEL 1: VEROSIMILITUD ACÚSTICA POR PERFIL DE SONIDO FÍSICO P(A | S_k)
+  // Cada impacto en el juego es producido por un único perfil acústico.
+  // =========================================================================
+  const soundScores = new Map();
 
   for (const tmpl of templates) {
     const rawSim = scoreTemplateSimilarity(liveFeat, tmpl);
-    const existing = soundAcousticScores.get(tmpl.sound.id);
+    const sid = tmpl.sound.id;
+    const existing = soundScores.get(sid);
     if (!existing || rawSim > existing.score) {
-      soundAcousticScores.set(tmpl.sound.id, {
+      soundScores.set(sid, {
         sound: tmpl.sound,
         action: tmpl.action,
         score: rawSim,
@@ -37,16 +43,49 @@ export function computeBayesianVerdict(liveFeat, templates, detectedSize = 'all'
     }
   }
 
-  // 2. Fusión Probabilística por Ítem Individual
+  if (soundScores.size === 0) return null;
+
+  // Encontrar el puntaje acústico máximo global para centrar la distribución Boltzmann
+  let topScore = -Infinity;
+  for (const match of soundScores.values()) {
+    if (match.score > topScore) topScore = match.score;
+  }
+
+  // Temperatura adaptativa: cuando la concordancia es cristalina (>0.85), se usa
+  // una temperatura estrecha (tau = 0.022) que confina >85-95% de la probabilidad en el
+  // perfil acústico real, previniendo que decenas de ítems de chatarra diluyan el veredicto.
+  const tau = topScore >= 0.85 ? 0.022 : (topScore >= 0.70 ? 0.030 : 0.045);
+
+  let sumSoundLikelihood = 0;
+  const soundProbs = new Map();
+  for (const [sid, match] of soundScores.entries()) {
+    const likelihood = Math.exp((match.score - topScore) / tau);
+    soundProbs.set(sid, { ...match, likelihood });
+    sumSoundLikelihood += likelihood;
+  }
+
+  // Normalizar la probabilidad a posteriori de cada perfil acústico P(S_k | A)
+  for (const match of soundProbs.values()) {
+    match.prob = sumSoundLikelihood > 0 ? (match.likelihood / sumSoundLikelihood) : 0;
+  }
+
+  // =========================================================================
+  // NIVEL 2: DESAMBIGUACIÓN CONDICIONADA DE ÍTEMS DENTRO DE CADA SONIDO
+  // P(Item_i | S_k, Geo, Econ) * P(S_k | A)
+  // =========================================================================
   const itemPosteriors = [];
 
-  for (const [soundId, match] of soundAcousticScores.entries()) {
-    const s = match.score;
-    // Verosimilitud acústica Gaussiana afilada (sigma = 0.12) para alta discriminación
-    const acousticLikelihood = Math.exp(-Math.pow(1.0 - s, 2) / (2 * 0.12 * 0.12));
+  for (const soundMatch of soundProbs.values()) {
+    const pSound = soundMatch.prob;
+    // Poda defensiva de perfiles acústicamente descartados (<0.01% de probabilidad)
+    if (pSound < 1e-4) continue;
 
-    // Todos los ítems asociados a este perfil de sonido
-    const soundItemRefs = match.sound.items || [];
+    const soundItemRefs = soundMatch.sound.items || [];
+    if (soundItemRefs.length === 0) continue;
+
+    const itemWeights = [];
+    let sumItemWeight = 0;
+
     for (const ref of soundItemRefs) {
       const fullItem = allItems.find(it => it.id === ref.id);
       if (!fullItem) continue;
@@ -54,11 +93,13 @@ export function computeBayesianVerdict(liveFeat, templates, detectedSize = 'all'
       // A) Verosimilitud Geométrica (Tamaño de Casilla de Inventario)
       let geoLikelihood = 1.0;
       if (detectedSize !== 'all') {
-        if (fullItem.sizeLabel === detectedSize) {
+        const sz = fullItem.sizeLabel || '';
+        const szRev = sz.split('x').reverse().join('x');
+        if (sz === detectedSize || szRev === detectedSize) {
           geoLikelihood = 1.0;
         } else {
-          // Penalización proporcional a la certeza del conteo visual
-          geoLikelihood = Math.max(0.01, 1.0 - gridConfidence);
+          // Penalización severa basada en certeza visual o de selección
+          geoLikelihood = Math.max(0.005, 1.0 - gridConfidence);
         }
       }
 
@@ -67,46 +108,54 @@ export function computeBayesianVerdict(liveFeat, templates, detectedSize = 'all'
       if (boxPrice && boxPrice > 0) {
         if (boxPrice >= 500000) {
           // Cajas de 550K: Primordialmente ítems de 2x3 o ultra-valiosos
-          econLikelihood = (fullItem.sizeLabel === '2x3' || fullItem.referencePrice >= 1400000) ? 1.0 : 0.08;
+          econLikelihood = (fullItem.sizeLabel === '2x3' || fullItem.sizeLabel === '3x2' || fullItem.referencePrice >= 1400000) ? 1.0 : 0.05;
         } else if (boxPrice >= 400000) {
           // Cajas de 470K: Ítems dorados y rojos de 2x2
-          econLikelihood = (fullItem.sizeLabel === '2x2') ? 1.0 : 0.15;
+          econLikelihood = (fullItem.sizeLabel === '2x2') ? 1.0 : 0.10;
         } else if (boxPrice >= 200000) {
           // Cajas de 250K: Ítems pequeños de 1x2, 2x1 o 1x1
           econLikelihood = (fullItem.sizeLabel === '1x2' || fullItem.sizeLabel === '2x1' || fullItem.sizeLabel === '1x1') ? 1.0 : 0.10;
         }
       }
 
-      // C) Probabilidad a Priori por Rareza
-      const prior = fullItem.isRed ? 0.30 : fullItem.isGold ? 0.40 : 0.30;
+      // C) Prior de Rareza Táctica en Raid
+      const prior = fullItem.isRed ? 1.8 : (fullItem.isGold ? 1.0 : 0.4);
 
-      // Ponderación conjunta
-      const unnormalizedWeight = acousticLikelihood * geoLikelihood * econLikelihood * prior;
-
-      itemPosteriors.push({
+      const unnormalizedWeight = geoLikelihood * econLikelihood * prior;
+      sumItemWeight += unnormalizedWeight;
+      itemWeights.push({
         item: fullItem,
-        sound: match.sound,
-        action: match.action,
-        rawAcousticSim: s,
         geoLikelihood,
         econLikelihood,
         weight: unnormalizedWeight
       });
     }
+
+    if (sumItemWeight <= 0) continue;
+
+    // Distribuir la masa de probabilidad del sonido entre sus ítems miembros
+    for (const entry of itemWeights) {
+      const pItemGivenSound = entry.weight / sumItemWeight;
+      const jointPosterior = pSound * pItemGivenSound;
+
+      itemPosteriors.push({
+        item: entry.item,
+        sound: soundMatch.sound,
+        action: soundMatch.action,
+        rawAcousticSim: soundMatch.score,
+        geoLikelihood: entry.geoLikelihood,
+        econLikelihood: entry.econLikelihood,
+        posterior: jointPosterior
+      });
+    }
   }
 
-  // 3. Normalizar distribución bayesiana a suma 1.0 (100%)
-  const totalWeight = itemPosteriors.reduce((sum, entry) => sum + entry.weight, 0);
-  if (totalWeight <= 0) return null;
-
-  for (const entry of itemPosteriors) {
-    entry.posterior = entry.weight / totalWeight;
-  }
+  if (itemPosteriors.length === 0) return null;
 
   // Ordenar de mayor a menor probabilidad posterior
   itemPosteriors.sort((a, b) => b.posterior - a.posterior);
 
-  // 4. Agregar probabilidades acumuladas por clase
+  // Agregar probabilidades acumuladas por clase
   let pRed = 0;
   let pGold = 0;
   let pJunk = 0;
@@ -118,7 +167,20 @@ export function computeBayesianVerdict(liveFeat, templates, detectedSize = 'all'
   }
 
   const topMatch = itemPosteriors[0];
-  const candidates = itemPosteriors.slice(0, 5);
+  const candidates = itemPosteriors.slice(0, 6);
+
+  // Si el perfil acústico ganador es 100% garantizado rojo (ej. Tetera de Porcelana #32)
+  // y la similitud acústica es sólida, asegurar que la certeza roja sea total
+  const isGuaranteedSound = Boolean(topMatch.sound && topMatch.sound.isGuaranteedRed);
+  if (isGuaranteedSound && topMatch.rawAcousticSim >= 0.70) {
+    pRed = Math.max(pRed, 0.98);
+    pGold = Math.min(pGold, 0.01);
+    pJunk = Math.min(pJunk, 0.01);
+  }
+
+  const pRedPct = Math.round(pRed * 100);
+  const pGoldPct = Math.round(pGold * 100);
+  const pJunkPct = Math.round(pJunk * 100);
 
   return {
     topItem: topMatch.item,
@@ -126,11 +188,11 @@ export function computeBayesianVerdict(liveFeat, templates, detectedSize = 'all'
     topAction: topMatch.action,
     confidence: Math.round(topMatch.posterior * 100),
     acousticScore: Math.round(topMatch.rawAcousticSim * 100),
-    pRed: Math.round(pRed * 100),
-    pGold: Math.round(pGold * 100),
-    pJunk: Math.round(pJunk * 100),
-    isGuaranteedRed: pRed >= 95 || topMatch.sound.isGuaranteedRed,
-    hasRedPotential: pRed >= 20,
+    pRed: pRedPct,
+    pGold: pGoldPct,
+    pJunk: pJunkPct,
+    isGuaranteedRed: pRedPct >= 90 || isGuaranteedSound,
+    hasRedPotential: pRedPct >= 20,
     candidates,
     t60Measured: liveFeat.t60 || 0,
     qFactorMeasured: liveFeat.qFactor || 0,

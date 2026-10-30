@@ -207,5 +207,46 @@ describe('Motor DSP: Filtros y Similitud', () => {
     }, 'Todos los módulos ES deben importarse limpiamente');
   });
 
+  it('el modelo bayesiano jerárquico debe clasificar objetos rojos con alta precisión sin dilución por chatarra', async () => {
+    const { computeBayesianVerdict } = await import('../src/radar/bayesEngine.js');
+    const fs = require('fs');
+    const path = require('path');
+    const appData = require('../app_data.js');
+    global.window = { ABI_DATA: appData };
+
+    const rawSigs = JSON.parse(fs.readFileSync(path.join(__dirname, '../radar_signatures.json'), 'utf8'));
+
+    // 1. Tetera de Porcelana (Sonido #32 - 100% garantizado rojo)
+    const tmplTeapot = rawSigs.find(t => t.sound.id === 32 && t.action === 'drop');
+    assert.ok(tmplTeapot, 'Debe existir plantilla de Tetera');
+    const verdictTeapot = computeBayesianVerdict(tmplTeapot, rawSigs, 'all', 0.70, null);
+    assert.strictEqual(verdictTeapot.topItem.nameEs, 'Tetera Antigua de Porcelana');
+    assert.ok(verdictTeapot.pRed >= 95, `Tetera debe tener pRed >= 95% (obtenido: ${verdictTeapot.pRed}%)`);
+    assert.strictEqual(verdictTeapot.isGuaranteedRed, true);
+    assert.strictEqual(verdictTeapot.pJunk, 0);
+
+    // 2. Jarrón de Porcelana Fina (Sonido #30 - Objeto Rojo)
+    const tmplVase = rawSigs.find(t => t.sound.id === 30 && t.action === 'drop');
+    assert.ok(tmplVase, 'Debe existir plantilla de Jarrón');
+    const verdictVase = computeBayesianVerdict(tmplVase, rawSigs, 'all', 0.70, null);
+    assert.strictEqual(verdictVase.topItem.nameEs, 'Jarrón de Porcelana Fina (Vase)');
+    assert.ok(verdictVase.pRed >= 70, `Jarrón debe tener pRed >= 70% (obtenido: ${verdictVase.pRed}%)`);
+
+    // 3. Estatua de León (Sonido #28 - Rojo frente a Guepardo Dorado)
+    const tmplLion = rawSigs.find(t => t.sound.id === 28 && t.action === 'drop');
+    assert.ok(tmplLion, 'Debe existir plantilla de Estatua');
+    const verdictLionAll = computeBayesianVerdict(tmplLion, rawSigs, 'all', 0.70, null);
+    assert.strictEqual(verdictLionAll.topItem.nameEs, 'Estatua de León Dorado');
+    assert.ok(verdictLionAll.pRed >= 50, `León con tamaño 'all' debe superar 50% de probabilidad roja (obtenido: ${verdictLionAll.pRed}%)`);
+    assert.ok(verdictLionAll.pJunk <= 15, `La probabilidad de chatarra no debe diluir el león (obtenido: ${verdictLionAll.pJunk}%)`);
+
+    // 4. Llave / Chatarra (Sonido #9) - Debe dar 0% Rojo
+    const tmplKey = rawSigs.find(t => t.sound.id === 9 && t.action === 'drop');
+    assert.ok(tmplKey, 'Debe existir plantilla de Llave');
+    const verdictKey = computeBayesianVerdict(tmplKey, rawSigs, 'all', 0.70, null);
+    assert.strictEqual(verdictKey.pRed, 0, 'Una llave no puede tener probabilidad roja');
+    assert.ok(verdictKey.pJunk >= 75, `Una llave debe ser identificada como chatarra >= 75% (obtenido: ${verdictKey.pJunk}%)`);
+  });
+
 });
 

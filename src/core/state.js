@@ -77,7 +77,7 @@ export const state = {
     animationId: null,
     sweepAngle: 0,
     simIndex: 0,
-    ringBuffer: new Float32Array(16384),
+    ringBuffer: new Float32Array(65536),
     ringWriteIdx: 0,
     isCalibrating: false,
     lastEvent: null,
