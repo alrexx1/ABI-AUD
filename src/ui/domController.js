@@ -61,7 +61,48 @@ export function initDOMController() {
     });
   }
 
+  // 1b. Control de SFX de Interfaz y Volumen Principal
+  const btnToggleSfx = document.getElementById('btn-toggle-sfx');
+  if (btnToggleSfx) {
+    btnToggleSfx.addEventListener('click', () => {
+      state.sfxEnabled = !state.sfxEnabled;
+      btnToggleSfx.classList.toggle('muted', !state.sfxEnabled);
+      btnToggleSfx.style.opacity = state.sfxEnabled ? '1.0' : '0.4';
+      btnToggleSfx.title = state.sfxEnabled 
+        ? 'Efectos de sonido de interfaz (Activados)' 
+        : 'Efectos de sonido de interfaz (Desactivados)';
+      if (state.sfxEnabled) {
+        playSynthSFX('click');
+      }
+    });
+  }
+
+  const masterVolume = document.getElementById('master-volume');
+  const volumeVal = document.getElementById('volume-val');
+  if (masterVolume) {
+    masterVolume.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      state.masterVolume = val;
+      if (volumeVal) {
+        volumeVal.textContent = `${Math.round(val * 100)}%`;
+      }
+      if (state.currentAudio) {
+        state.currentAudio.volume = val;
+      }
+    });
+  }
+
   // 2. Entrenador: Botones de Audio
+  const mysteryBox = document.getElementById('mystery-box');
+  if (mysteryBox) {
+    mysteryBox.addEventListener('click', () => {
+      playSynthSFX('click');
+      if (state.trainer.currentMystery) {
+        playSoundFile(state.trainer.currentMystery.dropSound, 'Caja Misteriosa', 'Sonido DROP (Soltar)');
+      }
+    });
+  }
+
   const btnDrop = document.getElementById('btn-play-drop');
   if (btnDrop) {
     btnDrop.addEventListener('click', () => {
@@ -98,9 +139,9 @@ export function initDOMController() {
     btnChooseRed.addEventListener('click', () => handleTrainerDecision(true));
   }
 
-  const btnChoosePass = document.getElementById('btn-choose-pass');
-  if (btnChoosePass) {
-    btnChoosePass.addEventListener('click', () => handleTrainerDecision(false));
+  const btnChooseSkip = document.getElementById('btn-choose-skip') || document.getElementById('btn-choose-pass');
+  if (btnChooseSkip) {
+    btnChooseSkip.addEventListener('click', () => handleTrainerDecision(false));
   }
 
   const btnNextRound = document.getElementById('btn-next-round');
@@ -130,7 +171,7 @@ export function initDOMController() {
   }
 
   // 4. Entrenador: Filtros
-  const selectTier = document.getElementById('trainer-tier-filter');
+  const selectTier = document.getElementById('select-pool-tier') || document.getElementById('trainer-tier-filter');
   if (selectTier) {
     selectTier.addEventListener('change', (e) => {
       state.trainer.tierFilter = e.target.value;
@@ -138,7 +179,7 @@ export function initDOMController() {
     });
   }
 
-  const selectSize = document.getElementById('trainer-size-filter');
+  const selectSize = document.getElementById('select-size-filter') || document.getElementById('trainer-size-filter');
   if (selectSize) {
     selectSize.addEventListener('change', (e) => {
       state.trainer.sizeFilter = e.target.value;
@@ -147,15 +188,28 @@ export function initDOMController() {
   }
 
   // 5. Asistente de Raid: Filtros
-  const selectAssSize = document.getElementById('assistant-size-filter');
-  if (selectAssSize) {
-    selectAssSize.addEventListener('change', (e) => {
-      state.assistant.selectedSize = e.target.value;
+  const assistantSizePills = document.getElementById('assistant-size-pills');
+  if (assistantSizePills) {
+    assistantSizePills.querySelectorAll('.size-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        playSynthSFX('click');
+        assistantSizePills.querySelectorAll('.size-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        state.assistant.selectedSize = pill.getAttribute('data-size');
+        renderAssistantCards();
+      });
+    });
+  }
+
+  const selectAssPrice = document.getElementById('assistant-price-select');
+  if (selectAssPrice) {
+    selectAssPrice.addEventListener('change', (e) => {
+      state.assistant.selectedPrice = e.target.value;
       renderAssistantCards();
     });
   }
 
-  const selectAssCat = document.getElementById('assistant-cat-filter');
+  const selectAssCat = document.getElementById('assistant-cat-select') || document.getElementById('assistant-cat-filter');
   if (selectAssCat) {
     selectAssCat.addEventListener('change', (e) => {
       state.assistant.selectedCategory = e.target.value;
@@ -163,7 +217,7 @@ export function initDOMController() {
     });
   }
 
-  const checkAssOnlyReds = document.getElementById('assistant-only-reds');
+  const checkAssOnlyReds = document.getElementById('assistant-only-reds-check') || document.getElementById('assistant-only-reds');
   if (checkAssOnlyReds) {
     checkAssOnlyReds.addEventListener('change', (e) => {
       state.assistant.onlyReds = e.target.checked;

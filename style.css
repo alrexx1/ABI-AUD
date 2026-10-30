@@ -244,6 +244,24 @@ body {
   border-color: var(--accent-gold);
 }
 
+.btn-icon.muted {
+  opacity: 0.6;
+  color: var(--text-dim);
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.08);
+  position: relative;
+}
+
+.btn-icon.muted::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 2px;
+  background: #ef4444;
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+
 /* ==========================================================================
    AUDIO HUD VISUALIZER (BARRA DE ESTADO DE AUDIO)
    ========================================================================== */
