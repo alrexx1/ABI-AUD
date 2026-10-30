@@ -13,9 +13,15 @@ import { renderCheatSheet } from '../cheatsheet/cheatsheetView.js';
 import { 
   toggleRadarCapture, 
   autoCalibrateRadarNoise, 
+  toggleNoiseSubtraction,
   simulateRadarDrop, 
   clearRadarHistory 
 } from '../radar/radarEngine.js';
+import { 
+  playRecentReplay, 
+  stopActiveReplay, 
+  downloadReplayWav 
+} from '../radar/replayEngine.js';
 import { setScopeMode } from '../radar/scopeRenderer.js';
 import { toggleRadarPiP } from './pipOverlay.js';
 import { startVisionTracking, stopVisionTracking } from '../vision/visionEngine.js';
@@ -333,9 +339,54 @@ export function initDOMController() {
     btnTogglePiP.addEventListener('click', toggleRadarPiP);
   }
 
+  // 8c. Filtro Sustractivo de Ruido de Fondo
+  const btnNoiseBadge = document.getElementById('radar-noise-filter-badge');
+  if (btnNoiseBadge) {
+    btnNoiseBadge.addEventListener('click', () => {
+      toggleNoiseSubtraction();
+    });
+  }
+
+  // 8d. Buffer de Replay Acústico Instantáneo (Últimos 5s)
+  const btnReplayNormal = document.getElementById('btn-replay-normal');
+  if (btnReplayNormal) {
+    btnReplayNormal.addEventListener('click', () => playRecentReplay(1.0, 3.8));
+  }
+
+  const btnReplaySlow = document.getElementById('btn-replay-slow');
+  if (btnReplaySlow) {
+    btnReplaySlow.addEventListener('click', () => playRecentReplay(0.5, 3.8));
+  }
+
+  const btnReplayUltraslow = document.getElementById('btn-replay-ultraslow');
+  if (btnReplayUltraslow) {
+    btnReplayUltraslow.addEventListener('click', () => playRecentReplay(0.25, 3.8));
+  }
+
+  const btnReplayDownload = document.getElementById('btn-replay-download');
+  if (btnReplayDownload) {
+    btnReplayDownload.addEventListener('click', () => downloadReplayWav(4.0));
+  }
+
   // 9. Atajos de Teclado Tácticos
   window.addEventListener('keydown', (e) => {
-    if (e.code === 'Space' && state.currentTab === 'trainer' && document.activeElement.tagName !== 'INPUT') {
+    // Si el foco está en un campo de texto, no capturar atajos
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+
+    // Atajo 'R' para Replay en cámara lenta 0.5x durante raid
+    if (e.key === 'r' || e.key === 'R') {
+      if (state.radar.active) {
+        e.preventDefault();
+        playRecentReplay(0.5, 3.8);
+      }
+    }
+
+    // Escape para detener reproducción de replay
+    if (e.key === 'Escape') {
+      stopActiveReplay();
+    }
+
+    if (e.code === 'Space' && state.currentTab === 'trainer') {
       e.preventDefault();
       if (state.trainer.currentMystery) {
         playSoundFile(state.trainer.currentMystery.dropSound, 'Caja Misteriosa', 'Sonido DROP');

@@ -40,7 +40,7 @@
   </style>
 
   <!-- Estilos Principales con Cache-Busting -->
-  <link rel="stylesheet" href="style.css?v=2.0.3">
+  <link rel="stylesheet" href="style.css?v=2.0.4">
   
   <!-- Manifest PWA Offline -->
   <link rel="manifest" href="manifest.json">
@@ -504,7 +504,10 @@
                 🪟 HUD Flotante (Overlay)
               </button>
               <button class="btn-sound-play secondary" id="btn-radar-autocalibrate" title="Mide el ruido ambiente de tu juego y calibra la sensibilidad óptima">
-                🎯 Auto-Calibrar Ruido
+                🎯 Calibrar Ruido (2s)
+              </button>
+              <button class="noise-filter-pill active" id="radar-noise-filter-badge" title="Haz clic para alternar la sustracción espectral de ruido de fondo">
+                Filtro Sustractivo: ACTIVO
               </button>
               <button class="btn-sound-play secondary" id="btn-test-radar-sample" title="Simula que soltaste o arrastraste una caja para probar el detector">
                 ⚡ Probar Detección
@@ -585,6 +588,34 @@
               <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-dim); margin-top: 0.25rem;">
                 <span>0.003 (Capta arrastres suaves de ratón)</span>
                 <span>0.060 (Solo golpes fuertes)</span>
+              </div>
+            </div>
+
+            <!-- Barra Táctica de Replay Acústico Instantáneo (Últimos 5s) -->
+            <div class="radar-replay-bar">
+              <div class="replay-status-group">
+                <span class="replay-badge" id="replay-status-indicator">BUFFER LISTO (5s)</span>
+                <div class="replay-wave-anim" id="replay-wave-anim" style="display: none;">
+                  <span class="replay-bar-unit"></span>
+                  <span class="replay-bar-unit"></span>
+                  <span class="replay-bar-unit"></span>
+                  <span class="replay-bar-unit"></span>
+                </div>
+                <span class="replay-shortcut-hint">Atajo táctico: <kbd>R</kbd> (Replay 0.5x)</span>
+              </div>
+              <div class="replay-btn-group">
+                <button class="btn-replay-pill" id="btn-replay-normal" title="Reproduce los últimos 4 segundos a velocidad normal (1.0x)">
+                  ⏪ Replay (1.0x)
+                </button>
+                <button class="btn-replay-pill primary" id="btn-replay-slow" title="Reproduce en cámara lenta a 0.5x para aislar la resonancia física">
+                  🐌 Cámara Lenta (0.5x)
+                </button>
+                <button class="btn-replay-pill" id="btn-replay-ultraslow" title="Reproduce a 0.25x para disección forense">
+                  🔍 0.25x
+                </button>
+                <button class="btn-replay-pill outline" id="btn-replay-download" title="Exporta los últimos 4 segundos en archivo .WAV estándar">
+                  💾 Guardar WAV
+                </button>
               </div>
             </div>
           </div>
@@ -967,11 +998,11 @@
   </footer>
 
   <!-- SCRIPTS -->
-  <script src="app_data.js?v=2.0.3"></script>
+  <script src="app_data.js?v=2.0.4"></script>
   <!-- Arquitectura Modular Escalable (ES Modules) -->
-  <script type="module" src="src/main.js?v=2.0.3"></script>
+  <script type="module" src="src/main.js?v=2.0.4"></script>
   <!-- Fallback para entornos heredados -->
-  <script nomodule src="app.js?v=2.0.3"></script>
+  <script nomodule src="app.js?v=2.0.4"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

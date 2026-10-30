@@ -44,12 +44,14 @@ describe('Servidor HTTP de Producción (Render Compatible)', () => {
     assert.ok(data.timestamp);
   });
 
-  it('la ruta raíz (/) debe servir index.html con cabeceras de seguridad', async () => {
+  it('la ruta raíz (/) debe servir index.html con cabeceras de seguridad y CSP defensivo', async () => {
     const res = await fetch(`${baseUrl}/`);
     assert.strictEqual(res.status, 200);
     assert.ok(res.headers.get('content-type').includes('text/html'));
     assert.strictEqual(res.headers.get('x-content-type-options'), 'nosniff');
     assert.strictEqual(res.headers.get('x-frame-options'), 'SAMEORIGIN');
+    assert.ok(res.headers.get('content-security-policy'), 'Debe incluir Content-Security-Policy');
+    assert.ok(res.headers.get('content-security-policy').includes("default-src 'self'"));
 
     const html = await res.text();
     assert.ok(html.includes('ABI Sound Master'), 'Debe incluir el título de la aplicación');
@@ -63,6 +65,23 @@ describe('Servidor HTTP de Producción (Render Compatible)', () => {
 
     const sigs = await res.json();
     assert.strictEqual(sigs.length, 76);
+  });
+
+  it('el limitador de tasa (Rate Limiter) debe mitigar ataques DoS respondiendo con 429', async () => {
+    const testIp = '198.51.100.99';
+    let blocked = false;
+    // Ráfaga rápida que excede el límite de 180 req/min
+    for (let i = 0; i < 185; i++) {
+      const res = await fetch(`${baseUrl}/index.html`, {
+        headers: { 'x-forwarded-for': testIp }
+      });
+      if (res.status === 429) {
+        blocked = true;
+        assert.ok(res.headers.get('retry-after'), 'Debe incluir cabecera Retry-After');
+        break;
+      }
+    }
+    assert.ok(blocked, 'El servidor debe responder 429 tras superar la cuota por IP');
   });
 
   it('rutas inexistentes deben responder con código HTTP 404', async () => {

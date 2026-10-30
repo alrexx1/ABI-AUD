@@ -2116,6 +2116,157 @@ body {
   transform: scale(0.97);
 }
 
+/* Filtro Sustractivo de Ruido de Fondo */
+.noise-filter-pill {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-dim);
+  font-family: var(--font-hud);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.noise-filter-pill:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  color: var(--text-main);
+}
+
+.noise-filter-pill.active {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #10b981;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+}
+
+/* Barra Táctica de Replay Acústico Forense (5s) */
+.radar-replay-bar {
+  margin-top: 0.85rem;
+  background: rgba(12, 17, 26, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.replay-status-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.replay-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  letter-spacing: 0.5px;
+}
+
+.replay-badge.playing {
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.5);
+  background: rgba(245, 158, 11, 0.15);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+
+.replay-wave-anim {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 12px;
+}
+
+.replay-bar-unit {
+  width: 3px;
+  height: 100%;
+  background: #f59e0b;
+  border-radius: 1px;
+  animation: pulse-replay-bar 0.6s infinite ease-in-out alternate;
+}
+.replay-bar-unit:nth-child(2) { animation-delay: 0.15s; }
+.replay-bar-unit:nth-child(3) { animation-delay: 0.3s; }
+.replay-bar-unit:nth-child(4) { animation-delay: 0.45s; }
+
+@keyframes pulse-replay-bar {
+  0% { transform: scaleY(0.2); }
+  100% { transform: scaleY(1.0); }
+}
+
+.replay-shortcut-hint {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+.replay-shortcut-hint kbd {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-family: var(--font-mono);
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.replay-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.btn-replay-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-main);
+  font-family: var(--font-hud);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-replay-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.btn-replay-pill.primary {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: rgba(245, 158, 11, 0.5);
+  color: #fbbf24;
+}
+
+.btn-replay-pill.primary:hover {
+  background: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+
+.btn-replay-pill.outline {
+  border-color: rgba(6, 182, 212, 0.35);
+  color: var(--accent-cyan);
+}
+
+.btn-replay-pill.outline:hover {
+  background: rgba(6, 182, 212, 0.15);
+  border-color: var(--accent-cyan);
+}
+
 /* Footer */
 .site-footer {
   margin-top: 3rem;

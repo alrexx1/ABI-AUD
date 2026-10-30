@@ -82,6 +82,8 @@ export const state = {
     isCalibrating: false,
     lastEvent: null,
     noiseSpectrum: new Float32Array(24),
+    noiseSpectrumAbs: new Float32Array(24),
+    noiseSubtractionEnabled: true,
     liveBandEnergies: new Float32Array(24),
     liveBandPeaks: new Float32Array(24)
   },

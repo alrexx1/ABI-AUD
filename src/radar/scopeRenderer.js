@@ -116,7 +116,14 @@ export function startRadarScope() {
       const sampleRate = (state.radar.audioContext && state.radar.audioContext.sampleRate) || 48000;
       for (let f = 0; f < RADAR_FREQS.length; f++) {
         const bin = Math.min(1023, Math.round((RADAR_FREQS[f] * 2048) / sampleRate));
-        const rawE = freqByteData[bin] / 255;
+        let rawE = freqByteData[bin] / 255;
+
+        // Sustracción espectral en tiempo real contra ruido de fondo (Discord / Micrófono)
+        if (state.radar.noiseSubtractionEnabled && state.radar.noiseSpectrumAbs) {
+          const noiseFloor = state.radar.noiseSpectrumAbs[f] || (state.radar.noiseSpectrum ? state.radar.noiseSpectrum[f] * 0.35 : 0);
+          rawE = Math.max(0, rawE - (noiseFloor * 1.15));
+        }
+
         state.radar.liveBandEnergies[f] = Math.max(rawE, (state.radar.liveBandEnergies[f] || 0) * 0.84);
         state.radar.liveBandPeaks[f] = Math.max(rawE, (state.radar.liveBandPeaks[f] || 0) - 0.012);
       }

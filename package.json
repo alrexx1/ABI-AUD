@@ -1,6 +1,6 @@
 {
   "name": "abi-sound-master",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Entrenador auditivo y detector táctico acústico-visual de ítems rojos para Arena Breakout: Infinite (Season 7 Utopia).",
   "main": "server.js",
   "scripts": {

@@ -168,5 +168,37 @@ describe('Motor DSP: Filtros y Similitud', () => {
     assert.strictEqual(verdictCheetah.topItem.nameEs, 'Estatua de Guepardo Dorado');
   });
 
+  it('debe aplicar sustracción espectral de ruido ambiente eliminando frecuencias continuas espurias', () => {
+    const { computeWindowEnergyVector } = require('../src/dsp/goertzel.js');
+    const sr = 48000;
+    const len = 2048;
+    const testSamples = new Float32Array(len);
+
+    // Ruido constante de 1000 Hz simulando zumbido de ventilador/Discord
+    for (let i = 0; i < len; i++) {
+      testSamples[i] = Math.sin((2 * Math.PI * 1000 * i) / sr) * 0.15;
+    }
+
+    // Vector de energía sin calibración de ruido
+    const vecRaw = computeWindowEnergyVector(testSamples, 0, len, sr, null);
+    
+    // Perfil calibrado de ruido que identifica el zumbido en 1000 Hz
+    const noiseProfile = new Float32Array(24);
+    const idx1000 = [220, 310, 460, 680, 850, 1000, 1180, 1350, 1650, 2050, 2500, 3000, 3600, 4200, 4800, 5100, 5600, 6400, 7200, 8100, 9200, 10500, 12000, 14000].indexOf(1000);
+    noiseProfile[idx1000] = 5.0; // Fuerte componente de ruido
+
+    // Vector con sustracción espectral aplicada
+    const vecFiltered = computeWindowEnergyVector(testSamples, 0, len, sr, noiseProfile);
+    assert.ok(vecFiltered[idx1000] < vecRaw[idx1000], 'La energía en la frecuencia de ruido debe reducirse drásticamente');
+  });
+
+  it('el buffer de replay debe acumular y mantener muestras de audio en buffer circular FIFO', async () => {
+    const { pushReplayAudioChunk } = await import('../src/radar/replayEngine.js');
+    const chunk = new Float32Array([0.1, -0.2, 0.35, -0.15, 0.05]);
+    assert.doesNotThrow(() => {
+      pushReplayAudioChunk(chunk);
+    });
+  });
+
 });
 

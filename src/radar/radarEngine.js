@@ -11,6 +11,7 @@ import { updateNoiseFloorMovingAverage } from '../dsp/goertzel.js';
 import { computeBayesianVerdict } from './bayesEngine.js';
 import { playSynthSFX, playSoundFile } from '../audio/audioEngine.js';
 import { startRadarScope } from './scopeRenderer.js';
+import { pushReplayAudioChunk } from './replayEngine.js';
 import { startVisionTracking, stopVisionTracking } from '../vision/visionEngine.js';
 import { updatePiPHUD } from '../ui/pipOverlay.js';
 
@@ -98,11 +99,12 @@ export async function autoCalibrateRadarNoise() {
   const statusText = document.getElementById('radar-status-text');
   const beacon = document.getElementById('radar-beacon');
 
-  if (statusText) statusText.textContent = 'CALIBRANDO RUIDO DE FONDO DEL JUEGO (1.8s)... MANTÉN SILENCIO EN EL JUEGO';
+  if (statusText) statusText.textContent = 'CALIBRANDO RUIDO DE FONDO (2.0s)... MANTÉN SILENCIO EN EL JUEGO';
   if (beacon) beacon.className = 'status-beacon detecting';
 
   state.radar.isCalibrating = true;
   const startTime = Date.now();
+  const calTotalDuration = 2000;
   const noiseRmsSamples = [];
   const noiseFreqAccum = new Float32Array(RADAR_FREQS.length);
   let accumCount = 0;
@@ -114,6 +116,12 @@ export async function autoCalibrateRadarNoise() {
       return;
     }
 
+    const elapsed = Date.now() - startTime;
+    const remainingSec = Math.max(0, ((calTotalDuration - elapsed) / 1000)).toFixed(1);
+    if (statusText) {
+      statusText.textContent = `CALIBRANDO PERFIL DE RUIDO (${remainingSec}s)... MANTÉN SILENCIO`;
+    }
+
     noiseRmsSamples.push(state.radar.currentRms);
 
     if (state.radar.liveBandEnergies) {
@@ -123,7 +131,7 @@ export async function autoCalibrateRadarNoise() {
       accumCount++;
     }
 
-    if (Date.now() - startTime >= 1800) {
+    if (elapsed >= calTotalDuration) {
       clearInterval(calInterval);
       state.radar.isCalibrating = false;
 
@@ -135,8 +143,10 @@ export async function autoCalibrateRadarNoise() {
       if (accumCount > 0) {
         let specSum = 0;
         for (let f = 0; f < RADAR_FREQS.length; f++) {
-          state.radar.noiseSpectrum[f] = noiseFreqAccum[f] / accumCount;
-          specSum += state.radar.noiseSpectrum[f];
+          const meanBandEnergy = noiseFreqAccum[f] / accumCount;
+          state.radar.noiseSpectrumAbs[f] = meanBandEnergy;
+          state.radar.noiseSpectrum[f] = meanBandEnergy;
+          specSum += meanBandEnergy;
         }
         if (specSum > 0) {
           for (let f = 0; f < RADAR_FREQS.length; f++) {
@@ -145,6 +155,7 @@ export async function autoCalibrateRadarNoise() {
         }
       }
 
+      state.radar.noiseSubtractionEnabled = true;
       state.radar.movingAvgRms = avgNoise;
       const optThreshold = Math.min(0.050, Math.max(0.005, Number((avgNoise * 2.2 + 0.003).toFixed(3))));
       state.radar.threshold = optThreshold;
@@ -165,6 +176,8 @@ export async function autoCalibrateRadarNoise() {
       if (beacon) beacon.className = 'status-beacon active';
       playSynthSFX('success');
 
+      updateNoiseFilterBadge();
+
       setTimeout(() => {
         if (statusText && state.radar.active) {
           statusText.textContent = 'RADAR ACTIVO — ESCUCHANDO RAID (CALIBRADO DSP)';
@@ -172,6 +185,22 @@ export async function autoCalibrateRadarNoise() {
       }, 2500);
     }
   }, 60);
+}
+
+export function toggleNoiseSubtraction(forceState = null) {
+  state.radar.noiseSubtractionEnabled = (forceState !== null) ? forceState : !state.radar.noiseSubtractionEnabled;
+  updateNoiseFilterBadge();
+  playSynthSFX('click');
+}
+
+function updateNoiseFilterBadge() {
+  const badge = document.getElementById('radar-noise-filter-badge');
+  if (badge) {
+    const isAct = state.radar.noiseSubtractionEnabled;
+    badge.classList.toggle('active', isAct);
+    badge.textContent = isAct ? 'Filtro Sustractivo: ACTIVO' : 'Filtro Sustractivo: OFF';
+  }
+}
 }
 
 export async function toggleRadarCapture() {
@@ -301,6 +330,9 @@ export async function toggleRadarCapture() {
     scriptNode.onaudioprocess = (e) => {
       if (!state.radar.active) return;
       const inputData = e.inputBuffer.getChannelData(0);
+
+      // 1. Alimentar el buffer forense de replay continuo de 5s
+      pushReplayAudioChunk(inputData);
 
       const ring = state.radar.ringBuffer;
       const ringLen = ring.length;

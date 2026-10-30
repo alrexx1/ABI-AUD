@@ -31,18 +31,57 @@ const MIME_TYPES = {
   '.txt': 'text/plain; charset=utf-8'
 };
 
-// Cabeceras de seguridad defensivas estándar
+// Cabeceras de seguridad defensivas estándar (OWASP ASVS 5.x)
 const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'SAMEORIGIN',
   'X-XSS-Protection': '1; mode=block',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Permissions-Policy': 'display-capture=(self), microphone=(self)',
-  'Access-Control-Allow-Origin': '*'
+  'Access-Control-Allow-Origin': '*',
+  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; media-src 'self' blob:; img-src 'self' data: blob:; connect-src 'self'; worker-src 'self' blob:;"
 };
+
+// Rate Limiter en memoria (Sliding Window Anti-DoS / Zero-Dependencies)
+// Permite hasta 180 peticiones por minuto por dirección IP
+const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 180;
+const ipRequestCounts = new Map();
+
+// Limpieza periódica cada 3 minutos para prevenir fugas de memoria
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, record] of ipRequestCounts.entries()) {
+    if (now - record.startTime > RATE_LIMIT_WINDOW_MS) {
+      ipRequestCounts.delete(ip);
+    }
+  }
+}, 3 * 60 * 1000).unref();
+
+function checkRateLimit(clientIp) {
+  const now = Date.now();
+  let record = ipRequestCounts.get(clientIp);
+
+  if (!record || now - record.startTime > RATE_LIMIT_WINDOW_MS) {
+    record = { startTime: now, count: 1 };
+    ipRequestCounts.set(clientIp, record);
+    return { allowed: true, remaining: RATE_LIMIT_MAX_REQUESTS - 1 };
+  }
+
+  record.count += 1;
+  if (record.count > RATE_LIMIT_MAX_REQUESTS) {
+    const resetInSeconds = Math.ceil((record.startTime + RATE_LIMIT_WINDOW_MS - now) / 1000);
+    return { allowed: false, remaining: 0, resetInSeconds };
+  }
+
+  return { allowed: true, remaining: RATE_LIMIT_MAX_REQUESTS - record.count };
+}
 
 const server = http.createServer((req, res) => {
   const startTime = Date.now();
+
+  // Detección de IP del cliente (con soporte para proxies inversos de Render / Cloudflare)
+  const clientIp = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress || '127.0.0.1';
 
   // 1. Endpoint de Monitoreo y Health Check para Render
   if (req.url === '/healthz' || req.url === '/ping') {
@@ -57,6 +96,18 @@ const server = http.createServer((req, res) => {
       uptime: process.uptime(),
       timestamp: new Date().toISOString()
     }));
+    return;
+  }
+
+  // 1b. Control de saturación y mitigación DoS (Rate Limiting)
+  const rateStatus = checkRateLimit(clientIp);
+  if (!rateStatus.allowed) {
+    res.writeHead(429, {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Retry-After': String(rateStatus.resetInSeconds || 60),
+      ...SECURITY_HEADERS
+    });
+    res.end('429 Too Many Requests: Rate limit exceeded. Please wait a moment.');
     return;
   }
 
