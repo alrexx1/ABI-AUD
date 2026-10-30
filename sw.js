@@ -14,8 +14,8 @@ const STATIC_ASSETS = [
   '/images/items/408080010.png',
   '/images/items/408080008.png',
   '/images/items/408080027.png',
-  '/images/items/408080017.png',
-  '/images/items/408080018.png',
+  '/images/items/498080006.png',
+  '/images/items/408080003.png',
   '/images/items/408120013.png'
 ];
 

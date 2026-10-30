@@ -72,5 +72,18 @@ describe('Base de Datos ABI y Firmas Precalculadas', () => {
     });
   });
 
+  it('todos los activos definidos en STATIC_ASSETS de sw.js deben existir físicamente en disco', () => {
+    const swContent = fs.readFileSync(path.join(process.cwd(), 'sw.js'), 'utf8');
+    const match = swContent.match(/const STATIC_ASSETS = \[(.*?)\];/s);
+    assert.ok(match, 'STATIC_ASSETS debe estar definido en sw.js');
+    const rawList = match[1].split(',').map(s => s.trim().replace(/['"]/g, '')).filter(Boolean);
+    rawList.forEach(asset => {
+      if (asset === '/') return;
+      const cleanPath = asset.startsWith('/') ? asset.slice(1) : asset;
+      const fullPath = path.join(process.cwd(), cleanPath);
+      assert.ok(fs.existsSync(fullPath), `El activo ${asset} de sw.js debe existir en disco`);
+    });
+  });
+
 });
 
