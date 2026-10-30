@@ -90,6 +90,70 @@ export function extractAcousticFeatures(samples, sampleRate, noiseSpectrum = nul
   const arithmeticMean = (1.0 / RADAR_FREQS.length) || 1e-6;
   const spectralFlatness = geometricMean / arithmeticMean;
 
+  // 5. Medición de Tasa de Decaimiento Logarítmico (T60 en milisegundos):
+  // Evalúa el tiempo que tardaría la resonancia acústica en disipar 60 dB de energía
+  let t60 = 80.0; // Valor base por defecto
+  const tStep = 512;
+  const tVals = [];
+  const dbVals = [];
+  let maxStepRms = 0;
+
+  const rmsSteps = [];
+  for (let i = 0; i < 16; i++) {
+    const sStart = peakIdx + (i * tStep);
+    if (sStart + tStep > samples.length) break;
+    let sSumSq = 0;
+    for (let j = sStart; j < sStart + tStep; j++) {
+      sSumSq += samples[j] * samples[j];
+    }
+    const stepRms = Math.sqrt(sSumSq / tStep);
+    rmsSteps.push(stepRms);
+    if (stepRms > maxStepRms) maxStepRms = stepRms;
+  }
+
+  if (maxStepRms > 1e-6 && rmsSteps.length >= 4) {
+    for (let i = 0; i < rmsSteps.length; i++) {
+      const dbRel = 20 * Math.log10(Math.max(1e-6, rmsSteps[i] / maxStepRms));
+      const tMs = i * (tStep / sampleRate) * 1000;
+      if (dbRel <= -3 && dbRel >= -35) {
+        dbVals.push(dbRel);
+        tVals.push(tMs);
+      }
+    }
+
+    if (tVals.length >= 3) {
+      const N = tVals.length;
+      let sumT = 0, sumY = 0, sumTY = 0, sumT2 = 0;
+      for (let i = 0; i < N; i++) {
+        sumT += tVals[i];
+        sumY += dbVals[i];
+        sumTY += tVals[i] * dbVals[i];
+        sumT2 += tVals[i] * tVals[i];
+      }
+      const denom = (N * sumT2 - sumT * sumT);
+      if (Math.abs(denom) > 1e-6) {
+        const slope = (N * sumTY - sumT * sumY) / denom; // dB / ms
+        if (slope < -0.05) {
+          t60 = Math.min(850.0, Math.max(30.0, -60.0 / slope));
+        }
+      }
+    }
+  }
+
+  // 6. Factor Q de Resonancia (Agudeza del Pico Armónico):
+  // Mide qué tan estrecha y pura es la vibración frente a la energía de bandas vecinas
+  let surrSum = 0;
+  let surrCount = 0;
+  for (const offset of [-2, -1, 1, 2]) {
+    const surrIdx = maxBandIdx + offset;
+    if (surrIdx >= 0 && surrIdx < slice2.length) {
+      surrSum += slice2[surrIdx];
+      surrCount++;
+    }
+  }
+  const surrMean = surrCount > 0 ? (surrSum / surrCount) : 1e-6;
+  const qFactor = Math.min(25.0, Math.max(1.0, maxBandVal / Math.max(1e-6, surrMean)));
+
   return {
     slice1,
     slice2,
@@ -99,7 +163,9 @@ export function extractAcousticFeatures(samples, sampleRate, noiseSpectrum = nul
     centroid: weightedFreq,
     highRatio: (highFreqSum + 0.001) / (lowFreqSum + 0.001),
     spectralFlatness,
-    dominantFreq: RADAR_FREQS[maxBandIdx]
+    dominantFreq: RADAR_FREQS[maxBandIdx],
+    t60: Math.round(t60),
+    qFactor: Math.round(qFactor * 10) / 10
   };
 }
 

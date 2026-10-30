@@ -92,6 +92,58 @@ function analyzeScreenFrame() {
     currentLuma[i] = (data[idx] * 77 + data[idx + 1] * 150 + data[idx + 2] * 29) >> 8;
   }
 
+  // 1. Segmentación de Cuadrícula Activa por Croma Verde (Resaltado de Inventario ABI)
+  let greenPixels = 0;
+  let greenMinX = canvas.width, greenMaxX = 0;
+  let greenMinY = canvas.height, greenMaxY = 0;
+
+  for (let i = 0; i < pixelCount; i++) {
+    const idx = i * 4;
+    const r = data[idx];
+    const g = data[idx + 1];
+    const b = data[idx + 2];
+
+    // Detección de píxel de ranura iluminada en inventario
+    if (g >= 55 && g > (r * 1.22) && g > (b * 1.12) && (g - r) >= 15) {
+      greenPixels++;
+      const x = i % canvas.width;
+      const y = Math.floor(i / canvas.width);
+      if (x < greenMinX) greenMinX = x;
+      if (x > greenMaxX) greenMaxX = x;
+      if (y < greenMinY) greenMinY = y;
+      if (y > greenMaxY) greenMaxY = y;
+    }
+  }
+
+  const hasActiveGridSlots = greenPixels >= 35;
+  if (hasActiveGridSlots) {
+    const gw = Math.max(1, greenMaxX - greenMinX);
+    const gh = Math.max(1, greenMaxY - greenMinY);
+    const gAspect = gw / gh;
+    const gArea = gw * gh;
+
+    let greenDetected = 'all';
+    if (gAspect >= 0.80 && gAspect <= 1.25) {
+      greenDetected = (greenPixels > 250 || gArea > 850) ? '2x2' : '1x1';
+    } else if (gAspect >= 1.35 && gAspect <= 2.35) {
+      greenDetected = '2x1';
+    } else if (gAspect >= 0.42 && gAspect <= 0.74) {
+      greenDetected = '1x2';
+    } else if (gAspect > 2.35) {
+      greenDetected = '3x1';
+    } else if (gAspect < 0.42) {
+      greenDetected = '1x3';
+    } else if (gAspect >= 0.55 && gAspect <= 0.80 && greenPixels > 400) {
+      greenDetected = '2x3';
+    }
+
+    if (greenDetected !== 'all') {
+      state.vision.detectedSize = greenDetected;
+      state.vision.gridConfidence = 0.95; // Certeza visual alta por cuadrícula
+      state.vision.greenTileCount = greenPixels;
+    }
+  }
+
   if (state.vision.prevLuma) {
     let changedPixels = 0;
     let minX = canvas.width;

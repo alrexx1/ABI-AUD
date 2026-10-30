@@ -71,3 +71,20 @@ export function computeWindowEnergyVector(samples, offset, length, sampleRate, n
   return vec;
 }
 
+/**
+ * Actualiza el perfil de ruido ambiental usando una media móvil exponencial (EMA)
+ * @param {Float32Array} noiseFloor - Espectro acumulado de ruido
+ * @param {Float32Array} currentSpectrum - Espectro actual en período silencioso
+ * @param {number} alpha - Factor de aprendizaje (0.01 a 0.1)
+ * @returns {Float32Array} Perfil de ruido actualizado
+ */
+export function updateNoiseFloorMovingAverage(noiseFloor, currentSpectrum, alpha = 0.05) {
+  if (!noiseFloor || noiseFloor.length !== currentSpectrum.length) {
+    return new Float32Array(currentSpectrum);
+  }
+  for (let i = 0; i < noiseFloor.length; i++) {
+    noiseFloor[i] = (1 - alpha) * noiseFloor[i] + alpha * currentSpectrum[i];
+  }
+  return noiseFloor;
+}
+

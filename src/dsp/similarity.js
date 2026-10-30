@@ -80,12 +80,30 @@ export function scoreTemplateSimilarity(liveFeat, tmplFeat) {
   const centSim = Math.max(0, 1 - (centDiff / 4200));
 
   // Ponderación de Precisión:
-  // Cuerpo resonante (Slice 2) = 40% | Envolvente de decaimiento = 20% | Ataque = 15% | Cola = 15% | Centroide = 10%
-  let score = (simSlice2 * 0.40) + (envCorr * 0.20) + (simSlice1 * 0.15) + (simSlice3 * 0.15) + (centSim * 0.10);
+  // Cuerpo resonante (Slice 2) = 35% | Envolvente = 20% | Ataque = 15% | Cola = 15% | Centroide = 15%
+  let score = (simSlice2 * 0.35) + (envCorr * 0.20) + (simSlice1 * 0.15) + (simSlice3 * 0.15) + (centSim * 0.15);
 
-  // Bonificación armónica si coincide la frecuencia dominante física
+  // 4. Bonificación armónica por coincidencia de frecuencia dominante física
   if (liveFeat.dominantFreq === tmplFeat.dominantFreq) {
-    score += 0.04;
+    score += 0.05;
+  }
+
+  // 5. Discriminación Física por Tasa de Decaimiento (T60) y Factor Q
+  if (liveFeat.t60 && tmplFeat.t60) {
+    const t60Ratio = Math.min(liveFeat.t60, tmplFeat.t60) / Math.max(liveFeat.t60, tmplFeat.t60, 1);
+    if (t60Ratio > 0.70) {
+      score += 0.05 * t60Ratio;
+    } else if (t60Ratio < 0.30) {
+      // Discriminador clave: Si un objeto decae en 50ms y la plantilla en 600ms, penalizar fuertemente
+      score -= 0.14;
+    }
+  }
+
+  if (liveFeat.qFactor && tmplFeat.qFactor) {
+    const qRatio = Math.min(liveFeat.qFactor, tmplFeat.qFactor) / Math.max(liveFeat.qFactor, tmplFeat.qFactor, 1);
+    if (qRatio > 0.65) {
+      score += 0.03 * qRatio;
+    }
   }
 
   // Penalización por diferencia drástica de brillo armónico (highRatio)

@@ -104,5 +104,69 @@ describe('Motor DSP: Filtros y Similitud', () => {
     assert.strictEqual(computePearsonCorrelation(new Float32Array(0), new Float32Array(0)), 0);
   });
 
+  it('debe calcular la tasa de decaimiento logarítmico T60 distinguiendo metales/cerámica de impactos secos', async () => {
+    const { extractAcousticFeatures } = await import('../src/dsp/features.js');
+    const sr = 48000;
+    const len = 8192;
+
+    // 1. Simular señal de porcelana resonante (alta duración de caída)
+    const resonantSamples = new Float32Array(len);
+    for (let i = 0; i < len; i++) {
+      const decay = Math.exp(-i / 3500); // Decaimiento suave
+      resonantSamples[i] = Math.sin((2 * Math.PI * 4200 * i) / sr) * decay;
+    }
+    const featResonant = extractAcousticFeatures(resonantSamples, sr);
+
+    // 2. Simular impacto seco de chatarra (caída abrupta)
+    const drySamples = new Float32Array(len);
+    for (let i = 0; i < len; i++) {
+      const decay = Math.exp(-i / 200); // Decaimiento casi instantáneo
+      drySamples[i] = (Math.random() * 2 - 1) * decay;
+    }
+    const featDry = extractAcousticFeatures(drySamples, sr);
+
+    assert.ok(featResonant.t60 > 150, `El T60 de porcelana debe ser > 150ms (obtenido: ${featResonant.t60}ms)`);
+    assert.ok(featResonant.t60 > featDry.t60, 'El T60 resonante debe ser sustancialmente mayor que el impacto seco');
+    assert.ok(featResonant.qFactor > 1.5, `El Factor Q de resonancia debe ser alto (obtenido: ${featResonant.qFactor})`);
+  });
+
+  it('debe realizar inferencia bayesiana multimodal combinando audio, tamaño y precio de caja', async () => {
+    const { computeBayesianVerdict } = await import('../src/radar/bayesEngine.js');
+    const fs = require('fs');
+    const path = require('path');
+
+    // Cargar datos oficiales para entorno de test
+    const appData = require('../app_data.js');
+    global.window = { ABI_DATA: appData };
+
+    const rawSigs = JSON.parse(fs.readFileSync(path.join(__dirname, '../radar_signatures.json'), 'utf8'));
+    const lionTmpl = rawSigs.find(t => t.sound.id === 28 && t.action === 'drop');
+    assert.ok(lionTmpl, 'Debe existir la plantilla de Estatua de León (#28)');
+
+    const syntheticFeat = {
+      slice1: new Float32Array(lionTmpl.slice1),
+      slice2: new Float32Array(lionTmpl.slice2),
+      slice3: new Float32Array(lionTmpl.slice3),
+      vector: new Float32Array(lionTmpl.vector),
+      env16: new Float32Array(lionTmpl.env16),
+      centroid: lionTmpl.centroid,
+      highRatio: lionTmpl.highRatio,
+      dominantFreq: lionTmpl.dominantFreq,
+      t60: lionTmpl.t60 || 700,
+      qFactor: lionTmpl.qFactor || 4.0
+    };
+
+    // Caso A: Sonido de estatua #28 + Casilla 3x2 (Tamaño del León) + Caja 550K
+    const verdictLion = computeBayesianVerdict(syntheticFeat, rawSigs, '3x2', 0.95, 550000);
+    assert.ok(verdictLion, 'Debe producir un veredicto bayesiano');
+    assert.ok(verdictLion.pRed >= 80, `Probabilidad roja debe ser alta para León 3x2 (obtenido: ${verdictLion.pRed}%)`);
+    assert.strictEqual(verdictLion.topItem.nameEs, 'Estatua de León Dorado');
+
+    // Caso B: Mismo sonido #28 pero casilla 2x1 (Guepardo Dorado / Trampa)
+    const verdictCheetah = computeBayesianVerdict(syntheticFeat, rawSigs, '2x1', 0.95, 250000);
+    assert.ok(verdictCheetah.pRed < 20, `Probabilidad roja debe ser baja para casilla 2x1 (obtenido: ${verdictCheetah.pRed}%)`);
+    assert.strictEqual(verdictCheetah.topItem.nameEs, 'Estatua de Guepardo Dorado');
+  });
+
 });
 

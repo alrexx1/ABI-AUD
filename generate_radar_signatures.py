@@ -120,6 +120,49 @@ def extract_acoustic_features(samples, sample_rate, noise_spectrum=None):
     arithmetic_mean = 1.0 / num_freqs
     spectral_flatness = geometric_mean / arithmetic_mean
     
+    # 5. Medición T60 (Decaimiento Logarítmico en ms)
+    t60 = 80.0
+    t_step = 512
+    t_vals = []
+    db_vals = []
+    max_step_rms = 0.0
+    rms_steps = []
+    
+    for i in range(16):
+        s_start = peak_idx + (i * t_step)
+        if s_start + t_step > len(samples):
+            break
+        segment = samples[s_start:s_start + t_step]
+        sum_sq = float(np.sum(segment * segment))
+        step_rms = math.sqrt(sum_sq / t_step)
+        rms_steps.append(step_rms)
+        if step_rms > max_step_rms:
+            max_step_rms = step_rms
+            
+    if max_step_rms > 1e-6 and len(rms_steps) >= 4:
+        for i, s_rms in enumerate(rms_steps):
+            db_rel = 20.0 * math.log10(max(1e-6, s_rms / max_step_rms))
+            t_ms = i * (t_step / sample_rate) * 1000.0
+            if -35.0 <= db_rel <= -3.0:
+                db_vals.append(db_rel)
+                t_vals.append(t_ms)
+        if len(t_vals) >= 3:
+            N = len(t_vals)
+            t_arr = np.array(t_vals)
+            y_arr = np.array(db_vals)
+            m, c = np.polyfit(t_arr, y_arr, 1)
+            if m < -0.05:
+                t60 = min(850.0, max(30.0, -60.0 / m))
+                
+    # 6. Factor Q de Resonancia
+    surr = []
+    for offset in [-2, -1, 1, 2]:
+        surr_idx = max_band_idx + offset
+        if 0 <= surr_idx < len(slice2):
+            surr.append(slice2[surr_idx])
+    surr_mean = np.mean(surr) if len(surr) > 0 else 1e-6
+    q_factor = min(25.0, max(1.0, max_band_val / max(1e-6, surr_mean)))
+    
     return {
         "slice1": [round(x, 6) for x in slice1],
         "slice2": [round(x, 6) for x in slice2],
@@ -129,7 +172,9 @@ def extract_acoustic_features(samples, sample_rate, noise_spectrum=None):
         "centroid": round(weighted_freq, 2),
         "highRatio": round((high_freq_sum + 0.001) / (low_freq_sum + 0.001), 4),
         "spectralFlatness": round(spectral_flatness, 6),
-        "dominantFreq": RADAR_FREQS[max_band_idx]
+        "dominantFreq": RADAR_FREQS[max_band_idx],
+        "t60": round(t60),
+        "qFactor": round(q_factor, 1)
     }
 
 def main():

@@ -40,7 +40,7 @@
   </style>
 
   <!-- Estilos Principales con Cache-Busting -->
-  <link rel="stylesheet" href="style.css?v=2.0.1">
+  <link rel="stylesheet" href="style.css?v=2.0.2">
   
   <!-- Manifest PWA Offline -->
   <link rel="manifest" href="manifest.json">
@@ -477,8 +477,19 @@
             <div class="radar-source-select-group">
               <label class="filter-pill-label" for="radar-vision-mode">Visión de Pantalla (Multimodal):</label>
               <select id="radar-vision-mode" class="filter-select">
-                <option value="auto" selected>👁️ Activa (Detección de Arrastre y Casillas)</option>
+                <option value="auto" selected>👁️ Activa (Cuadrícula HSV + Arrastre)</option>
                 <option value="off">🔇 Desactivada (Solo Audio DSP)</option>
+              </select>
+            </div>
+
+            <div class="radar-source-select-group">
+              <label class="filter-pill-label" for="radar-box-price">Precio Caja Vendedor (Inferencia Bayesiana):</label>
+              <select id="radar-box-price" class="filter-select">
+                <option value="all" selected>🪙 Cualquier Precio / Raid Libre</option>
+                <option value="550000">💰 550,000 Koens (Pool 2x3 Laúd / Utopia)</option>
+                <option value="470000">💰 470,000 Koens (Pool 2x2 León / Jarrón / TI)</option>
+                <option value="250000">💰 250,000 Koens (Pool 1x2 / 2x1 Joyas / Circuitos)</option>
+                <option value="70000">💰 70,000 Koens (Pool 1x1 Menor)</option>
               </select>
             </div>
 
@@ -936,11 +947,11 @@
   </footer>
 
   <!-- SCRIPTS -->
-  <script src="app_data.js?v=2.0.1"></script>
+  <script src="app_data.js?v=2.0.2"></script>
   <!-- Arquitectura Modular Escalable (ES Modules) -->
-  <script type="module" src="src/main.js?v=2.0.1"></script>
+  <script type="module" src="src/main.js?v=2.0.2"></script>
   <!-- Fallback para entornos heredados -->
-  <script nomodule src="app.js?v=2.0.1"></script>
+  <script nomodule src="app.js?v=2.0.2"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

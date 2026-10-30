@@ -7,6 +7,8 @@ import { state } from '../core/state.js';
 import { RADAR_FREQS } from '../core/constants.js';
 import { extractAcousticFeatures } from '../dsp/features.js';
 import { scoreTemplateSimilarity } from '../dsp/similarity.js';
+import { updateNoiseFloorMovingAverage } from '../dsp/goertzel.js';
+import { computeBayesianVerdict } from './bayesEngine.js';
 import { playSynthSFX, playSoundFile } from '../audio/audioEngine.js';
 import { startRadarScope } from './scopeRenderer.js';
 import { startVisionTracking, stopVisionTracking } from '../vision/visionEngine.js';
@@ -326,6 +328,10 @@ export async function toggleRadarCapture() {
 
       if (!state.radar.isCalibrating && !state.radar.pendingCapture) {
         state.radar.movingAvgRms = (state.radar.movingAvgRms * 0.94) + (rms * 0.06);
+        // Puerta de ruido espectral adaptativa durante silencio de raid
+        if (rms < state.radar.threshold * 0.35 && state.radar.liveBandEnergies) {
+          updateNoiseFloorMovingAverage(state.radar.noiseSpectrum, state.radar.liveBandEnergies, 0.03);
+        }
       }
 
       const now = Date.now();
@@ -410,83 +416,53 @@ export function matchLiveRadarFeatures(liveFeat) {
   if (!state.radar.templates || state.radar.templates.length === 0) return;
 
   const mode = state.radar.detectMode || 'both';
-  const sizeFilter = state.radar.selectedSize || 'all';
+  const sizeFilter = (state.vision.detectedSize && state.vision.detectedSize !== 'all')
+    ? state.vision.detectedSize
+    : (state.radar.selectedSize || 'all');
+  const gridConfidence = state.vision.gridConfidence || 0.70;
+  const boxPrice = state.radar.boxPrice || null;
 
   const eligibleTemplates = state.radar.templates.filter(tmpl => {
     if (mode === 'both' || mode === 'chain') return true;
     return tmpl.action === mode;
   });
 
-  const scores = eligibleTemplates.map(tmpl => {
-    let sim = scoreTemplateSimilarity(liveFeat, tmpl);
+  // FUSIÓN BAYESIANA MULTIMODAL (Física Acústica + Tamaño + Precio de Caja)
+  const bayesVerdict = computeBayesianVerdict(
+    liveFeat,
+    eligibleTemplates,
+    sizeFilter,
+    gridConfidence,
+    boxPrice
+  );
 
-    if (sizeFilter !== 'all') {
-      const allItems = window.ABI_DATA ? window.ABI_DATA.items : [];
-      const hasMatchingRed = (tmpl.sound.redItems || []).some(r => {
-        const it = allItems.find(x => x.id === r.id);
-        return it && it.sizeLabel === sizeFilter;
-      });
-      if (hasMatchingRed) {
-        sim += 0.08;
-      } else {
-        const hasAnyItemOfSize = (tmpl.sound.items || []).some(it => {
-          const fullIt = allItems.find(x => x.id === it.id);
-          return fullIt && fullIt.sizeLabel === sizeFilter;
-        });
-        if (!hasAnyItemOfSize) {
-          sim -= 0.12;
-        }
-      }
-    }
-
-    return {
-      sound: tmpl.sound,
-      action: tmpl.action,
-      score: sim
-    };
-  });
-
-  const soundBestScores = new Map();
-  for (const item of scores) {
-    const existing = soundBestScores.get(item.sound.id);
-    if (!existing || item.score > existing.score) {
-      soundBestScores.set(item.sound.id, item);
-    }
-  }
-
-  const uniqueRanked = Array.from(soundBestScores.values());
-  uniqueRanked.sort((a, b) => b.score - a.score);
-
-  const topMatch = uniqueRanked[0];
-  const alternatives = uniqueRanked.slice(1, 4);
-
-  let conf = Math.min(99, Math.max(72, Math.round(topMatch.score * 100)));
+  if (!bayesVerdict) return;
 
   if (mode === 'chain') {
     const now = Date.now();
     const last = state.radar.lastEvent;
 
-    if (topMatch.action === 'pickup') {
-      state.radar.lastEvent = { sound: topMatch.sound, action: 'pickup', time: now };
+    if (bayesVerdict.topAction === 'pickup') {
+      state.radar.lastEvent = { sound: bayesVerdict.topSound, action: 'pickup', time: now };
       const statusText = document.getElementById('radar-status-text');
       if (statusText) {
-        statusText.textContent = `ARRASTRE DETECTADO (#${topMatch.sound.id} ${topMatch.sound.name.slice(0, 16)}) — SUELTA LA CAJA PARA CONFIRMAR...`;
+        statusText.textContent = `ARRASTRE DETECTADO (#${bayesVerdict.topSound.id} ${bayesVerdict.topSound.name.slice(0, 16)}) — SUELTA LA CAJA PARA CONFIRMAR...`;
       }
       return;
-    } else if (topMatch.action === 'drop' && last && (now - last.time) < 3500) {
-      if (last.sound.id === topMatch.sound.id) {
-        conf = 99;
+    } else if (bayesVerdict.topAction === 'drop' && last && (now - last.time) < 3500) {
+      if (last.sound.id === bayesVerdict.topSound.id) {
+        bayesVerdict.confidence = 99;
         state.radar.lastEvent = null;
-        displayRadarVerdict(topMatch.sound, conf, alternatives, 'chain');
+        displayRadarVerdict(bayesVerdict, 'chain');
         return;
       }
     }
   }
 
-  displayRadarVerdict(topMatch.sound, conf, alternatives, topMatch.action);
+  displayRadarVerdict(bayesVerdict, bayesVerdict.topAction);
 }
 
-export function displayRadarVerdict(sound, confidence, alternatives = [], detectedAction = 'drop') {
+export function displayRadarVerdict(verdict, detectedAction = 'drop') {
   const idleState = document.getElementById('verdict-idle-state');
   const activeState = document.getElementById('verdict-active-state');
   const badge = document.getElementById('verdict-badge');
@@ -500,124 +476,89 @@ export function displayRadarVerdict(sound, confidence, alternatives = [], detect
   if (idleState) idleState.style.display = 'none';
   if (activeState) activeState.style.display = 'flex';
 
-  const allItems = window.ABI_DATA ? window.ABI_DATA.items : [];
-  const sizeFilter = state.radar.selectedSize || 'all';
-
-  const redCandidates = (sound.redItems || []).map(r => allItems.find(it => it.id === r.id)).filter(Boolean);
-  const otherCandidates = (sound.items || []).map(o => allItems.find(it => it.id === o.id)).filter(it => it && !it.isRed);
-  otherCandidates.sort((a, b) => (b.referencePrice || 0) - (a.referencePrice || 0));
-
-  let representativeItem = null;
-
-  if (sizeFilter !== 'all') {
-    representativeItem = redCandidates.find(it => it.sizeLabel === sizeFilter);
-    if (!representativeItem) {
-      representativeItem = otherCandidates.find(it => it.sizeLabel === sizeFilter);
-    }
-  }
-
-  if (!representativeItem) {
-    if (redCandidates.length > 0) {
-      redCandidates.sort((a, b) => b.referencePrice - a.referencePrice);
-      representativeItem = redCandidates[0];
-    } else if (otherCandidates.length > 0) {
-      otherCandidates.sort((a, b) => b.referencePrice - a.referencePrice);
-      representativeItem = otherCandidates[0];
-    } else {
-      representativeItem = allItems[0];
-    }
-  }
+  const representativeItem = verdict.topItem;
+  const sound = verdict.topSound;
+  const confidence = verdict.confidence;
+  const sizeFilter = (state.vision.detectedSize && state.vision.detectedSize !== 'all') ? state.vision.detectedSize : state.radar.selectedSize;
 
   let actionText = 'Soltar (Drop)';
   if (detectedAction === 'pickup') actionText = 'Arrastrar (Pickup)';
   else if (detectedAction === 'chain') actionText = '🔗 Doble Confirmación (Arrastrar ➔ Soltar)';
 
   if (badge) {
-    if (sound.isGuaranteedRed) {
+    if (verdict.isGuaranteedRed || verdict.pRed >= 88) {
       badge.className = 'verdict-main-tag red';
-      badge.textContent = '🔴 ¡ALERTA: 100% GARANTÍA ROJO!';
+      badge.textContent = `🔴 ¡ALERTA: ROJO CONFIRMADO (${verdict.pRed}% BAYESIANO)!`;
       playSynthSFX('success');
-    } else if (sound.hasRed) {
+    } else if (verdict.pRed >= 25) {
       badge.className = 'verdict-main-tag gold';
-      badge.textContent = `🟡 ALERTA: POSIBLE ROJO (${sound.redRatio}% PROBABLE)`;
+      badge.textContent = `🟡 ALERTA: POSIBLE ROJO (${verdict.pRed}% PROBABILIDAD)`;
       playSynthSFX('click');
     } else {
       badge.className = 'verdict-main-tag skip';
-      badge.textContent = '⚪ DESCARTAR — 0% ROJO (CHATARRA)';
+      badge.textContent = `⚪ DESCARTAR — 0% ROJO (${verdict.pJunk}% CHATARRA)`;
       playSynthSFX('fail');
     }
   }
 
   if (itemImg) itemImg.src = representativeItem.iconUrl;
   if (itemName) itemName.textContent = `${representativeItem.nameEs} (${representativeItem.name})`;
-  if (itemPrice) itemPrice.textContent = `Valor Estimado: ~${representativeItem.referencePrice.toLocaleString()} Koens • Tamaño: ${representativeItem.sizeLabel}`;
-  if (soundIdTag) soundIdTag.textContent = `Perfil Acústico #${sound.id}: ${sound.name} • Movimiento: ${actionText} • Certeza: ${confidence}%`;
+  if (itemPrice) itemPrice.textContent = `Valor Estimado: ~${representativeItem.referencePrice.toLocaleString()} Koens • Casilla: ${representativeItem.sizeLabel}`;
+  if (soundIdTag) {
+    soundIdTag.textContent = `Perfil #${sound.id}: ${sound.name} • T60: ${verdict.t60Measured}ms • Factor Q: ${verdict.qFactorMeasured} • Cuadrícula: [${verdict.gridDetected}] (${verdict.gridConfidence}% certeza)`;
+  }
 
   updatePiPHUD(representativeItem, sound, confidence);
 
   if (tipEl) {
-    if (sound.isGuaranteedRed) {
+    if (verdict.pRed >= 88) {
       tipEl.className = 'verdict-tactical-tip red-tip';
-      tipEl.innerHTML = `🔥 <strong>RECOMENDACIÓN TÁCTICA:</strong> ¡COMPRA INMEDIATA! Este perfil acústico no tiene trampas ni duplicados ordinarios.`;
-    } else if (sound.hasRed) {
+      tipEl.innerHTML = `🔥 <strong>INFERENCIA BAYESIANA:</strong> ¡COMPRA INMEDIATA! Resonancia física ($T_{60}=${verdict.t60Measured}$ms) y cuadrícula [${representativeItem.sizeLabel}] confirman con <strong>${verdict.pRed}%</strong> de certeza que la caja contiene este ítem rojo.`;
+    } else if (verdict.pRed >= 25) {
       tipEl.className = 'verdict-tactical-tip';
-      tipEl.innerHTML = `⚠️ <strong>VERIFICACIÓN DE TAMAÑO:</strong> Este sonido contiene varios ítems. Revisa el tamaño de la caja/casilla abajo para confirmar si es el Rojo o Chatarra.`;
+      tipEl.innerHTML = `⚠️ <strong>VERIFICACIÓN DE TRAMPA:</strong> Probabilidad roja del ${verdict.pRed}%. Revisa que la caja coincida con el tamaño <strong>[${representativeItem.sizeLabel}]</strong> para descartar la trampa dorada/morada.`;
     } else {
       tipEl.className = 'verdict-tactical-tip';
-      tipEl.innerHTML = `⚪ <strong>RECOMENDACIÓN TÁCTICA:</strong> AHORRA KOENS. Este sonido pertenece a chatarra o materiales comunes.`;
+      tipEl.innerHTML = `⚪ <strong>RECOMENDACIÓN TÁCTICA:</strong> AHORRA KOENS (${verdict.pJunk}% certeza chatarra). El decaimiento rápido (${verdict.t60Measured}ms) descarta metales finos y porcelana.`;
     }
   }
 
   if (altList) {
-    const bySize = new Map();
-    for (const r of redCandidates) {
-      const sz = r.sizeLabel;
-      if (!bySize.has(sz)) bySize.set(sz, []);
-      bySize.get(sz).push({ item: r, isRed: true });
-    }
-    for (const o of otherCandidates) {
-      const sz = o.sizeLabel;
-      if (!bySize.has(sz)) bySize.set(sz, []);
-      bySize.get(sz).push({ item: o, isRed: false });
-    }
-
     altList.innerHTML = '';
-    bySize.forEach((candidates, sz) => {
-      const row = document.createElement('div');
-      row.className = `candidate-size-group ${sizeFilter === sz ? 'highlight-active-size' : ''}`;
+    const candList = verdict.candidates || [];
 
-      const redInGroup = candidates.filter(c => c.isRed);
-      const otherInGroup = candidates.filter(c => !c.isRed);
-      const isPureRed = (otherInGroup.length === 0 && redInGroup.length > 0);
+    const row = document.createElement('div');
+    row.className = 'candidate-size-group highlight-active-size';
 
-      let groupBadge = '';
-      if (isPureRed) {
-        groupBadge = '<span class="candidate-tag-badge red">100% ROJO</span>';
-      } else if (redInGroup.length > 0) {
-        groupBadge = '<span class="candidate-tag-badge gold">RIESGO DE TRAMPA</span>';
-      } else {
-        groupBadge = '<span class="candidate-tag-badge skip">0% ROJO</span>';
-      }
+    let groupBadge = verdict.pRed >= 88
+      ? '<span class="candidate-tag-badge red">100% ROJO</span>'
+      : verdict.pRed >= 25
+        ? '<span class="candidate-tag-badge gold">RIESGO DE TRAMPA</span>'
+        : '<span class="candidate-tag-badge skip">0% ROJO</span>';
 
-      row.innerHTML = `
-        <div class="candidate-size-header">
-          <span class="candidate-size-label">Casilla [${sz}]</span>
-          ${groupBadge}
-        </div>
-        <div class="candidate-items-sublist">
-          ${candidates.map(c => `
-            <div class="candidate-mini-item ${c.isRed ? 'is-red' : ''}">
-              <img src="${c.item.iconUrl}" alt="" class="candidate-mini-icon" />
-              <div class="candidate-mini-info">
-                <div class="candidate-mini-name">${c.isRed ? '🔴' : '⚪'} ${c.item.nameEs}</div>
+    row.innerHTML = `
+      <div class="candidate-size-header">
+        <span class="candidate-size-label">Distribución Posterior Bayesiana</span>
+        ${groupBadge}
+      </div>
+      <div class="candidate-items-sublist">
+        ${candList.map(c => `
+          <div class="candidate-mini-item ${c.item.isRed ? 'is-red' : ''}" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.4rem 0.6rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <img src="${c.item.iconUrl}" alt="" class="candidate-mini-icon" style="width: 28px; height: 28px; object-fit: contain;" />
+              <div>
+                <div class="candidate-mini-name">${c.item.isRed ? '🔴' : '⚪'} ${c.item.nameEs} <small style="color: var(--text-dim);">[${c.item.sizeLabel}]</small></div>
                 <div class="candidate-mini-price">~${c.item.referencePrice.toLocaleString()} K</div>
               </div>
             </div>
-          `).join('')}
-        </div>
-      `;
-      altList.appendChild(row);
-    });
+            <div style="font-family: var(--font-mono); font-weight: 700; color: ${c.item.isRed ? 'var(--rarity-red)' : 'var(--accent-gold)'};">
+              ${Math.round(c.posterior * 100)}%
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    altList.appendChild(row);
   }
 
   // Registrar en el historial de sesión
@@ -641,8 +582,28 @@ export function simulateRadarDrop() {
   if (!sounds.length) return;
 
   const simSound = sounds[Math.floor(Math.random() * sounds.length)];
-  playSoundFile(simSound.drop, simSound.name, 'Simulación de Radar');
-  displayRadarVerdict(simSound, 94 + Math.floor(Math.random() * 5), [], 'drop');
+  playSoundFile(simSound.drop, simSound.name, 'Simulación de Radar Táctico');
+
+  if (state.radar.templates && state.radar.templates.length > 0) {
+    const matchingTmpl = state.radar.templates.find(t => t.sound.id === simSound.id && t.action === 'drop') || state.radar.templates[0];
+    const syntheticFeat = {
+      slice1: matchingTmpl.slice1,
+      slice2: matchingTmpl.slice2,
+      slice3: matchingTmpl.slice3,
+      vector: matchingTmpl.vector,
+      env16: matchingTmpl.env16,
+      centroid: matchingTmpl.centroid,
+      highRatio: matchingTmpl.highRatio,
+      dominantFreq: matchingTmpl.dominantFreq,
+      t60: matchingTmpl.t60 || 250,
+      qFactor: matchingTmpl.qFactor || 8.5
+    };
+    const verdict = computeBayesianVerdict(syntheticFeat, state.radar.templates, state.radar.selectedSize || 'all', 0.88, null);
+    if (verdict) {
+      displayRadarVerdict(verdict, 'drop');
+      return;
+    }
+  }
 }
 
 export function clearRadarHistory() {

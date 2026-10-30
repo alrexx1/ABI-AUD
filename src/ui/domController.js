@@ -239,6 +239,13 @@ export function initDOMController() {
     });
   }
 
+  const selectBoxPrice = document.getElementById('radar-box-price');
+  if (selectBoxPrice) {
+    selectBoxPrice.addEventListener('change', (e) => {
+      state.radar.boxPrice = e.target.value === 'all' ? null : parseInt(e.target.value, 10);
+    });
+  }
+
   const selectSensitivityPreset = document.getElementById('radar-sensitivity-preset');
   const sliderThreshold = document.getElementById('radar-threshold-slider');
   const valThreshold = document.getElementById('radar-threshold-val');
