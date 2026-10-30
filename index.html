@@ -40,7 +40,7 @@
   </style>
 
   <!-- Estilos Principales con Cache-Busting -->
-  <link rel="stylesheet" href="style.css?v=2.0.2">
+  <link rel="stylesheet" href="style.css?v=2.0.3">
   
   <!-- Manifest PWA Offline -->
   <link rel="manifest" href="manifest.json">
@@ -530,6 +530,26 @@
               <div class="radar-sample-rate" id="radar-rate-info">48.0 kHz &bull; DSP Alta Precisión</div>
             </div>
 
+            <!-- Selector de Modos de Visualización del Radar -->
+            <div class="radar-scope-mode-bar">
+              <div class="scope-mode-group" id="radar-scope-mode-group">
+                <button class="scope-mode-btn active" data-mode="waterfall" id="btn-mode-waterfall">
+                  🌊 Cascada Waterfall (60 FPS)
+                </button>
+                <button class="scope-mode-btn" data-mode="split" id="btn-mode-split">
+                  🔲 Vista Dual
+                </button>
+                <button class="scope-mode-btn" data-mode="scope" id="btn-mode-scope">
+                  ⚡ Osciloscopio
+                </button>
+              </div>
+              <div class="waterfall-legend">
+                <span class="legend-item"><span class="legend-dot cyan"></span> Armónicos</span>
+                <span class="legend-item"><span class="legend-dot gold"></span> T60 Resonancia</span>
+                <span class="legend-item"><span class="legend-dot red"></span> Pico Rojo</span>
+              </div>
+            </div>
+
             <!-- Canvas del Radar Circular y Espectro -->
             <div class="radar-display-wrap">
               <canvas id="radar-scope-canvas" width="600" height="230"></canvas>
@@ -947,11 +967,11 @@
   </footer>
 
   <!-- SCRIPTS -->
-  <script src="app_data.js?v=2.0.2"></script>
+  <script src="app_data.js?v=2.0.3"></script>
   <!-- Arquitectura Modular Escalable (ES Modules) -->
-  <script type="module" src="src/main.js?v=2.0.2"></script>
+  <script type="module" src="src/main.js?v=2.0.3"></script>
   <!-- Fallback para entornos heredados -->
-  <script nomodule src="app.js?v=2.0.2"></script>
+  <script nomodule src="app.js?v=2.0.3"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

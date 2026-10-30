@@ -16,6 +16,7 @@ import {
   simulateRadarDrop, 
   clearRadarHistory 
 } from '../radar/radarEngine.js';
+import { setScopeMode } from '../radar/scopeRenderer.js';
 import { toggleRadarPiP } from './pipOverlay.js';
 import { startVisionTracking, stopVisionTracking } from '../vision/visionEngine.js';
 
@@ -299,6 +300,18 @@ export function initDOMController() {
   if (btnClearHistory) {
     btnClearHistory.addEventListener('click', clearRadarHistory);
   }
+
+  // 8b. Selector de Modo de Visualización del Radar (Waterfall, Split, Scope)
+  const scopeModeButtons = document.querySelectorAll('.scope-mode-btn');
+  scopeModeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.getAttribute('data-mode');
+      if (mode) {
+        setScopeMode(mode);
+        playSynthSFX('click');
+      }
+    });
+  });
 
   const selectVisionMode = document.getElementById('radar-vision-mode');
   if (selectVisionMode) {

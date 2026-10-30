@@ -56,6 +56,7 @@ export const state = {
     detectMode: 'both', // 'both', 'chain', 'drop', 'pickup'
     selectedSize: 'all',
     sensitivityPreset: 'ultra',
+    scopeMode: 'waterfall', // 'waterfall', 'split', 'scope'
     stream: null,
     audioContext: null,
     sourceNode: null,
