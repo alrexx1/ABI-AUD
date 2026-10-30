@@ -4,6 +4,7 @@
  */
 
 import { state } from '../core/state.js';
+import { ITEM_FALLBACK_SVG } from '../core/constants.js';
 
 export async function toggleRadarPiP() {
   if ('documentPictureInPicture' in window) {
@@ -104,7 +105,10 @@ export function updatePiPHUD(item, sound, confidence) {
     if (pill) { pill.className = 'pip-pill idle'; pill.textContent = '⚪ DESCARTAR'; }
   }
 
-  if (img && item && item.iconUrl) img.src = item.iconUrl;
+  if (img && item) {
+    img.onerror = () => { img.src = ITEM_FALLBACK_SVG; };
+    img.src = item.iconUrl || ITEM_FALLBACK_SVG;
+  }
   if (name && item) name.textContent = item.nameEs || item.name;
   if (price && item) price.textContent = `~${(item.referencePrice || 0).toLocaleString()} Koens`;
   if (size && item) size.textContent = `[${item.sizeLabel || '1x1'}]`;

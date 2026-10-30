@@ -987,7 +987,7 @@ const ABI_DATA = {
     "soundId": 37,
     "pickupSound": "Item_Misc_Big_Paper_Up",
     "dropSound": "Item_Misc_Big_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080032.png",
+    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080040.png",
     "describe": "Mapa cartográfico detallado con rutas secretas de la Isla."
   },
   {
@@ -9386,7 +9386,7 @@ const ABI_DATA = {
     "soundId": 37,
     "pickupSound": "Item_Misc_Big_Paper_Up",
     "dropSound": "Item_Misc_Big_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080032.png",
+    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080040.png",
     "describe": "Mapa cartográfico detallado con rutas secretas de la Isla."
   },
   {

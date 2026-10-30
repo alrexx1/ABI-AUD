@@ -4,6 +4,7 @@
  */
 
 import { playSoundFile, playSynthSFX } from '../audio/audioEngine.js';
+import { ITEM_FALLBACK_SVG } from '../core/constants.js';
 
 export const COMPARE_PRESETS_DATA = Object.freeze({
   lion_vs_cheetah: {
@@ -41,7 +42,10 @@ export function updateComparePreset(key) {
   const descA = document.getElementById('slot-a-desc');
   const btnA = document.getElementById('btn-play-slot-a');
 
-  if (imgA) imgA.src = itA.iconUrl;
+  if (imgA) {
+    imgA.onerror = () => { imgA.src = ITEM_FALLBACK_SVG; };
+    imgA.src = itA.iconUrl || ITEM_FALLBACK_SVG;
+  }
   if (nameA) nameA.textContent = preset.itemA.title;
   if (descA) descA.textContent = preset.itemA.desc;
   if (btnA) {
@@ -56,7 +60,10 @@ export function updateComparePreset(key) {
   const descB = document.getElementById('slot-b-desc');
   const btnB = document.getElementById('btn-play-slot-b');
 
-  if (imgB) imgB.src = itB.iconUrl;
+  if (imgB) {
+    imgB.onerror = () => { imgB.src = ITEM_FALLBACK_SVG; };
+    imgB.src = itB.iconUrl || ITEM_FALLBACK_SVG;
+  }
   if (nameB) nameB.textContent = preset.itemB.title;
   if (descB) descB.textContent = preset.itemB.desc;
   if (btnB) {

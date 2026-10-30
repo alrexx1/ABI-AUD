@@ -40,7 +40,7 @@
   </style>
 
   <!-- Estilos Principales con Cache-Busting -->
-  <link rel="stylesheet" href="style.css?v=2.0.7">
+  <link rel="stylesheet" href="style.css?v=2.0.8">
   
   <!-- Manifest PWA Offline -->
   <link rel="manifest" href="manifest.json">
@@ -201,7 +201,7 @@
               </svg>
 
               <!-- Imagen Revelada al Responder -->
-              <img src="" alt="Ítem Revelado" class="revealed-item-img" id="revealed-img">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Ítem Revelado" class="revealed-item-img" id="revealed-img">
 
               <span class="box-price-tag" id="box-price-display">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -277,7 +277,7 @@
             </div>
 
             <div class="feedback-item-details">
-              <img src="" alt="" class="feedback-item-icon" id="feedback-item-img">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Ítem" class="feedback-item-icon" id="feedback-item-img">
               <div class="feedback-item-info">
                 <div class="feedback-item-name" id="feedback-item-name">Vase (Jarrón de Porcelana)</div>
                 <div class="feedback-item-meta" id="feedback-item-meta">Rareza: Roja (Tier 6) | Precio Mercado: 1,373,625 K | Tamaño: 2x2</div>
@@ -650,7 +650,7 @@
               </div>
 
               <div class="verdict-item-preview">
-                <img src="" id="verdict-item-img" alt="Ítem Detectado">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" id="verdict-item-img" alt="Ítem Detectado">
                 <div class="verdict-item-meta-group">
                   <div class="verdict-item-title" id="verdict-item-name">Antique Teapot (Tetera Antigua)</div>
                   <div class="verdict-item-price" id="verdict-item-price">Valor de Mercado: ~1,415,250 Koens</div>
@@ -881,7 +881,7 @@
           <div class="compare-slot slot-a">
             <span class="compare-slot-title" id="slot-a-title">Ítem A (Rojo)</span>
             <div style="height: 120px; display: flex; align-items: center; justify-content: center;">
-              <img src="" id="slot-a-img" style="max-height: 100px; object-fit: contain; filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.4));">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" id="slot-a-img" style="max-height: 100px; object-fit: contain;">
             </div>
             <div id="slot-a-name" style="font-family: var(--font-hud); font-size: 1.3rem; font-weight: 700; color: #fff;"></div>
             <div id="slot-a-desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;"></div>
@@ -897,7 +897,7 @@
           <div class="compare-slot slot-b">
             <span class="compare-slot-title" id="slot-b-title">Ítem B (Trampa / Dorado)</span>
             <div style="height: 120px; display: flex; align-items: center; justify-content: center;">
-              <img src="" id="slot-b-img" style="max-height: 100px; object-fit: contain; filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.3));">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" id="slot-b-img" style="max-height: 100px; object-fit: contain;">
             </div>
             <div id="slot-b-name" style="font-family: var(--font-hud); font-size: 1.3rem; font-weight: 700; color: #fff;"></div>
             <div id="slot-b-desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;"></div>
@@ -998,11 +998,11 @@
   </footer>
 
   <!-- SCRIPTS -->
-  <script src="app_data.js?v=2.0.7"></script>
+  <script src="app_data.js?v=2.0.8"></script>
   <!-- Arquitectura Modular Escalable (ES Modules) -->
-  <script type="module" src="src/main.js?v=2.0.7"></script>
+  <script type="module" src="src/main.js?v=2.0.8"></script>
   <!-- Fallback para entornos heredados -->
-  <script nomodule src="app.js?v=2.0.7"></script>
+  <script nomodule src="app.js?v=2.0.8"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

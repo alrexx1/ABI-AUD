@@ -39,7 +39,7 @@ const SECURITY_HEADERS = {
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Permissions-Policy': 'display-capture=(self), microphone=(self)',
   'Access-Control-Allow-Origin': '*',
-  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; media-src 'self' blob:; img-src 'self' data: blob:; connect-src 'self'; worker-src 'self' blob:;"
+  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; media-src 'self' blob:; img-src 'self' data: blob: https://hexaov91.github.io https://*.github.io; connect-src 'self'; worker-src 'self' blob:;"
 };
 
 // Rate Limiter en memoria (Sliding Window Anti-DoS / Zero-Dependencies)

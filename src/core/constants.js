@@ -78,3 +78,9 @@ export const COMPARE_PRESETS = Object.freeze({
   }
 });
 
+/**
+ * Placeholder SVG táctico ultra-ligero para ítems cuando falla la red o imagen
+ */
+export const ITEM_FALLBACK_SVG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' width='80' height='80'%3E%3Crect width='80' height='80' rx='12' fill='%23111724' stroke='%23334155' stroke-width='1.5'/%3E%3Cpath d='M40 22 L58 32 L58 52 L40 62 L22 52 L22 32 Z' fill='none' stroke='%23f59e0b' stroke-width='2.5' stroke-linejoin='round'/%3E%3Ccircle cx='40' cy='42' r='8' fill='%23ef4444' opacity='0.9'/%3E%3Cpath d='M40 36 L40 48 M34 42 L46 42' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E";
+
+
