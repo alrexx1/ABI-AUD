@@ -30,7 +30,11 @@ export function switchTab(tabId) {
   state.currentTab = tabId;
 
   document.querySelectorAll('.nav-tab').forEach(tab => {
-    tab.classList.toggle('active', tab.getAttribute('data-tab') === tabId);
+    const isActive = tab.getAttribute('data-tab') === tabId;
+    tab.classList.toggle('active', isActive);
+    if (isActive) {
+      tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
   });
 
   document.querySelectorAll('.view-section').forEach(sec => {

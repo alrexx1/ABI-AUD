@@ -1,25 +1,25 @@
 /* ==========================================================================
    ABI SOUND MASTER - ESTILOS TÁCTICOS Y SISTEMA DE DISEÑO ARMÓNICO
-   Vanilla CSS táctico, desaturado, accesible y de alta legibilidad
+   Vanilla CSS táctico, desaturado, ultra-responsivo, accesible y ergonómico
    ========================================================================== */
 
 :root {
-  /* Fondos Tácticos Neutros y Calmados */
-  --bg-core: #090c10;
-  --bg-surface: #0e131d;
-  --bg-card: #121926;
-  --bg-card-hover: #172030;
-  --bg-overlay: rgba(6, 9, 14, 0.88);
-  --bg-input: #0b1018;
+  /* Fondos Tácticos Neutros, Cálidos y Confortables */
+  --bg-core: #0a0e17;
+  --bg-surface: #0f1523;
+  --bg-card: #131b2e;
+  --bg-card-hover: #18233a;
+  --bg-overlay: rgba(8, 12, 20, 0.88);
+  --bg-input: #0b111c;
 
   /* Bordes Suaves y Estructurados */
-  --border-subtle: rgba(148, 163, 184, 0.12);
-  --border-hover: rgba(148, 163, 184, 0.24);
-  --border-focus: rgba(56, 189, 248, 0.45);
-  --border-gold: rgba(245, 158, 11, 0.25);
-  --border-red: rgba(239, 68, 68, 0.3);
+  --border-subtle: rgba(148, 163, 184, 0.11);
+  --border-hover: rgba(148, 163, 184, 0.22);
+  --border-focus: rgba(56, 189, 248, 0.5);
+  --border-gold: rgba(245, 158, 11, 0.28);
+  --border-red: rgba(239, 68, 68, 0.32);
 
-  /* Colores Semánticos y de Rareza ABI (Desaturados / No Neón) */
+  /* Colores Semánticos y de Rareza ABI (Cálidos, Desaturados y No Neón) */
   --rarity-red: #ef4444;
   --rarity-red-soft: rgba(239, 68, 68, 0.12);
   --rarity-gold: #f59e0b;
@@ -29,29 +29,30 @@
   --rarity-gray: #64748b;
   --rarity-gray-soft: rgba(100, 116, 139, 0.14);
 
-  /* Acentos Funcionales */
+  /* Acentos Funcionales Confortables a la Vista */
   --accent-gold: #f59e0b;
   --accent-cyan: #38bdf8;
   --accent-green: #10b981;
-  --text-main: #f8fafc;
+  --text-main: #f1f5f9;
   --text-muted: #94a3b8;
   --text-dim: #64748b;
 
-  --font-hud: 'Rajdhani', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-hud: 'Rajdhani', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
   --radius-xl: 20px;
+  --radius-pill: 9999px;
 
-  /* Elevaciones Físicas Suaves (Sin Resplandores Cegadores) */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 12px 32px -4px rgba(0, 0, 0, 0.5);
-  --shadow-hud: 0 6px 24px rgba(0, 0, 0, 0.4);
-  --transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Elevaciones Físicas Suaves con Borde Superior de Luz Táctil */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --shadow-lg: 0 10px 30px -4px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --shadow-hud: 0 6px 20px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 *, *::before, *::after {
@@ -60,31 +61,38 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   background-color: var(--bg-core);
   color: var(--text-main);
   font-family: var(--font-body);
-  line-height: 1.5;
+  line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
-  background-image: radial-gradient(ellipse 90% 55% at 50% -10%, rgba(56, 189, 248, 0.04), transparent);
+  background-image: radial-gradient(1200px 800px at 50% -120px, rgba(56, 189, 248, 0.04), transparent 75%), #0a0e17;
   background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scrollbar táctica minimalista */
+/* Scrollbar táctica minimalista y agradable */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-core);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.2);
+  background: rgba(148, 163, 184, 0.22);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.35);
+  background: rgba(148, 163, 184, 0.38);
 }
 
 /* Enfoque accesible visible */
@@ -100,10 +108,12 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(9, 12, 16, 0.92);
+  background: rgba(10, 14, 23, 0.94);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
   padding: 0.65rem 1.5rem;
+  transition: padding var(--transition);
 }
 
 .header-container {
@@ -120,6 +130,7 @@ body {
   align-items: center;
   gap: 0.75rem;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .brand-icon {
@@ -133,6 +144,7 @@ body {
   justify-content: center;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .brand-icon svg {
@@ -171,7 +183,7 @@ body {
 }
 
 .brand-subtitle {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   color: var(--text-muted);
   letter-spacing: 0.02em;
 }
@@ -181,11 +193,18 @@ body {
    ========================================================================== */
 .nav-tabs {
   display: flex;
-  background: rgba(14, 19, 29, 0.85);
+  align-items: center;
+  background: rgba(15, 21, 35, 0.9);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-pill);
   padding: 4px;
   gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-tab {
@@ -193,28 +212,31 @@ body {
   border: 1px solid transparent;
   color: var(--text-muted);
   font-family: var(--font-hud);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 0.45rem 1.15rem;
-  border-radius: var(--radius-md);
+  letter-spacing: 0.05em;
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-pill);
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
   transition: var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
+  user-select: none;
 }
 
 .nav-tab:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .nav-tab.active {
   color: #fff;
-  background: #172030;
-  border-color: rgba(56, 189, 248, 0.28);
+  background: #192438;
+  border-color: rgba(56, 189, 248, 0.32);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
   font-weight: 700;
 }
@@ -227,6 +249,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 .btn-icon {
@@ -387,12 +410,6 @@ body {
   display: grid;
   grid-template-columns: 1fr 340px;
   gap: 1.5rem;
-}
-
-@media (max-width: 1024px) {
-  .trainer-dashboard {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* Tarjeta Principal de Prueba Acústica */
@@ -679,9 +696,6 @@ body {
   background: #1f2c42;
   color: #fff;
   border-color: rgba(148, 163, 184, 0.25);
-}
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .decision-title {
@@ -1041,14 +1055,8 @@ body {
 /* Cuadrícula de Sonidos Compatibles en Raid */
 .candidate-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
   gap: 1.25rem;
-}
-
-@media (max-width: 640px) {
-  .candidate-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 .sound-match-card {
@@ -1428,12 +1436,6 @@ body {
   gap: 1.5rem;
 }
 
-@media (max-width: 768px) {
-  .compare-box-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 .compare-slot {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -1575,36 +1577,38 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
-  color: #fff;
-  border: 1px solid var(--accent-green);
+  background: #142823;
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
   border-radius: var(--radius-md);
   padding: 0.75rem 1.4rem;
   font-family: var(--font-hud);
   font-size: 1.05rem;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 0.05em;
   cursor: pointer;
-  box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: var(--transition);
 }
 
 .btn-radar-toggle:hover {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(6, 182, 212, 0.35));
-  transform: translateY(-2px);
-  box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
+  background: #19382e;
+  border-color: #10b981;
+  color: #fff;
+  transform: translateY(-1px);
 }
 
 .btn-radar-toggle.active {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(220, 38, 38, 0.4));
-  border-color: var(--rarity-red);
-  box-shadow: 0 0 25px rgba(239, 68, 68, 0.45);
-  animation: pulse-btn-active 2s infinite ease-in-out;
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.6);
+  color: #fca5a5;
+  box-shadow: 0 2px 12px rgba(239, 68, 68, 0.25);
+  animation: pulse-btn-active 2.5s infinite ease-in-out;
 }
 
 @keyframes pulse-btn-active {
-  0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
-  50% { box-shadow: 0 0 35px rgba(239, 68, 68, 0.8); }
+  0%, 100% { box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2); }
+  50% { box-shadow: 0 2px 16px rgba(239, 68, 68, 0.35); }
 }
 
 /* Cuadrícula de 2 Columnas para Scanner y Veredicto */
@@ -1612,12 +1616,6 @@ body {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   gap: 1.5rem;
-}
-
-@media (max-width: 992px) {
-  .radar-hud-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* Tarjeta del Escáner y Osciloscopio */
@@ -2285,6 +2283,401 @@ body {
 .btn-replay-pill.outline:hover {
   background: rgba(6, 182, 212, 0.15);
   border-color: var(--accent-cyan);
+}
+
+/* ==========================================================================
+   SISTEMA DE DISEÑO RESPONSIVO FLUIDO (MOBILE, TABLET & DESKTOP)
+   Optimizado para máxima ergonomía visual, navegación táctil y armonía
+   ========================================================================== */
+
+/* 1. Laptops y Pantallas Medianas (<= 1100px) */
+@media (max-width: 1100px) {
+  .site-header {
+    padding: 0.55rem 1rem;
+  }
+
+  .header-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.6rem 0.75rem;
+    align-items: center;
+  }
+
+  .brand {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+
+  .header-actions {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    justify-self: end;
+  }
+
+  .nav-tabs {
+    grid-column: 1 / -1;
+    grid-row: 2 / 3;
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    border-radius: var(--radius-pill);
+    padding: 4px;
+    gap: 6px;
+    scroll-snap-type: x proximity;
+  }
+
+  .nav-tab {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    padding: 0.45rem 0.95rem;
+    font-size: 0.88rem;
+  }
+}
+
+/* 2. Tablets en Modo Horizontal y Pantallas <= 992px */
+@media (max-width: 992px) {
+  .trainer-dashboard {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .radar-hud-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .compare-box-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .audio-hud-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.6rem 0.85rem;
+    align-items: center;
+  }
+
+  .audio-track-info {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    min-width: 0;
+  }
+
+  .volume-control {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    justify-self: end;
+  }
+
+  .visualizer-canvas {
+    grid-column: 1 / -1;
+    grid-row: 2 / 3;
+    width: 100%;
+    max-width: 100%;
+    height: 30px;
+  }
+}
+
+/* 3. Tablets en Modo Vertical y Pantallas <= 768px */
+@media (max-width: 768px) {
+  .site-header {
+    padding: 0.5rem 0.85rem;
+  }
+
+  .audio-hud-bar {
+    padding: 0.45rem 0.85rem;
+  }
+
+  .main-content {
+    padding: 1rem 0.85rem;
+  }
+
+  .soundboard-toolbar {
+    padding: 0.85rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .search-input-wrap {
+    min-width: 100%;
+    width: 100%;
+  }
+
+  .category-tags-row {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+    gap: 0.4rem;
+  }
+
+  .category-tags-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cat-tag-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .size-pill-group {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+    display: flex;
+  }
+
+  .size-pill-group::-webkit-scrollbar {
+    display: none;
+  }
+
+  .size-pill {
+    flex-shrink: 0;
+  }
+
+  .filters-row {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .candidate-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 1rem;
+  }
+
+  .red-items-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr));
+    gap: 1rem;
+  }
+
+  .compare-slot {
+    padding: 1.25rem;
+  }
+}
+
+/* 4. Teléfonos Móviles Estándar (<= 640px) */
+@media (max-width: 640px) {
+  .trainer-card {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .trainer-hud-top {
+    margin-bottom: 1rem;
+  }
+
+  .mystery-box-stage {
+    width: 170px;
+    height: 170px;
+    margin: 1rem auto 1.5rem;
+  }
+
+  .mystery-box-container {
+    width: 145px;
+    height: 145px;
+  }
+
+  .box-icon-crate {
+    width: 52px;
+    height: 52px;
+  }
+
+  .revealed-item-img {
+    width: 95px;
+    height: 95px;
+  }
+
+  .decision-panel {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .btn-decision {
+    padding: 0.85rem 0.55rem;
+  }
+
+  .decision-title {
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+  }
+
+  .decision-desc {
+    font-size: 0.68rem;
+  }
+
+  .audio-trigger-panel {
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-sound-play {
+    padding: 0.65rem 1rem;
+    font-size: 0.92rem;
+    min-width: 130px;
+  }
+
+  .radar-display-wrap {
+    height: 180px;
+  }
+
+  .radar-controls-strip {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .radar-source-select-group {
+    width: 100%;
+  }
+
+  .radar-action-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .btn-radar-toggle, #btn-toggle-pip, #btn-calibrate-noise {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal-card {
+    padding: 1.25rem;
+    width: 94%;
+    max-height: 88vh;
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* 5. Móviles Compactos (<= 480px) */
+@media (max-width: 480px) {
+  .site-header {
+    padding: 0.45rem 0.65rem;
+  }
+
+  .main-content {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .brand-title {
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .brand-badge {
+    font-size: 0.6rem;
+    padding: 0 4px;
+  }
+
+  .nav-tabs {
+    gap: 4px;
+    padding: 3px;
+  }
+
+  .nav-tab {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.82rem;
+    gap: 0.35rem;
+  }
+
+  .nav-tab svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .audio-hud-bar {
+    padding: 0.4rem 0.65rem;
+  }
+
+  .audio-playing-name {
+    max-width: 140px;
+    font-size: 0.88rem;
+  }
+
+  .audio-playing-desc {
+    font-size: 0.68rem;
+  }
+
+  .volume-control input[type="range"] {
+    width: 65px;
+  }
+
+  .visualizer-canvas {
+    height: 24px;
+  }
+
+  .candidate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .red-items-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feedback-box {
+    padding: 0.85rem;
+  }
+
+  .feedback-item-details {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .verdict-item-preview {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .radar-replay-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .replay-btn-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .btn-replay-pill {
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* 6. Pantallas Extra Estrechas (<= 360px) */
+@media (max-width: 360px) {
+  .decision-panel {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .btn-sound-play {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* Footer */
