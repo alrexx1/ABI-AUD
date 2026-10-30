@@ -772,7 +772,7 @@
         <div class="red-item-card" style="${cardBorder}">
           <div class="red-card-header">
             <div class="red-item-icon-box" style="${isSecretDoc ? 'border-color: var(--accent-gold); background: rgba(245, 158, 11, 0.15);' : ''}">
-              <img src="${item.iconUrl}" alt="${item.nameEs}" loading="lazy" onerror="this.onerror=null; this.src='https://hexaov91.github.io/abi-assets/image/Normal/408080010.png';">
+              <img src="${item.iconUrl}" alt="${item.nameEs}" loading="lazy" onerror="if(!this.dataset.cdn){this.dataset.cdn='1';this.src='https://hexaov91.github.io/abi-assets/image/Normal/${item.id}.png';}else{this.onerror=null;this.style.opacity='0.5';}">
             </div>
             <div class="red-item-main-info">
               <div style="margin-bottom: 0.25rem;">${sourceBadge}</div>

@@ -5,7 +5,7 @@
 
 import { state, saveStats } from '../core/state.js';
 import { playSoundFile, playSynthSFX } from '../audio/audioEngine.js';
-import { ITEM_FALLBACK_SVG } from '../core/constants.js';
+import { ITEM_FALLBACK_SVG, setItemImageWithFallback } from '../core/constants.js';
 
 export function generateNewMysteryRound() {
   const items = window.ABI_DATA ? window.ABI_DATA.items : [];
@@ -155,8 +155,7 @@ export function handleTrainerDecision(userChoseRed) {
     boxHalo.classList.add(isActualRed ? 'red-glow' : '');
   }
   if (revealedImg) {
-    revealedImg.onerror = () => { revealedImg.src = ITEM_FALLBACK_SVG; };
-    revealedImg.src = mystery.item.iconUrl || ITEM_FALLBACK_SVG;
+    setItemImageWithFallback(revealedImg, mystery.item);
   }
 
   const decisionPanel = document.getElementById('decision-panel');
@@ -202,8 +201,7 @@ export function handleTrainerDecision(userChoseRed) {
   }
 
   if (itemImgEl) {
-    itemImgEl.onerror = () => { itemImgEl.src = ITEM_FALLBACK_SVG; };
-    itemImgEl.src = mystery.item.iconUrl || ITEM_FALLBACK_SVG;
+    setItemImageWithFallback(itemImgEl, mystery.item);
   }
   if (itemNameEl) itemNameEl.textContent = `${mystery.item.nameEs} (${mystery.item.name})`;
 

@@ -4,7 +4,7 @@
  */
 
 import { state } from '../core/state.js';
-import { ITEM_FALLBACK_SVG } from '../core/constants.js';
+import { ITEM_FALLBACK_SVG, setItemImageWithFallback } from '../core/constants.js';
 
 export async function toggleRadarPiP() {
   if ('documentPictureInPicture' in window) {
@@ -106,8 +106,7 @@ export function updatePiPHUD(item, sound, confidence) {
   }
 
   if (img && item) {
-    img.onerror = () => { img.src = ITEM_FALLBACK_SVG; };
-    img.src = item.iconUrl || ITEM_FALLBACK_SVG;
+    setItemImageWithFallback(img, item);
   }
   if (name && item) name.textContent = item.nameEs || item.name;
   if (price && item) price.textContent = `~${(item.referencePrice || 0).toLocaleString()} Koens`;

@@ -63,5 +63,14 @@ describe('Base de Datos ABI y Firmas Precalculadas', () => {
     assert.ok(lion, 'El León Dorado debe estar presente');
   });
 
+  it('todos los ítems deben tener su archivo de icono local PNG existente en disco en images/items/', () => {
+    ABI_DATA.items.forEach(it => {
+      assert.ok(it.iconUrl, `Ítem #${it.id} (${it.nameEs}) debe tener iconUrl`);
+      const localPath = path.join(process.cwd(), it.iconUrl);
+      assert.ok(fs.existsSync(localPath), `El icono de ${it.nameEs} (${it.iconUrl}) debe existir físicamente en disco`);
+      assert.ok(fs.statSync(localPath).size > 500, `El icono de ${it.nameEs} no debe estar vacío o corrupto`);
+    });
+  });
+
 });
 

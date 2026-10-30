@@ -27,7 +27,7 @@ const ABI_DATA = {
     "soundId": 35,
     "pickupSound": "Item_Misc_Small_Paper_Up",
     "dropSound": "Item_Misc_Small_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080027.png",
+    "iconUrl": "images/items/408080027.png",
     "describe": "El documento militar más clasificado y codiciado de toda la Zona Oscura. ¡Vale más de 16 millones de Koens!"
   },
   {
@@ -51,7 +51,7 @@ const ABI_DATA = {
     "soundId": 24,
     "pickupSound": "Item_Misc_Small_Glass_Up",
     "dropSound": "Item_Misc_Small_Glass_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080087.png",
+    "iconUrl": "images/items/408080087.png",
     "describe": "Estimulante militar experimental ultra raro de alto valor."
   },
   {
@@ -75,7 +75,7 @@ const ABI_DATA = {
     "soundId": 2,
     "pickupSound": "Item_Container_Big_Metal_Up",
     "dropSound": "Item_Container_Big_Metal_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080040.png",
+    "iconUrl": "images/items/408080040.png",
     "describe": "Contenedor hermético reforzado de máxima seguridad con tecnología de Utopia."
   },
   {
@@ -99,7 +99,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080006.png",
+    "iconUrl": "images/items/498080006.png",
     "describe": ""
   },
   {
@@ -123,7 +123,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080003.png",
+    "iconUrl": "images/items/498080003.png",
     "describe": ""
   },
   {
@@ -147,7 +147,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498140003.png",
+    "iconUrl": "images/items/498140003.png",
     "describe": ""
   },
   {
@@ -171,7 +171,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080001.png",
+    "iconUrl": "images/items/498080001.png",
     "describe": ""
   },
   {
@@ -195,7 +195,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498100001.png",
+    "iconUrl": "images/items/498100001.png",
     "describe": ""
   },
   {
@@ -219,7 +219,7 @@ const ABI_DATA = {
     "soundId": 36,
     "pickupSound": "Item_Misc_Med_Statue_Up",
     "dropSound": "Item_Misc_Med_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080039.png",
+    "iconUrl": "images/items/408080039.png",
     "describe": ""
   },
   {
@@ -243,7 +243,7 @@ const ABI_DATA = {
     "soundId": 30,
     "pickupSound": "Item_Misc_Med_Glass_Up",
     "dropSound": "Item_Misc_Med_Glass_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498060005.png",
+    "iconUrl": "images/items/498060005.png",
     "describe": ""
   },
   {
@@ -267,7 +267,7 @@ const ABI_DATA = {
     "soundId": 14,
     "pickupSound": "Item_Misc_Big_Wood_Up",
     "dropSound": "Item_Misc_Big_Wood_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080025.png",
+    "iconUrl": "images/items/498080025.png",
     "describe": ""
   },
   {
@@ -291,7 +291,7 @@ const ABI_DATA = {
     "soundId": 28,
     "pickupSound": "Prop_Acc_Statue_UP",
     "dropSound": "Prop_Acc_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080008.png",
+    "iconUrl": "images/items/408080008.png",
     "describe": ""
   },
   {
@@ -315,7 +315,7 @@ const ABI_DATA = {
     "soundId": 25,
     "pickupSound": "Item_Misc_Med_Wood_Clock_Up",
     "dropSound": "Item_Misc_Med_Wood_Clock_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080026.png",
+    "iconUrl": "images/items/498080026.png",
     "describe": "Flauta de colección tallada en jade puro con un timbre acústico único."
   },
   {
@@ -339,7 +339,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080047.png",
+    "iconUrl": "images/items/408080047.png",
     "describe": ""
   },
   {
@@ -363,7 +363,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080002.png",
+    "iconUrl": "images/items/498080002.png",
     "describe": ""
   },
   {
@@ -387,7 +387,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498070002.png",
+    "iconUrl": "images/items/498070002.png",
     "describe": ""
   },
   {
@@ -411,7 +411,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498140005.png",
+    "iconUrl": "images/items/498140005.png",
     "describe": ""
   },
   {
@@ -435,7 +435,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498140001.png",
+    "iconUrl": "images/items/498140001.png",
     "describe": ""
   },
   {
@@ -459,7 +459,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080012.png",
+    "iconUrl": "images/items/498080012.png",
     "describe": "Objeto anómalo ultrarraro que desafía las leyes físicas."
   },
   {
@@ -483,7 +483,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080005.png",
+    "iconUrl": "images/items/498080005.png",
     "describe": ""
   },
   {
@@ -507,7 +507,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120019.png",
+    "iconUrl": "images/items/408120019.png",
     "describe": ""
   },
   {
@@ -531,7 +531,7 @@ const ABI_DATA = {
     "soundId": 33,
     "pickupSound": "Item_GoldChain_Up",
     "dropSound": "Item_GoldChain_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080029.png",
+    "iconUrl": "images/items/408080029.png",
     "describe": ""
   },
   {
@@ -555,7 +555,7 @@ const ABI_DATA = {
     "soundId": 31,
     "pickupSound": "Prop_Acc_Clock_UP",
     "dropSound": "Prop_Acc_Clock_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080024.png",
+    "iconUrl": "images/items/498080024.png",
     "describe": "Reloj de precisión distorsionado con grabado ceremonial."
   },
   {
@@ -579,7 +579,7 @@ const ABI_DATA = {
     "soundId": 36,
     "pickupSound": "Item_Misc_Med_Statue_Up",
     "dropSound": "Item_Misc_Med_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080041.png",
+    "iconUrl": "images/items/408080041.png",
     "describe": ""
   },
   {
@@ -603,7 +603,7 @@ const ABI_DATA = {
     "soundId": 32,
     "pickupSound": "Prop_Acc_Teapot_UP",
     "dropSound": "Prop_Acc_Teapot_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080010.png",
+    "iconUrl": "images/items/408080010.png",
     "describe": ""
   },
   {
@@ -627,7 +627,7 @@ const ABI_DATA = {
     "soundId": 6,
     "pickupSound": "Item_Misc_Med_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Med_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080018.png",
+    "iconUrl": "images/items/498080018.png",
     "describe": ""
   },
   {
@@ -651,7 +651,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498100003.png",
+    "iconUrl": "images/items/498100003.png",
     "describe": ""
   },
   {
@@ -675,7 +675,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080016.png",
+    "iconUrl": "images/items/498080016.png",
     "describe": ""
   },
   {
@@ -699,7 +699,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498060003.png",
+    "iconUrl": "images/items/498060003.png",
     "describe": ""
   },
   {
@@ -723,7 +723,7 @@ const ABI_DATA = {
     "soundId": 33,
     "pickupSound": "Item_GoldChain_Up",
     "dropSound": "Item_GoldChain_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080019.png",
+    "iconUrl": "images/items/498080019.png",
     "describe": ""
   },
   {
@@ -747,7 +747,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080004.png",
+    "iconUrl": "images/items/498080004.png",
     "describe": "Brazo robótico de alta tecnología utilizado en instalaciones clasificadas."
   },
   {
@@ -771,7 +771,7 @@ const ABI_DATA = {
     "soundId": 30,
     "pickupSound": "Item_Misc_Med_Glass_Up",
     "dropSound": "Item_Misc_Med_Glass_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080003.png",
+    "iconUrl": "images/items/408080003.png",
     "describe": ""
   },
   {
@@ -795,7 +795,7 @@ const ABI_DATA = {
     "soundId": 36,
     "pickupSound": "Item_Misc_Med_Statue_Up",
     "dropSound": "Item_Misc_Med_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080017.png",
+    "iconUrl": "images/items/498080017.png",
     "describe": ""
   },
   {
@@ -819,7 +819,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080011.png",
+    "iconUrl": "images/items/498080011.png",
     "describe": ""
   },
   {
@@ -843,7 +843,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498060004.png",
+    "iconUrl": "images/items/498060004.png",
     "describe": ""
   },
   {
@@ -867,7 +867,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080010.png",
+    "iconUrl": "images/items/498080010.png",
     "describe": ""
   },
   {
@@ -891,7 +891,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080009.png",
+    "iconUrl": "images/items/498080009.png",
     "describe": ""
   },
   {
@@ -915,7 +915,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080008.png",
+    "iconUrl": "images/items/498080008.png",
     "describe": ""
   },
   {
@@ -939,7 +939,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120013.png",
+    "iconUrl": "images/items/408120013.png",
     "describe": ""
   },
   {
@@ -963,7 +963,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080041.png",
+    "iconUrl": "images/items/498080041.png",
     "describe": "Maqueta de aleación del legendario prototipo Caliburn."
   },
   {
@@ -987,7 +987,7 @@ const ABI_DATA = {
     "soundId": 37,
     "pickupSound": "Item_Misc_Big_Paper_Up",
     "dropSound": "Item_Misc_Big_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080040.png",
+    "iconUrl": "images/items/408080040.png",
     "describe": "Mapa cartográfico detallado con rutas secretas de la Isla."
   },
   {
@@ -1011,7 +1011,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/202150001.png",
+    "iconUrl": "images/items/202150001.png",
     "describe": "Munición perforante de máxima penetración para rifles de francotirador pesado."
   },
   {
@@ -1035,7 +1035,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/202020003.png",
+    "iconUrl": "images/items/202020003.png",
     "describe": "Munición militar 7N37 de penetración blindada nivel 6."
   },
   {
@@ -1059,7 +1059,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/202060003.png",
+    "iconUrl": "images/items/202060003.png",
     "describe": "Munición perforante M61 para fusiles 7.62x51 OTAN."
   },
   {
@@ -1083,7 +1083,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/202020005.png",
+    "iconUrl": "images/items/202020005.png",
     "describe": "Munición perforante SNB de grado militar."
   }
 ],
@@ -4730,7 +4730,7 @@ const ABI_DATA = {
     "soundId": 1,
     "pickupSound": "Item_Misc_Med_Comp_Up",
     "dropSound": "Item_Misc_Med_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408010005.png",
+    "iconUrl": "images/items/408010005.png",
     "describe": ""
   },
   {
@@ -4754,7 +4754,7 @@ const ABI_DATA = {
     "soundId": 2,
     "pickupSound": "Item_Container_Big_Metal_Up",
     "dropSound": "Item_Container_Big_Metal_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408010006.png",
+    "iconUrl": "images/items/408010006.png",
     "describe": ""
   },
   {
@@ -4778,7 +4778,7 @@ const ABI_DATA = {
     "soundId": 2,
     "pickupSound": "Item_Container_Big_Metal_Up",
     "dropSound": "Item_Container_Big_Metal_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408010008.png",
+    "iconUrl": "images/items/408010008.png",
     "describe": ""
   },
   {
@@ -4802,7 +4802,7 @@ const ABI_DATA = {
     "soundId": 2,
     "pickupSound": "Item_Container_Big_Metal_Up",
     "dropSound": "Item_Container_Big_Metal_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408010009.png",
+    "iconUrl": "images/items/408010009.png",
     "describe": ""
   },
   {
@@ -4826,7 +4826,7 @@ const ABI_DATA = {
     "soundId": 1,
     "pickupSound": "Item_Misc_Med_Comp_Up",
     "dropSound": "Item_Misc_Med_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408010012.png",
+    "iconUrl": "images/items/408010012.png",
     "describe": ""
   },
   {
@@ -4850,7 +4850,7 @@ const ABI_DATA = {
     "soundId": 2,
     "pickupSound": "Item_Container_Big_Metal_Up",
     "dropSound": "Item_Container_Big_Metal_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408010014.png",
+    "iconUrl": "images/items/408010014.png",
     "describe": ""
   },
   {
@@ -4874,7 +4874,7 @@ const ABI_DATA = {
     "soundId": 3,
     "pickupSound": "Item_Misc_Med_Fabric_Up",
     "dropSound": "Item_Misc_Med_Fabric_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408010015.png",
+    "iconUrl": "images/items/408010015.png",
     "describe": ""
   },
   {
@@ -4898,7 +4898,7 @@ const ABI_DATA = {
     "soundId": 3,
     "pickupSound": "Item_Misc_Med_Fabric_Up",
     "dropSound": "Item_Misc_Med_Fabric_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408010016.png",
+    "iconUrl": "images/items/408010016.png",
     "describe": ""
   },
   {
@@ -4922,7 +4922,7 @@ const ABI_DATA = {
     "soundId": 4,
     "pickupSound": "Prop_Acc_Fuel_UP",
     "dropSound": "Prop_Acc_Fuel_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408020015.png",
+    "iconUrl": "images/items/408020015.png",
     "describe": ""
   },
   {
@@ -4946,7 +4946,7 @@ const ABI_DATA = {
     "soundId": 5,
     "pickupSound": "Prop_Acc_Concrete_UP",
     "dropSound": "Prop_Acc_Concrete_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408020017.png",
+    "iconUrl": "images/items/408020017.png",
     "describe": ""
   },
   {
@@ -4970,7 +4970,7 @@ const ABI_DATA = {
     "soundId": 6,
     "pickupSound": "Item_Misc_Med_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Med_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408020019.png",
+    "iconUrl": "images/items/408020019.png",
     "describe": ""
   },
   {
@@ -4994,7 +4994,7 @@ const ABI_DATA = {
     "soundId": 7,
     "pickupSound": "Prop_Acc_Plastic_Large_UP_01",
     "dropSound": "Prop_Acc_Plastic_Large_Down_02",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408020021.png",
+    "iconUrl": "images/items/408020021.png",
     "describe": ""
   },
   {
@@ -5018,7 +5018,7 @@ const ABI_DATA = {
     "soundId": 8,
     "pickupSound": "Item_Misc_Med_Wood_Up",
     "dropSound": "Item_Misc_Med_Wood_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408020022.png",
+    "iconUrl": "images/items/408020022.png",
     "describe": ""
   },
   {
@@ -5042,7 +5042,7 @@ const ABI_DATA = {
     "soundId": 8,
     "pickupSound": "Item_Misc_Med_Wood_Up",
     "dropSound": "Item_Misc_Med_Wood_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408020024.png",
+    "iconUrl": "images/items/408020024.png",
     "describe": ""
   },
   {
@@ -5066,7 +5066,7 @@ const ABI_DATA = {
     "soundId": 9,
     "pickupSound": "Item_Misc_Small_Comp_Up",
     "dropSound": "Item_Misc_Small_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408020025.png",
+    "iconUrl": "images/items/408020025.png",
     "describe": ""
   },
   {
@@ -5090,7 +5090,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408020026.png",
+    "iconUrl": "images/items/408020026.png",
     "describe": ""
   },
   {
@@ -5114,7 +5114,7 @@ const ABI_DATA = {
     "soundId": 11,
     "pickupSound": "Prop_Acc_Plastic_Small_UP",
     "dropSound": "Prop_Acc_Plastic_Small_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408030003.png",
+    "iconUrl": "images/items/408030003.png",
     "describe": ""
   },
   {
@@ -5138,7 +5138,7 @@ const ABI_DATA = {
     "soundId": 12,
     "pickupSound": "Prop_Acc_Tech_Small_UP",
     "dropSound": "Prop_Acc_Tech_Small_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408030004.png",
+    "iconUrl": "images/items/408030004.png",
     "describe": ""
   },
   {
@@ -5162,7 +5162,7 @@ const ABI_DATA = {
     "soundId": 13,
     "pickupSound": "Prop_Acc_PC_UP",
     "dropSound": "Prop_Acc_PC_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408030007.png",
+    "iconUrl": "images/items/408030007.png",
     "describe": ""
   },
   {
@@ -5186,7 +5186,7 @@ const ABI_DATA = {
     "soundId": 13,
     "pickupSound": "Prop_Acc_PC_UP",
     "dropSound": "Prop_Acc_PC_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408030008.png",
+    "iconUrl": "images/items/408030008.png",
     "describe": ""
   },
   {
@@ -5210,7 +5210,7 @@ const ABI_DATA = {
     "soundId": 12,
     "pickupSound": "Prop_Acc_Tech_Small_UP",
     "dropSound": "Prop_Acc_Tech_Small_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408030009.png",
+    "iconUrl": "images/items/408030009.png",
     "describe": ""
   },
   {
@@ -5234,7 +5234,7 @@ const ABI_DATA = {
     "soundId": 12,
     "pickupSound": "Prop_Acc_Tech_Small_UP",
     "dropSound": "Prop_Acc_Tech_Small_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408030013.png",
+    "iconUrl": "images/items/408030013.png",
     "describe": ""
   },
   {
@@ -5258,7 +5258,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408030014.png",
+    "iconUrl": "images/items/408030014.png",
     "describe": ""
   },
   {
@@ -5282,7 +5282,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408030016.png",
+    "iconUrl": "images/items/408030016.png",
     "describe": ""
   },
   {
@@ -5306,7 +5306,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408030023.png",
+    "iconUrl": "images/items/408030023.png",
     "describe": ""
   },
   {
@@ -5330,7 +5330,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408030024.png",
+    "iconUrl": "images/items/408030024.png",
     "describe": ""
   },
   {
@@ -5354,7 +5354,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408030025.png",
+    "iconUrl": "images/items/408030025.png",
     "describe": ""
   },
   {
@@ -5378,7 +5378,7 @@ const ABI_DATA = {
     "soundId": 14,
     "pickupSound": "Item_Misc_Big_Wood_Up",
     "dropSound": "Item_Misc_Big_Wood_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408030026.png",
+    "iconUrl": "images/items/408030026.png",
     "describe": ""
   },
   {
@@ -5402,7 +5402,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408030028.png",
+    "iconUrl": "images/items/408030028.png",
     "describe": ""
   },
   {
@@ -5426,7 +5426,7 @@ const ABI_DATA = {
     "soundId": 15,
     "pickupSound": "Prop_Acc_Battery_Small_UP_01",
     "dropSound": "Prop_Acc_Battery_Small_Down_01",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408040001.png",
+    "iconUrl": "images/items/408040001.png",
     "describe": ""
   },
   {
@@ -5450,7 +5450,7 @@ const ABI_DATA = {
     "soundId": 15,
     "pickupSound": "Prop_Acc_Battery_Small_UP_01",
     "dropSound": "Prop_Acc_Battery_Small_Down_01",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408040002.png",
+    "iconUrl": "images/items/408040002.png",
     "describe": ""
   },
   {
@@ -5474,7 +5474,7 @@ const ABI_DATA = {
     "soundId": 6,
     "pickupSound": "Item_Misc_Med_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Med_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408040004.png",
+    "iconUrl": "images/items/408040004.png",
     "describe": ""
   },
   {
@@ -5498,7 +5498,7 @@ const ABI_DATA = {
     "soundId": 16,
     "pickupSound": "Item_Acc_Med_Comp_Up",
     "dropSound": "Item_Acc_Med_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408040006.png",
+    "iconUrl": "images/items/408040006.png",
     "describe": ""
   },
   {
@@ -5522,7 +5522,7 @@ const ABI_DATA = {
     "soundId": 17,
     "pickupSound": "Item_Misc_Med_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Med_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408040008.png",
+    "iconUrl": "images/items/408040008.png",
     "describe": ""
   },
   {
@@ -5546,7 +5546,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050001.png",
+    "iconUrl": "images/items/408050001.png",
     "describe": ""
   },
   {
@@ -5570,7 +5570,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050006.png",
+    "iconUrl": "images/items/408050006.png",
     "describe": ""
   },
   {
@@ -5594,7 +5594,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050009.png",
+    "iconUrl": "images/items/408050009.png",
     "describe": ""
   },
   {
@@ -5618,7 +5618,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050011.png",
+    "iconUrl": "images/items/408050011.png",
     "describe": ""
   },
   {
@@ -5642,7 +5642,7 @@ const ABI_DATA = {
     "soundId": 19,
     "pickupSound": "Item_Container_Small_Metal_Up",
     "dropSound": "Item_Container_Small_Metal_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050013.png",
+    "iconUrl": "images/items/408050013.png",
     "describe": ""
   },
   {
@@ -5666,7 +5666,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050019.png",
+    "iconUrl": "images/items/408050019.png",
     "describe": ""
   },
   {
@@ -5690,7 +5690,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050022.png",
+    "iconUrl": "images/items/408050022.png",
     "describe": ""
   },
   {
@@ -5714,7 +5714,7 @@ const ABI_DATA = {
     "soundId": 9,
     "pickupSound": "Item_Misc_Small_Comp_Up",
     "dropSound": "Item_Misc_Small_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050023.png",
+    "iconUrl": "images/items/408050023.png",
     "describe": ""
   },
   {
@@ -5738,7 +5738,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050026.png",
+    "iconUrl": "images/items/408050026.png",
     "describe": ""
   },
   {
@@ -5762,7 +5762,7 @@ const ABI_DATA = {
     "soundId": 9,
     "pickupSound": "Item_Misc_Small_Comp_Up",
     "dropSound": "Item_Misc_Small_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050028.png",
+    "iconUrl": "images/items/408050028.png",
     "describe": ""
   },
   {
@@ -5786,7 +5786,7 @@ const ABI_DATA = {
     "soundId": 17,
     "pickupSound": "Item_Misc_Med_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Med_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050029.png",
+    "iconUrl": "images/items/408050029.png",
     "describe": ""
   },
   {
@@ -5810,7 +5810,7 @@ const ABI_DATA = {
     "soundId": 17,
     "pickupSound": "Item_Misc_Med_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Med_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050030.png",
+    "iconUrl": "images/items/408050030.png",
     "describe": ""
   },
   {
@@ -5834,7 +5834,7 @@ const ABI_DATA = {
     "soundId": 17,
     "pickupSound": "Item_Misc_Med_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Med_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050031.png",
+    "iconUrl": "images/items/408050031.png",
     "describe": ""
   },
   {
@@ -5858,7 +5858,7 @@ const ABI_DATA = {
     "soundId": 17,
     "pickupSound": "Item_Misc_Med_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Med_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050032.png",
+    "iconUrl": "images/items/408050032.png",
     "describe": ""
   },
   {
@@ -5882,7 +5882,7 @@ const ABI_DATA = {
     "soundId": 17,
     "pickupSound": "Item_Misc_Med_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Med_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050033.png",
+    "iconUrl": "images/items/408050033.png",
     "describe": ""
   },
   {
@@ -5906,7 +5906,7 @@ const ABI_DATA = {
     "soundId": 20,
     "pickupSound": "Item_Misc_Big_Blunt_Up",
     "dropSound": "Item_Misc_Big_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408050039.png",
+    "iconUrl": "images/items/408050039.png",
     "describe": ""
   },
   {
@@ -5930,7 +5930,7 @@ const ABI_DATA = {
     "soundId": 21,
     "pickupSound": "Item_Misc_Small_Wood_Up",
     "dropSound": "Item_Misc_Small_Wood_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408060021.png",
+    "iconUrl": "images/items/408060021.png",
     "describe": ""
   },
   {
@@ -5954,7 +5954,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408060030.png",
+    "iconUrl": "images/items/408060030.png",
     "describe": ""
   },
   {
@@ -5978,7 +5978,7 @@ const ABI_DATA = {
     "soundId": 9,
     "pickupSound": "Item_Misc_Small_Comp_Up",
     "dropSound": "Item_Misc_Small_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408060037.png",
+    "iconUrl": "images/items/408060037.png",
     "describe": ""
   },
   {
@@ -6002,7 +6002,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408060039.png",
+    "iconUrl": "images/items/408060039.png",
     "describe": ""
   },
   {
@@ -6026,7 +6026,7 @@ const ABI_DATA = {
     "soundId": 23,
     "pickupSound": "Item_Misc_Small_Fabric_Up",
     "dropSound": "Item_Misc_Small_Fabric_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408060041.png",
+    "iconUrl": "images/items/408060041.png",
     "describe": ""
   },
   {
@@ -6050,7 +6050,7 @@ const ABI_DATA = {
     "soundId": 3,
     "pickupSound": "Item_Misc_Med_Fabric_Up",
     "dropSound": "Item_Misc_Med_Fabric_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408060042.png",
+    "iconUrl": "images/items/408060042.png",
     "describe": ""
   },
   {
@@ -6074,7 +6074,7 @@ const ABI_DATA = {
     "soundId": 1,
     "pickupSound": "Item_Misc_Med_Comp_Up",
     "dropSound": "Item_Misc_Med_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408060043.png",
+    "iconUrl": "images/items/408060043.png",
     "describe": ""
   },
   {
@@ -6098,7 +6098,7 @@ const ABI_DATA = {
     "soundId": 17,
     "pickupSound": "Item_Misc_Med_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Med_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408060044.png",
+    "iconUrl": "images/items/408060044.png",
     "describe": ""
   },
   {
@@ -6122,7 +6122,7 @@ const ABI_DATA = {
     "soundId": 17,
     "pickupSound": "Item_Misc_Med_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Med_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408060046.png",
+    "iconUrl": "images/items/408060046.png",
     "describe": ""
   },
   {
@@ -6146,7 +6146,7 @@ const ABI_DATA = {
     "soundId": 24,
     "pickupSound": "Item_Misc_Small_Glass_Up",
     "dropSound": "Item_Misc_Small_Glass_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408060052.png",
+    "iconUrl": "images/items/408060052.png",
     "describe": ""
   },
   {
@@ -6170,7 +6170,7 @@ const ABI_DATA = {
     "soundId": 25,
     "pickupSound": "Item_Misc_Med_Wood_Clock_Up",
     "dropSound": "Item_Misc_Med_Wood_Clock_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408060054.png",
+    "iconUrl": "images/items/408060054.png",
     "describe": ""
   },
   {
@@ -6194,7 +6194,7 @@ const ABI_DATA = {
     "soundId": 9,
     "pickupSound": "Item_Misc_Small_Comp_Up",
     "dropSound": "Item_Misc_Small_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408070001.png",
+    "iconUrl": "images/items/408070001.png",
     "describe": ""
   },
   {
@@ -6218,7 +6218,7 @@ const ABI_DATA = {
     "soundId": 26,
     "pickupSound": "Item_Glass_Up",
     "dropSound": "Item_Glass_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408070002.png",
+    "iconUrl": "images/items/408070002.png",
     "describe": ""
   },
   {
@@ -6242,7 +6242,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408070003.png",
+    "iconUrl": "images/items/408070003.png",
     "describe": ""
   },
   {
@@ -6266,7 +6266,7 @@ const ABI_DATA = {
     "soundId": 27,
     "pickupSound": "Item_Food_Bag_Up",
     "dropSound": "Item_Food_Bag_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408070008.png",
+    "iconUrl": "images/items/408070008.png",
     "describe": ""
   },
   {
@@ -6290,7 +6290,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408070009.png",
+    "iconUrl": "images/items/408070009.png",
     "describe": ""
   },
   {
@@ -6314,7 +6314,7 @@ const ABI_DATA = {
     "soundId": 9,
     "pickupSound": "Item_Misc_Small_Comp_Up",
     "dropSound": "Item_Misc_Small_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408070010.png",
+    "iconUrl": "images/items/408070010.png",
     "describe": ""
   },
   {
@@ -6338,7 +6338,7 @@ const ABI_DATA = {
     "soundId": 9,
     "pickupSound": "Item_Misc_Small_Comp_Up",
     "dropSound": "Item_Misc_Small_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408070011.png",
+    "iconUrl": "images/items/408070011.png",
     "describe": ""
   },
   {
@@ -6362,7 +6362,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408070012.png",
+    "iconUrl": "images/items/408070012.png",
     "describe": ""
   },
   {
@@ -6386,7 +6386,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408070013.png",
+    "iconUrl": "images/items/408070013.png",
     "describe": ""
   },
   {
@@ -6410,7 +6410,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408070016.png",
+    "iconUrl": "images/items/408070016.png",
     "describe": ""
   },
   {
@@ -6434,7 +6434,7 @@ const ABI_DATA = {
     "soundId": 28,
     "pickupSound": "Prop_Acc_Statue_UP",
     "dropSound": "Prop_Acc_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080001.png",
+    "iconUrl": "images/items/408080001.png",
     "describe": ""
   },
   {
@@ -6458,7 +6458,7 @@ const ABI_DATA = {
     "soundId": 29,
     "pickupSound": "Item_Coin_Up",
     "dropSound": "Item_Coin_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080002.png",
+    "iconUrl": "images/items/408080002.png",
     "describe": ""
   },
   {
@@ -6482,7 +6482,7 @@ const ABI_DATA = {
     "soundId": 30,
     "pickupSound": "Item_Misc_Med_Glass_Up",
     "dropSound": "Item_Misc_Med_Glass_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080003.png",
+    "iconUrl": "images/items/408080003.png",
     "describe": ""
   },
   {
@@ -6506,7 +6506,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080004.png",
+    "iconUrl": "images/items/408080004.png",
     "describe": ""
   },
   {
@@ -6530,7 +6530,7 @@ const ABI_DATA = {
     "soundId": 28,
     "pickupSound": "Prop_Acc_Statue_UP",
     "dropSound": "Prop_Acc_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080008.png",
+    "iconUrl": "images/items/408080008.png",
     "describe": ""
   },
   {
@@ -6554,7 +6554,7 @@ const ABI_DATA = {
     "soundId": 31,
     "pickupSound": "Prop_Acc_Clock_UP",
     "dropSound": "Prop_Acc_Clock_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080009.png",
+    "iconUrl": "images/items/408080009.png",
     "describe": ""
   },
   {
@@ -6578,7 +6578,7 @@ const ABI_DATA = {
     "soundId": 32,
     "pickupSound": "Prop_Acc_Teapot_UP",
     "dropSound": "Prop_Acc_Teapot_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080010.png",
+    "iconUrl": "images/items/408080010.png",
     "describe": ""
   },
   {
@@ -6602,7 +6602,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080011.png",
+    "iconUrl": "images/items/408080011.png",
     "describe": ""
   },
   {
@@ -6626,7 +6626,7 @@ const ABI_DATA = {
     "soundId": 33,
     "pickupSound": "Item_GoldChain_Up",
     "dropSound": "Item_GoldChain_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080012.png",
+    "iconUrl": "images/items/408080012.png",
     "describe": ""
   },
   {
@@ -6650,7 +6650,7 @@ const ABI_DATA = {
     "soundId": 29,
     "pickupSound": "Item_Coin_Up",
     "dropSound": "Item_Coin_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080013.png",
+    "iconUrl": "images/items/408080013.png",
     "describe": ""
   },
   {
@@ -6674,7 +6674,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080014.png",
+    "iconUrl": "images/items/408080014.png",
     "describe": ""
   },
   {
@@ -6698,7 +6698,7 @@ const ABI_DATA = {
     "soundId": 26,
     "pickupSound": "Item_Glass_Up",
     "dropSound": "Item_Glass_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080015.png",
+    "iconUrl": "images/items/408080015.png",
     "describe": ""
   },
   {
@@ -6722,7 +6722,7 @@ const ABI_DATA = {
     "soundId": 34,
     "pickupSound": "Item_Misc_Med_Paper_Up",
     "dropSound": "Item_Misc_Med_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080016.png",
+    "iconUrl": "images/items/408080016.png",
     "describe": ""
   },
   {
@@ -6746,7 +6746,7 @@ const ABI_DATA = {
     "soundId": 8,
     "pickupSound": "Item_Misc_Med_Wood_Up",
     "dropSound": "Item_Misc_Med_Wood_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080019.png",
+    "iconUrl": "images/items/408080019.png",
     "describe": ""
   },
   {
@@ -6770,7 +6770,7 @@ const ABI_DATA = {
     "soundId": 33,
     "pickupSound": "Item_GoldChain_Up",
     "dropSound": "Item_GoldChain_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080020.png",
+    "iconUrl": "images/items/408080020.png",
     "describe": ""
   },
   {
@@ -6794,7 +6794,7 @@ const ABI_DATA = {
     "soundId": 35,
     "pickupSound": "Item_Misc_Small_Paper_Up",
     "dropSound": "Item_Misc_Small_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080021.png",
+    "iconUrl": "images/items/408080021.png",
     "describe": ""
   },
   {
@@ -6818,7 +6818,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080022.png",
+    "iconUrl": "images/items/408080022.png",
     "describe": ""
   },
   {
@@ -6842,7 +6842,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080024.png",
+    "iconUrl": "images/items/408080024.png",
     "describe": ""
   },
   {
@@ -6866,7 +6866,7 @@ const ABI_DATA = {
     "soundId": 33,
     "pickupSound": "Item_GoldChain_Up",
     "dropSound": "Item_GoldChain_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080025.png",
+    "iconUrl": "images/items/408080025.png",
     "describe": ""
   },
   {
@@ -6890,7 +6890,7 @@ const ABI_DATA = {
     "soundId": 33,
     "pickupSound": "Item_GoldChain_Up",
     "dropSound": "Item_GoldChain_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080026.png",
+    "iconUrl": "images/items/408080026.png",
     "describe": ""
   },
   {
@@ -6914,7 +6914,7 @@ const ABI_DATA = {
     "soundId": 36,
     "pickupSound": "Item_Misc_Med_Statue_Up",
     "dropSound": "Item_Misc_Med_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080028.png",
+    "iconUrl": "images/items/408080028.png",
     "describe": ""
   },
   {
@@ -6938,7 +6938,7 @@ const ABI_DATA = {
     "soundId": 33,
     "pickupSound": "Item_GoldChain_Up",
     "dropSound": "Item_GoldChain_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080029.png",
+    "iconUrl": "images/items/408080029.png",
     "describe": ""
   },
   {
@@ -6962,7 +6962,7 @@ const ABI_DATA = {
     "soundId": 36,
     "pickupSound": "Item_Misc_Med_Statue_Up",
     "dropSound": "Item_Misc_Med_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080030.png",
+    "iconUrl": "images/items/408080030.png",
     "describe": ""
   },
   {
@@ -6986,7 +6986,7 @@ const ABI_DATA = {
     "soundId": 8,
     "pickupSound": "Item_Misc_Med_Wood_Up",
     "dropSound": "Item_Misc_Med_Wood_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080033.png",
+    "iconUrl": "images/items/408080033.png",
     "describe": ""
   },
   {
@@ -7010,7 +7010,7 @@ const ABI_DATA = {
     "soundId": 36,
     "pickupSound": "Item_Misc_Med_Statue_Up",
     "dropSound": "Item_Misc_Med_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080038.png",
+    "iconUrl": "images/items/408080038.png",
     "describe": ""
   },
   {
@@ -7034,7 +7034,7 @@ const ABI_DATA = {
     "soundId": 36,
     "pickupSound": "Item_Misc_Med_Statue_Up",
     "dropSound": "Item_Misc_Med_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080039.png",
+    "iconUrl": "images/items/408080039.png",
     "describe": ""
   },
   {
@@ -7058,7 +7058,7 @@ const ABI_DATA = {
     "soundId": 36,
     "pickupSound": "Item_Misc_Med_Statue_Up",
     "dropSound": "Item_Misc_Med_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080041.png",
+    "iconUrl": "images/items/408080041.png",
     "describe": ""
   },
   {
@@ -7082,7 +7082,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080047.png",
+    "iconUrl": "images/items/408080047.png",
     "describe": ""
   },
   {
@@ -7106,7 +7106,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080048.png",
+    "iconUrl": "images/items/408080048.png",
     "describe": ""
   },
   {
@@ -7130,7 +7130,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080049.png",
+    "iconUrl": "images/items/408080049.png",
     "describe": ""
   },
   {
@@ -7154,7 +7154,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080050.png",
+    "iconUrl": "images/items/408080050.png",
     "describe": ""
   },
   {
@@ -7178,7 +7178,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080054.png",
+    "iconUrl": "images/items/408080054.png",
     "describe": ""
   },
   {
@@ -7202,7 +7202,7 @@ const ABI_DATA = {
     "soundId": 35,
     "pickupSound": "Item_Misc_Small_Paper_Up",
     "dropSound": "Item_Misc_Small_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408090001.png",
+    "iconUrl": "images/items/408090001.png",
     "describe": ""
   },
   {
@@ -7226,7 +7226,7 @@ const ABI_DATA = {
     "soundId": 37,
     "pickupSound": "Item_Misc_Big_Paper_Up",
     "dropSound": "Item_Misc_Big_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408090002.png",
+    "iconUrl": "images/items/408090002.png",
     "describe": ""
   },
   {
@@ -7250,7 +7250,7 @@ const ABI_DATA = {
     "soundId": 37,
     "pickupSound": "Item_Misc_Big_Paper_Up",
     "dropSound": "Item_Misc_Big_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408090004.png",
+    "iconUrl": "images/items/408090004.png",
     "describe": ""
   },
   {
@@ -7274,7 +7274,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408090019.png",
+    "iconUrl": "images/items/408090019.png",
     "describe": ""
   },
   {
@@ -7298,7 +7298,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408100001.png",
+    "iconUrl": "images/items/408100001.png",
     "describe": ""
   },
   {
@@ -7322,7 +7322,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408100002.png",
+    "iconUrl": "images/items/408100002.png",
     "describe": ""
   },
   {
@@ -7346,7 +7346,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408100005.png",
+    "iconUrl": "images/items/408100005.png",
     "describe": ""
   },
   {
@@ -7370,7 +7370,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408100007.png",
+    "iconUrl": "images/items/408100007.png",
     "describe": ""
   },
   {
@@ -7394,7 +7394,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408100011.png",
+    "iconUrl": "images/items/408100011.png",
     "describe": ""
   },
   {
@@ -7418,7 +7418,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408100012.png",
+    "iconUrl": "images/items/408100012.png",
     "describe": ""
   },
   {
@@ -7442,7 +7442,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408100013.png",
+    "iconUrl": "images/items/408100013.png",
     "describe": ""
   },
   {
@@ -7466,7 +7466,7 @@ const ABI_DATA = {
     "soundId": 9,
     "pickupSound": "Item_Misc_Small_Comp_Up",
     "dropSound": "Item_Misc_Small_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120001.png",
+    "iconUrl": "images/items/408120001.png",
     "describe": ""
   },
   {
@@ -7490,7 +7490,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120002.png",
+    "iconUrl": "images/items/408120002.png",
     "describe": ""
   },
   {
@@ -7514,7 +7514,7 @@ const ABI_DATA = {
     "soundId": 3,
     "pickupSound": "Item_Misc_Med_Fabric_Up",
     "dropSound": "Item_Misc_Med_Fabric_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120003.png",
+    "iconUrl": "images/items/408120003.png",
     "describe": ""
   },
   {
@@ -7538,7 +7538,7 @@ const ABI_DATA = {
     "soundId": 36,
     "pickupSound": "Item_Misc_Med_Statue_Up",
     "dropSound": "Item_Misc_Med_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120005.png",
+    "iconUrl": "images/items/408120005.png",
     "describe": ""
   },
   {
@@ -7562,7 +7562,7 @@ const ABI_DATA = {
     "soundId": 9,
     "pickupSound": "Item_Misc_Small_Comp_Up",
     "dropSound": "Item_Misc_Small_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120008.png",
+    "iconUrl": "images/items/408120008.png",
     "describe": ""
   },
   {
@@ -7586,7 +7586,7 @@ const ABI_DATA = {
     "soundId": 9,
     "pickupSound": "Item_Misc_Small_Comp_Up",
     "dropSound": "Item_Misc_Small_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120009.png",
+    "iconUrl": "images/items/408120009.png",
     "describe": ""
   },
   {
@@ -7610,7 +7610,7 @@ const ABI_DATA = {
     "soundId": 38,
     "pickupSound": "Prop_Acc_Radio_UP",
     "dropSound": "Prop_Acc_Radio_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120010.png",
+    "iconUrl": "images/items/408120010.png",
     "describe": ""
   },
   {
@@ -7634,7 +7634,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120011.png",
+    "iconUrl": "images/items/408120011.png",
     "describe": ""
   },
   {
@@ -7658,7 +7658,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120012.png",
+    "iconUrl": "images/items/408120012.png",
     "describe": ""
   },
   {
@@ -7682,7 +7682,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120013.png",
+    "iconUrl": "images/items/408120013.png",
     "describe": ""
   },
   {
@@ -7706,7 +7706,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120014.png",
+    "iconUrl": "images/items/408120014.png",
     "describe": ""
   },
   {
@@ -7730,7 +7730,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120017.png",
+    "iconUrl": "images/items/408120017.png",
     "describe": ""
   },
   {
@@ -7754,7 +7754,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120019.png",
+    "iconUrl": "images/items/408120019.png",
     "describe": ""
   },
   {
@@ -7778,7 +7778,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408120020.png",
+    "iconUrl": "images/items/408120020.png",
     "describe": ""
   },
   {
@@ -7802,7 +7802,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408140001.png",
+    "iconUrl": "images/items/408140001.png",
     "describe": ""
   },
   {
@@ -7826,7 +7826,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408140005.png",
+    "iconUrl": "images/items/408140005.png",
     "describe": ""
   },
   {
@@ -7850,7 +7850,7 @@ const ABI_DATA = {
     "soundId": 38,
     "pickupSound": "Prop_Acc_Radio_UP",
     "dropSound": "Prop_Acc_Radio_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408140014.png",
+    "iconUrl": "images/items/408140014.png",
     "describe": ""
   },
   {
@@ -7874,7 +7874,7 @@ const ABI_DATA = {
     "soundId": 9,
     "pickupSound": "Item_Misc_Small_Comp_Up",
     "dropSound": "Item_Misc_Small_Comp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408140015.png",
+    "iconUrl": "images/items/408140015.png",
     "describe": ""
   },
   {
@@ -7898,7 +7898,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408140016.png",
+    "iconUrl": "images/items/408140016.png",
     "describe": ""
   },
   {
@@ -7922,7 +7922,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408140019.png",
+    "iconUrl": "images/items/408140019.png",
     "describe": ""
   },
   {
@@ -7946,7 +7946,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408140021.png",
+    "iconUrl": "images/items/408140021.png",
     "describe": ""
   },
   {
@@ -7970,7 +7970,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408140022.png",
+    "iconUrl": "images/items/408140022.png",
     "describe": ""
   },
   {
@@ -7994,7 +7994,7 @@ const ABI_DATA = {
     "soundId": 10,
     "pickupSound": "Item_Misc_ElectronicDevice_Up",
     "dropSound": "Item_Misc_ElectronicDevice_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408140024.png",
+    "iconUrl": "images/items/408140024.png",
     "describe": ""
   },
   {
@@ -8018,7 +8018,7 @@ const ABI_DATA = {
     "soundId": 2,
     "pickupSound": "Item_Container_Big_Metal_Up",
     "dropSound": "Item_Container_Big_Metal_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498010001.png",
+    "iconUrl": "images/items/498010001.png",
     "describe": ""
   },
   {
@@ -8042,7 +8042,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498010003.png",
+    "iconUrl": "images/items/498010003.png",
     "describe": ""
   },
   {
@@ -8066,7 +8066,7 @@ const ABI_DATA = {
     "soundId": 17,
     "pickupSound": "Item_Misc_Med_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Med_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498020001.png",
+    "iconUrl": "images/items/498020001.png",
     "describe": ""
   },
   {
@@ -8090,7 +8090,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498040001.png",
+    "iconUrl": "images/items/498040001.png",
     "describe": ""
   },
   {
@@ -8114,7 +8114,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498040002.png",
+    "iconUrl": "images/items/498040002.png",
     "describe": ""
   },
   {
@@ -8138,7 +8138,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498040003.png",
+    "iconUrl": "images/items/498040003.png",
     "describe": ""
   },
   {
@@ -8162,7 +8162,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498060001.png",
+    "iconUrl": "images/items/498060001.png",
     "describe": ""
   },
   {
@@ -8186,7 +8186,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498060003.png",
+    "iconUrl": "images/items/498060003.png",
     "describe": ""
   },
   {
@@ -8210,7 +8210,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498060004.png",
+    "iconUrl": "images/items/498060004.png",
     "describe": ""
   },
   {
@@ -8234,7 +8234,7 @@ const ABI_DATA = {
     "soundId": 30,
     "pickupSound": "Item_Misc_Med_Glass_Up",
     "dropSound": "Item_Misc_Med_Glass_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498060005.png",
+    "iconUrl": "images/items/498060005.png",
     "describe": ""
   },
   {
@@ -8258,7 +8258,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498060006.png",
+    "iconUrl": "images/items/498060006.png",
     "describe": ""
   },
   {
@@ -8282,7 +8282,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498070001.png",
+    "iconUrl": "images/items/498070001.png",
     "describe": ""
   },
   {
@@ -8306,7 +8306,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498070002.png",
+    "iconUrl": "images/items/498070002.png",
     "describe": ""
   },
   {
@@ -8330,7 +8330,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498070003.png",
+    "iconUrl": "images/items/498070003.png",
     "describe": ""
   },
   {
@@ -8354,7 +8354,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498070004.png",
+    "iconUrl": "images/items/498070004.png",
     "describe": ""
   },
   {
@@ -8378,7 +8378,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498070009.png",
+    "iconUrl": "images/items/498070009.png",
     "describe": ""
   },
   {
@@ -8402,7 +8402,7 @@ const ABI_DATA = {
     "soundId": 30,
     "pickupSound": "Item_Misc_Med_Glass_Up",
     "dropSound": "Item_Misc_Med_Glass_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498070010.png",
+    "iconUrl": "images/items/498070010.png",
     "describe": ""
   },
   {
@@ -8426,7 +8426,7 @@ const ABI_DATA = {
     "soundId": 24,
     "pickupSound": "Item_Misc_Small_Glass_Up",
     "dropSound": "Item_Misc_Small_Glass_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498070011.png",
+    "iconUrl": "images/items/498070011.png",
     "describe": ""
   },
   {
@@ -8450,7 +8450,7 @@ const ABI_DATA = {
     "soundId": 24,
     "pickupSound": "Item_Misc_Small_Glass_Up",
     "dropSound": "Item_Misc_Small_Glass_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498070012.png",
+    "iconUrl": "images/items/498070012.png",
     "describe": ""
   },
   {
@@ -8474,7 +8474,7 @@ const ABI_DATA = {
     "soundId": 36,
     "pickupSound": "Item_Misc_Med_Statue_Up",
     "dropSound": "Item_Misc_Med_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498070013.png",
+    "iconUrl": "images/items/498070013.png",
     "describe": ""
   },
   {
@@ -8498,7 +8498,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080001.png",
+    "iconUrl": "images/items/498080001.png",
     "describe": ""
   },
   {
@@ -8522,7 +8522,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080002.png",
+    "iconUrl": "images/items/498080002.png",
     "describe": ""
   },
   {
@@ -8546,7 +8546,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080003.png",
+    "iconUrl": "images/items/498080003.png",
     "describe": ""
   },
   {
@@ -8570,7 +8570,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080005.png",
+    "iconUrl": "images/items/498080005.png",
     "describe": ""
   },
   {
@@ -8594,7 +8594,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080006.png",
+    "iconUrl": "images/items/498080006.png",
     "describe": ""
   },
   {
@@ -8618,7 +8618,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080008.png",
+    "iconUrl": "images/items/498080008.png",
     "describe": ""
   },
   {
@@ -8642,7 +8642,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080009.png",
+    "iconUrl": "images/items/498080009.png",
     "describe": ""
   },
   {
@@ -8666,7 +8666,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080010.png",
+    "iconUrl": "images/items/498080010.png",
     "describe": ""
   },
   {
@@ -8690,7 +8690,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080011.png",
+    "iconUrl": "images/items/498080011.png",
     "describe": ""
   },
   {
@@ -8714,7 +8714,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080016.png",
+    "iconUrl": "images/items/498080016.png",
     "describe": ""
   },
   {
@@ -8738,7 +8738,7 @@ const ABI_DATA = {
     "soundId": 36,
     "pickupSound": "Item_Misc_Med_Statue_Up",
     "dropSound": "Item_Misc_Med_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080017.png",
+    "iconUrl": "images/items/498080017.png",
     "describe": ""
   },
   {
@@ -8762,7 +8762,7 @@ const ABI_DATA = {
     "soundId": 6,
     "pickupSound": "Item_Misc_Med_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Med_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080018.png",
+    "iconUrl": "images/items/498080018.png",
     "describe": ""
   },
   {
@@ -8786,7 +8786,7 @@ const ABI_DATA = {
     "soundId": 33,
     "pickupSound": "Item_GoldChain_Up",
     "dropSound": "Item_GoldChain_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080019.png",
+    "iconUrl": "images/items/498080019.png",
     "describe": ""
   },
   {
@@ -8810,7 +8810,7 @@ const ABI_DATA = {
     "soundId": 14,
     "pickupSound": "Item_Misc_Big_Wood_Up",
     "dropSound": "Item_Misc_Big_Wood_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080025.png",
+    "iconUrl": "images/items/498080025.png",
     "describe": ""
   },
   {
@@ -8834,7 +8834,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498090001.png",
+    "iconUrl": "images/items/498090001.png",
     "describe": ""
   },
   {
@@ -8858,7 +8858,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498090002.png",
+    "iconUrl": "images/items/498090002.png",
     "describe": ""
   },
   {
@@ -8882,7 +8882,7 @@ const ABI_DATA = {
     "soundId": 35,
     "pickupSound": "Item_Misc_Small_Paper_Up",
     "dropSound": "Item_Misc_Small_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498090008.png",
+    "iconUrl": "images/items/498090008.png",
     "describe": ""
   },
   {
@@ -8906,7 +8906,7 @@ const ABI_DATA = {
     "soundId": 37,
     "pickupSound": "Item_Misc_Big_Paper_Up",
     "dropSound": "Item_Misc_Big_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498090009.png",
+    "iconUrl": "images/items/498090009.png",
     "describe": ""
   },
   {
@@ -8930,7 +8930,7 @@ const ABI_DATA = {
     "soundId": 35,
     "pickupSound": "Item_Misc_Small_Paper_Up",
     "dropSound": "Item_Misc_Small_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498090010.png",
+    "iconUrl": "images/items/498090010.png",
     "describe": ""
   },
   {
@@ -8954,7 +8954,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498100001.png",
+    "iconUrl": "images/items/498100001.png",
     "describe": ""
   },
   {
@@ -8978,7 +8978,7 @@ const ABI_DATA = {
     "soundId": 36,
     "pickupSound": "Item_Misc_Med_Statue_Up",
     "dropSound": "Item_Misc_Med_Statue_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498100002.png",
+    "iconUrl": "images/items/498100002.png",
     "describe": ""
   },
   {
@@ -9002,7 +9002,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498100003.png",
+    "iconUrl": "images/items/498100003.png",
     "describe": ""
   },
   {
@@ -9026,7 +9026,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498100004.png",
+    "iconUrl": "images/items/498100004.png",
     "describe": ""
   },
   {
@@ -9050,7 +9050,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498100005.png",
+    "iconUrl": "images/items/498100005.png",
     "describe": ""
   },
   {
@@ -9074,7 +9074,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498100006.png",
+    "iconUrl": "images/items/498100006.png",
     "describe": ""
   },
   {
@@ -9098,7 +9098,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498120001.png",
+    "iconUrl": "images/items/498120001.png",
     "describe": ""
   },
   {
@@ -9122,7 +9122,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498120003.png",
+    "iconUrl": "images/items/498120003.png",
     "describe": ""
   },
   {
@@ -9146,7 +9146,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498140001.png",
+    "iconUrl": "images/items/498140001.png",
     "describe": ""
   },
   {
@@ -9170,7 +9170,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498140003.png",
+    "iconUrl": "images/items/498140003.png",
     "describe": ""
   },
   {
@@ -9194,7 +9194,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498140004.png",
+    "iconUrl": "images/items/498140004.png",
     "describe": ""
   },
   {
@@ -9218,7 +9218,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498140005.png",
+    "iconUrl": "images/items/498140005.png",
     "describe": ""
   },
   {
@@ -9242,7 +9242,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498140006.png",
+    "iconUrl": "images/items/498140006.png",
     "describe": ""
   },
   {
@@ -9266,7 +9266,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/202020003.png",
+    "iconUrl": "images/items/202020003.png",
     "describe": "Munición militar 7N37 de penetración blindada nivel 6."
   },
   {
@@ -9290,7 +9290,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/202020005.png",
+    "iconUrl": "images/items/202020005.png",
     "describe": "Munición perforante SNB de grado militar."
   },
   {
@@ -9314,7 +9314,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/202060003.png",
+    "iconUrl": "images/items/202060003.png",
     "describe": "Munición perforante M61 para fusiles 7.62x51 OTAN."
   },
   {
@@ -9338,7 +9338,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/202150001.png",
+    "iconUrl": "images/items/202150001.png",
     "describe": "Munición perforante de máxima penetración para rifles de francotirador pesado."
   },
   {
@@ -9362,7 +9362,7 @@ const ABI_DATA = {
     "soundId": 35,
     "pickupSound": "Item_Misc_Small_Paper_Up",
     "dropSound": "Item_Misc_Small_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080027.png",
+    "iconUrl": "images/items/408080027.png",
     "describe": "El documento militar más clasificado y codiciado de toda la Zona Oscura. ¡Vale más de 16 millones de Koens!"
   },
   {
@@ -9386,7 +9386,7 @@ const ABI_DATA = {
     "soundId": 37,
     "pickupSound": "Item_Misc_Big_Paper_Up",
     "dropSound": "Item_Misc_Big_Paper_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080040.png",
+    "iconUrl": "images/items/408080040.png",
     "describe": "Mapa cartográfico detallado con rutas secretas de la Isla."
   },
   {
@@ -9410,7 +9410,7 @@ const ABI_DATA = {
     "soundId": 2,
     "pickupSound": "Item_Container_Big_Metal_Up",
     "dropSound": "Item_Container_Big_Metal_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080040.png",
+    "iconUrl": "images/items/408080040.png",
     "describe": "Contenedor hermético reforzado de máxima seguridad con tecnología de Utopia."
   },
   {
@@ -9434,7 +9434,7 @@ const ABI_DATA = {
     "soundId": 24,
     "pickupSound": "Item_Misc_Small_Glass_Up",
     "dropSound": "Item_Misc_Small_Glass_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/408080087.png",
+    "iconUrl": "images/items/408080087.png",
     "describe": "Estimulante militar experimental ultra raro de alto valor."
   },
   {
@@ -9458,7 +9458,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080004.png",
+    "iconUrl": "images/items/498080004.png",
     "describe": "Brazo robótico de alta tecnología utilizado en instalaciones clasificadas."
   },
   {
@@ -9482,7 +9482,7 @@ const ABI_DATA = {
     "soundId": 22,
     "pickupSound": "Item_Misc_Small_Metal_Crisp_Up",
     "dropSound": "Item_Misc_Small_Metal_Crisp_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080012.png",
+    "iconUrl": "images/items/498080012.png",
     "describe": "Objeto anómalo ultrarraro que desafía las leyes físicas."
   },
   {
@@ -9506,7 +9506,7 @@ const ABI_DATA = {
     "soundId": 31,
     "pickupSound": "Prop_Acc_Clock_UP",
     "dropSound": "Prop_Acc_Clock_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080024.png",
+    "iconUrl": "images/items/498080024.png",
     "describe": "Reloj de precisión distorsionado con grabado ceremonial."
   },
   {
@@ -9530,7 +9530,7 @@ const ABI_DATA = {
     "soundId": 25,
     "pickupSound": "Item_Misc_Med_Wood_Clock_Up",
     "dropSound": "Item_Misc_Med_Wood_Clock_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080026.png",
+    "iconUrl": "images/items/498080026.png",
     "describe": "Flauta de colección tallada en jade puro con un timbre acústico único."
   },
   {
@@ -9554,7 +9554,7 @@ const ABI_DATA = {
     "soundId": 18,
     "pickupSound": "Item_Misc_Small_Metal_Blunt_Up",
     "dropSound": "Item_Misc_Small_Metal_Blunt_Down",
-    "iconUrl": "https://hexaov91.github.io/abi-assets/image/Normal/498080041.png",
+    "iconUrl": "images/items/498080041.png",
     "describe": "Maqueta de aleación del legendario prototipo Caliburn."
   }
 ],

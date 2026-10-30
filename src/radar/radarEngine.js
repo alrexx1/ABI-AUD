@@ -4,7 +4,7 @@
  */
 
 import { state } from '../core/state.js';
-import { RADAR_FREQS, ITEM_FALLBACK_SVG } from '../core/constants.js';
+import { RADAR_FREQS, ITEM_FALLBACK_SVG, setItemImageWithFallback } from '../core/constants.js';
 import { extractAcousticFeatures } from '../dsp/features.js';
 import { scoreTemplateSimilarity } from '../dsp/similarity.js';
 import { updateNoiseFloorMovingAverage } from '../dsp/goertzel.js';
@@ -535,8 +535,7 @@ export function displayRadarVerdict(verdict, detectedAction = 'drop') {
   }
 
   if (itemImg) {
-    itemImg.onerror = () => { itemImg.src = ITEM_FALLBACK_SVG; };
-    itemImg.src = representativeItem.iconUrl || ITEM_FALLBACK_SVG;
+    setItemImageWithFallback(itemImg, representativeItem);
   }
   if (itemName) itemName.textContent = `${representativeItem.nameEs} (${representativeItem.name})`;
   if (itemPrice) itemPrice.textContent = `Valor Estimado: ~${representativeItem.referencePrice.toLocaleString()} Koens • Casilla: ${representativeItem.sizeLabel}`;
@@ -581,7 +580,7 @@ export function displayRadarVerdict(verdict, detectedAction = 'drop') {
         ${candList.map(c => `
           <div class="candidate-mini-item ${c.item.isRed ? 'is-red' : ''}" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.4rem 0.6rem;">
             <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <img src="${c.item.iconUrl}" alt="" class="candidate-mini-icon" onerror="this.onerror=null; this.src='${ITEM_FALLBACK_SVG}';" style="width: 28px; height: 28px; object-fit: contain;" />
+              <img src="${c.item.iconUrl}" alt="" class="candidate-mini-icon" onerror="if(!this.dataset.cdn){this.dataset.cdn='1';this.src='https://hexaov91.github.io/abi-assets/image/Normal/${c.item.id}.png';}else{this.onerror=null;this.src='${ITEM_FALLBACK_SVG}';}" style="width: 28px; height: 28px; object-fit: contain;" />
               <div>
                 <div class="candidate-mini-name">${c.item.isRed ? '🔴' : '⚪'} ${c.item.nameEs} <small style="color: var(--text-dim);">[${c.item.sizeLabel}]</small></div>
                 <div class="candidate-mini-price">~${c.item.referencePrice.toLocaleString()} K</div>

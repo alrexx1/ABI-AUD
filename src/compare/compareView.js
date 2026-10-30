@@ -4,7 +4,7 @@
  */
 
 import { playSoundFile, playSynthSFX } from '../audio/audioEngine.js';
-import { ITEM_FALLBACK_SVG } from '../core/constants.js';
+import { ITEM_FALLBACK_SVG, setItemImageWithFallback } from '../core/constants.js';
 
 export const COMPARE_PRESETS_DATA = Object.freeze({
   lion_vs_cheetah: {
@@ -43,8 +43,7 @@ export function updateComparePreset(key) {
   const btnA = document.getElementById('btn-play-slot-a');
 
   if (imgA) {
-    imgA.onerror = () => { imgA.src = ITEM_FALLBACK_SVG; };
-    imgA.src = itA.iconUrl || ITEM_FALLBACK_SVG;
+    setItemImageWithFallback(imgA, itA);
   }
   if (nameA) nameA.textContent = preset.itemA.title;
   if (descA) descA.textContent = preset.itemA.desc;
@@ -61,8 +60,7 @@ export function updateComparePreset(key) {
   const btnB = document.getElementById('btn-play-slot-b');
 
   if (imgB) {
-    imgB.onerror = () => { imgB.src = ITEM_FALLBACK_SVG; };
-    imgB.src = itB.iconUrl || ITEM_FALLBACK_SVG;
+    setItemImageWithFallback(imgB, itB);
   }
   if (nameB) nameB.textContent = preset.itemB.title;
   if (descB) descB.textContent = preset.itemB.desc;

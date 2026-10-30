@@ -67,6 +67,15 @@ describe('Servidor HTTP de Producción (Render Compatible)', () => {
     assert.strictEqual(sigs.length, 76);
   });
 
+  it('los iconos locales (/images/items/408080010.png) deben ser servidos con 200 OK y caché inmutable', async () => {
+    const res = await fetch(`${baseUrl}/images/items/408080010.png`);
+    assert.strictEqual(res.status, 200);
+    assert.strictEqual(res.headers.get('content-type'), 'image/png');
+    assert.ok(res.headers.get('cache-control').includes('immutable'), 'Debe incluir caché inmutable');
+    const buffer = await res.arrayBuffer();
+    assert.strictEqual(buffer.byteLength, 7291, 'El tamaño de la tetera antigua debe ser 7291 bytes');
+  });
+
   it('el limitador de tasa (Rate Limiter) debe mitigar ataques DoS respondiendo con 429', async () => {
     const testIp = '198.51.100.99';
     let blocked = false;
