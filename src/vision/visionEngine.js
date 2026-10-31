@@ -5,6 +5,91 @@
 
 import { state } from '../core/state.js';
 
+/**
+ * Clasifica la geometría y orientación física de una ranura o caja de inventario en ABI.
+ * Basado en los límites óptimos de razón de aspecto (Media Geométrica entre relaciones de casillas cuadradas).
+ *
+ * @param {number} width - Ancho en píxeles
+ * @param {number} height - Alto en píxeles
+ * @param {number} area - Área en píxeles (w * h)
+ * @param {number} pixelCount - Cantidad de píxeles activos (croma o movimiento)
+ * @returns {object} { size, orientation, aspect, confidence, label }
+ */
+export function classifyGridGeometry(width, height, area = 0, pixelCount = 0) {
+  const w = Math.max(1, width);
+  const h = Math.max(1, height);
+  const aspect = w / h;
+  const a = area > 0 ? area : (w * h);
+
+  // 1. Detección de Orientación Física
+  // Horizontal (w > h), Vertical (h > w), Cuadrada (w ≈ h)
+  let orientation = 'square';
+  if (aspect >= 1.18) {
+    orientation = 'horizontal';
+  } else if (aspect <= 0.85) {
+    orientation = 'vertical';
+  } else {
+    orientation = 'square';
+  }
+
+  // 2. Clasificación de Tamaño de Cuadrícula con límites de media geométrica
+  let size = 'all';
+  let confidence = 0.70;
+
+  if (orientation === 'horizontal') {
+    // Relaciones nominales:
+    // 3x2 -> 1.50 (Límite: [1.18, 1.732))
+    // 2x1 -> 2.00 (Límite: [1.732, 2.449))
+    // 3x1 -> 3.00 (Límite: >= 2.449)
+    if (aspect >= 2.45) {
+      size = '3x1';
+      confidence = 0.93;
+    } else if (aspect >= 1.73) {
+      size = '2x1';
+      confidence = 0.96;
+    } else {
+      size = '3x2';
+      confidence = 0.96;
+    }
+  } else if (orientation === 'vertical') {
+    // Relaciones nominales:
+    // 2x3 -> 0.667 (Límite: (0.577, 0.85])
+    // 1x2 -> 0.500 (Límite: (0.408, 0.577])
+    // 1x3 -> 0.333 (Límite: <= 0.408)
+    if (aspect <= 0.408) {
+      size = '1x3';
+      confidence = 0.93;
+    } else if (aspect <= 0.577) {
+      size = '1x2';
+      confidence = 0.96;
+    } else {
+      size = '2x3';
+      confidence = 0.96;
+    }
+  } else {
+    // Orientación Cuadrada (0.85 < aspect < 1.18)
+    // 2x2 (4 casillas) vs 1x1 (1 casilla)
+    if (pixelCount > 240 || a > 850) {
+      size = '2x2';
+      confidence = 0.95;
+    } else {
+      size = '1x1';
+      confidence = 0.92;
+    }
+  }
+
+  const orientSymbol = orientation === 'horizontal' ? '↔️' : (orientation === 'vertical' ? '↕️' : '⏹️');
+  const label = `[${size} ${orientSymbol}]`;
+
+  return {
+    size,
+    orientation,
+    aspect: Number(aspect.toFixed(3)),
+    confidence,
+    label
+  };
+}
+
 export function startVisionTracking(stream) {
   const videoTracks = stream.getVideoTracks();
   if (videoTracks.length === 0) return;
@@ -119,27 +204,12 @@ function analyzeScreenFrame() {
   if (hasActiveGridSlots) {
     const gw = Math.max(1, greenMaxX - greenMinX);
     const gh = Math.max(1, greenMaxY - greenMinY);
-    const gAspect = gw / gh;
-    const gArea = gw * gh;
+    const geo = classifyGridGeometry(gw, gh, gw * gh, greenPixels);
 
-    let greenDetected = 'all';
-    if (gAspect >= 0.80 && gAspect <= 1.25) {
-      greenDetected = (greenPixels > 250 || gArea > 850) ? '2x2' : '1x1';
-    } else if (gAspect >= 1.35 && gAspect <= 2.35) {
-      greenDetected = '2x1';
-    } else if (gAspect >= 0.42 && gAspect <= 0.74) {
-      greenDetected = '1x2';
-    } else if (gAspect > 2.35) {
-      greenDetected = '3x1';
-    } else if (gAspect < 0.42) {
-      greenDetected = '1x3';
-    } else if (gAspect >= 0.55 && gAspect <= 0.80 && greenPixels > 400) {
-      greenDetected = '2x3';
-    }
-
-    if (greenDetected !== 'all') {
-      state.vision.detectedSize = greenDetected;
-      state.vision.gridConfidence = 0.95; // Certeza visual alta por cuadrícula
+    if (geo.size !== 'all') {
+      state.vision.detectedSize = geo.size;
+      state.vision.detectedOrientation = geo.orientation;
+      state.vision.gridConfidence = geo.confidence;
       state.vision.greenTileCount = greenPixels;
     }
   }
@@ -175,24 +245,12 @@ function analyzeScreenFrame() {
     if (isMotionCluster) {
       const boxW = Math.max(1, maxX - minX);
       const boxH = Math.max(1, maxY - minY);
-      const aspect = boxW / boxH;
-      const area = boxW * boxH;
+      const mGeo = classifyGridGeometry(boxW, boxH, boxW * boxH, changedPixels);
 
-      let detected = 'all';
-      if (aspect >= 0.82 && aspect <= 1.25) {
-        detected = area > 1200 ? '2x2' : '1x1';
-      } else if (aspect >= 1.4 && aspect <= 2.4) {
-        detected = '2x1';
-      } else if (aspect >= 0.42 && aspect <= 0.72) {
-        detected = '1x2';
-      } else if (aspect > 2.4) {
-        detected = '2x3';
-      } else if (aspect < 0.42) {
-        detected = '1x3';
-      }
-
-      if (detected !== 'all') {
-        state.vision.detectedSize = detected;
+      if (mGeo.size !== 'all') {
+        state.vision.detectedSize = mGeo.size;
+        state.vision.detectedOrientation = mGeo.orientation;
+        state.vision.gridConfidence = Math.max(state.vision.gridConfidence, mGeo.confidence);
       }
 
       if (!state.vision.isDragging) {
@@ -200,7 +258,8 @@ function analyzeScreenFrame() {
         state.vision.dragStartTimestamp = Date.now();
         if (visionDot) visionDot.className = 'vision-dot dragging';
         if (visionText) {
-          visionText.textContent = `Arrastrando [${state.vision.detectedSize !== 'all' ? state.vision.detectedSize : 'Caja'}]`;
+          const sym = state.vision.detectedOrientation === 'horizontal' ? '↔️' : (state.vision.detectedOrientation === 'vertical' ? '↕️' : '⏹️');
+          visionText.textContent = `Arrastrando [${state.vision.detectedSize !== 'all' ? state.vision.detectedSize : 'Caja'} ${sym}]`;
         }
       }
     } else if (state.vision.isDragging && changedPixels < 25) {
@@ -211,17 +270,24 @@ function analyzeScreenFrame() {
       if (dragDuration > 120) {
         state.vision.lastDropTimestamp = Date.now();
         const finalSize = state.vision.detectedSize;
+        const finalOrient = state.vision.detectedOrientation;
+        const sym = finalOrient === 'horizontal' ? '↔️' : (finalOrient === 'vertical' ? '↕️' : '⏹️');
 
         if (visionDot) visionDot.className = 'vision-dot drop';
         if (visionText) {
-          visionText.textContent = `¡SOLTADO VISUAL [${finalSize !== 'all' ? finalSize : 'Auto'}]!`;
+          visionText.textContent = `¡SOLTADO VISUAL [${finalSize !== 'all' ? finalSize : 'Auto'} ${sym}]!`;
         }
 
-        // Auto-asignar tamaño de casilla al radar
+        // Auto-asignar tamaño y orientación de casilla al radar
         if (finalSize !== 'all') {
           state.radar.selectedSize = finalSize;
           const sizeSelect = document.getElementById('radar-size-filter');
           if (sizeSelect) sizeSelect.value = finalSize;
+        }
+        if (finalOrient !== 'any') {
+          state.radar.selectedOrientation = finalOrient;
+          const orientSelect = document.getElementById('radar-orientation-filter');
+          if (orientSelect) orientSelect.value = finalOrient;
         }
 
         // Sincronizar evaluación acústica inmediata
@@ -231,7 +297,10 @@ function analyzeScreenFrame() {
 
         setTimeout(() => {
           if (visionDot && state.vision.isTracking) visionDot.className = 'vision-dot active';
-          if (visionText && state.vision.isTracking) visionText.textContent = 'Visión: Monitoreando Pantalla';
+          if (visionText && state.vision.isTracking) {
+            const curSym = state.vision.detectedOrientation === 'horizontal' ? '↔️' : (state.vision.detectedOrientation === 'vertical' ? '↕️' : '⏹️');
+            visionText.textContent = `Visión: [${state.vision.detectedSize} ${curSym}] Monitoreando`;
+          }
         }, 1500);
       }
     }

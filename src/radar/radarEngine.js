@@ -452,6 +452,9 @@ export function matchLiveRadarFeatures(liveFeat) {
   const sizeFilter = (state.vision.detectedSize && state.vision.detectedSize !== 'all')
     ? state.vision.detectedSize
     : (state.radar.selectedSize || 'all');
+  const orientationFilter = (state.vision.detectedOrientation && state.vision.detectedOrientation !== 'any')
+    ? state.vision.detectedOrientation
+    : (state.radar.selectedOrientation || 'any');
   const gridConfidence = state.vision.gridConfidence || 0.70;
   const boxPrice = state.radar.boxPrice || null;
 
@@ -460,13 +463,14 @@ export function matchLiveRadarFeatures(liveFeat) {
     return tmpl.action === mode;
   });
 
-  // FUSIÓN BAYESIANA MULTIMODAL (Física Acústica + Tamaño + Precio de Caja)
+  // FUSIÓN BAYESIANA MULTIMODAL (Física Acústica + Tamaño + Orientación + Precio de Caja)
   const bayesVerdict = computeBayesianVerdict(
     liveFeat,
     eligibleTemplates,
     sizeFilter,
     gridConfidence,
-    boxPrice
+    boxPrice,
+    orientationFilter
   );
 
   if (!bayesVerdict) return;
@@ -540,7 +544,8 @@ export function displayRadarVerdict(verdict, detectedAction = 'drop') {
   if (itemName) itemName.textContent = `${representativeItem.nameEs} (${representativeItem.name})`;
   if (itemPrice) itemPrice.textContent = `Valor Estimado: ~${representativeItem.referencePrice.toLocaleString()} Koens • Casilla: ${representativeItem.sizeLabel}`;
   if (soundIdTag) {
-    soundIdTag.textContent = `Perfil #${sound.id}: ${sound.name} • T60: ${verdict.t60Measured}ms • Factor Q: ${verdict.qFactorMeasured} • Cuadrícula: [${verdict.gridDetected}] (${verdict.gridConfidence}% certeza)`;
+    const orientLabel = verdict.orientationDetected === 'horizontal' ? '↔️ Horizontal' : (verdict.orientationDetected === 'vertical' ? '↕️ Vertical' : (verdict.orientationDetected === 'square' ? '⏹️ Cuadrada' : 'Auto'));
+    soundIdTag.textContent = `Perfil #${sound.id}: ${sound.name} • T60: ${verdict.t60Measured}ms • Factor Q: ${verdict.qFactorMeasured} • Cuadrícula: [${verdict.gridDetected}] (${orientLabel}) • ${verdict.gridConfidence}% certeza`;
   }
 
   updatePiPHUD(representativeItem, sound, confidence);
@@ -633,7 +638,14 @@ export function simulateRadarDrop() {
       t60: matchingTmpl.t60 || 250,
       qFactor: matchingTmpl.qFactor || 8.5
     };
-    const verdict = computeBayesianVerdict(syntheticFeat, state.radar.templates, state.radar.selectedSize || 'all', 0.88, null);
+    const verdict = computeBayesianVerdict(
+      syntheticFeat,
+      state.radar.templates,
+      state.radar.selectedSize || 'all',
+      0.88,
+      null,
+      state.radar.selectedOrientation || 'any'
+    );
     if (verdict) {
       displayRadarVerdict(verdict, 'drop');
       return;

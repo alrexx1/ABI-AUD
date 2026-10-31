@@ -40,7 +40,7 @@
   </style>
 
   <!-- Estilos Principales con Cache-Busting -->
-  <link rel="stylesheet" href="style.css?v=2.0.11">
+  <link rel="stylesheet" href="style.css?v=2.0.12">
   
   <!-- Manifest PWA Offline -->
   <link rel="manifest" href="manifest.json">
@@ -504,12 +504,24 @@
             <div class="radar-source-select-group">
               <label class="filter-pill-label" for="radar-size-filter">Tamaño de Casilla:</label>
               <select id="radar-size-filter" class="filter-select">
-                <option value="all" selected>🔍 Todos los Tamaños (Auto)</option>
-                <option value="1x2">🔲 1x2 (EMS, Documento Secreto, etc.)</option>
-                <option value="2x2">🔲 2x2 (Módulo posición, Antena, Tetera, Jarrón)</option>
-                <option value="2x3">🔲 2x3 (Laúd doble c., León Dorado, TV Cápsula)</option>
-                <option value="1x3">🔲 1x3 (Flauta esm., Brazo T-008)</option>
-                <option value="2x1">🔲 2x1 (Módulo TI, etc.)</option>
+                <option value="all" selected>🔍 Todos los Tamaños (Auto Detección)</option>
+                <option value="3x2">↔️ 3x2 Horizontal (León Dorado, Tablilla, Amanecer)</option>
+                <option value="2x3">↕️ 2x3 Vertical (Escultura Majestuosa, Máscara Oro, Laúd)</option>
+                <option value="2x2">⏹️ 2x2 Cuadrado (Tetera Antigua, Jarrón, Reloj Faetón)</option>
+                <option value="2x1">↔️ 2x1 Horizontal (Documento Secreto, Módulo TI)</option>
+                <option value="1x2">↕️ 1x2 Vertical (EMS Espejo Matriz, Tubos)</option>
+                <option value="1x3">↕️ 1x3 Vertical (Flauta de Jade, Brazo T-008)</option>
+                <option value="1x1">⏹️ 1x1 Cuadrado (Munición M61/7N37, Gemas)</option>
+              </select>
+            </div>
+
+            <div class="radar-source-select-group">
+              <label class="filter-pill-label" for="radar-orientation-filter">Orientación Física:</label>
+              <select id="radar-orientation-filter" class="filter-select">
+                <option value="any" selected>🧭 Auto (Detectar por Visión de Pantalla)</option>
+                <option value="horizontal">↔️ Horizontal (Ancho > Alto: 3x2, 2x1)</option>
+                <option value="vertical">↕️ Vertical (Alto > Ancho: 2x3, 1x2, 1x3)</option>
+                <option value="square">⏹️ Cuadrada (Simétrica: 2x2, 1x1)</option>
               </select>
             </div>
 
@@ -1037,11 +1049,11 @@
   </footer>
 
   <!-- SCRIPTS -->
-  <script src="app_data.js?v=2.0.11"></script>
+  <script src="app_data.js?v=2.0.12"></script>
   <!-- Arquitectura Modular Escalable (ES Modules) -->
-  <script type="module" src="src/main.js?v=2.0.11"></script>
+  <script type="module" src="src/main.js?v=2.0.12"></script>
   <!-- Fallback para entornos heredados -->
-  <script nomodule src="app.js?v=2.0.11"></script>
+  <script nomodule src="app.js?v=2.0.12"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

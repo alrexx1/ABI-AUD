@@ -37,7 +37,14 @@ export const SENSITIVITY_PRESETS = Object.freeze({
   noisy: { threshold: 0.026, label: 'Anti-Ruido (0.026)' }
 });
 
-export const GRID_SIZES = Object.freeze(['all', '1x1', '1x2', '2x1', '2x2', '2x3', '1x3']);
+export const GRID_SIZES = Object.freeze(['all', '1x1', '1x2', '2x1', '2x2', '2x3', '3x2', '1x3']);
+
+export const GRID_ORIENTATIONS = Object.freeze({
+  any: 'Auto / Cualquier Orientación',
+  horizontal: 'Horizontal (Ancho > Alto: 3x2, 2x1)',
+  vertical: 'Vertical (Alto > Ancho: 2x3, 1x2, 1x3)',
+  square: 'Cuadrada (1:1: 2x2, 1x1)'
+});
 
 export const RANKS = Object.freeze([
   { minKoens: 10000000, title: 'Maestro de la Zona Oscura', badge: '💎 LEYENDA' },

@@ -300,5 +300,77 @@ describe('Motor DSP: Filtros y Similitud', () => {
     }, /inválido/);
   });
 
+  it('el clasificador de geometría y orientación debe categorizar ranuras con precisión matemática', async () => {
+    const { classifyGridGeometry } = await import('../src/vision/visionEngine.js');
+
+    // 1. Proporción 3x2 (Horizontal: León Dorado, Tablilla, etc. 1.50)
+    const geo3x2 = classifyGridGeometry(150, 100, 15000, 450);
+    assert.strictEqual(geo3x2.size, '3x2');
+    assert.strictEqual(geo3x2.orientation, 'horizontal');
+    assert.ok(geo3x2.aspect >= 1.48 && geo3x2.aspect <= 1.52);
+
+    // 2. Proporción 2x1 (Horizontal: Documento Secreto, Módulo TI. 2.00)
+    const geo2x1 = classifyGridGeometry(200, 100, 20000, 300);
+    assert.strictEqual(geo2x1.size, '2x1');
+    assert.strictEqual(geo2x1.orientation, 'horizontal');
+
+    // 3. Proporción 2x3 (Vertical: Escultura Majestuosa, Máscara Oro. 0.667)
+    const geo2x3 = classifyGridGeometry(100, 150, 15000, 450);
+    assert.strictEqual(geo2x3.size, '2x3');
+    assert.strictEqual(geo2x3.orientation, 'vertical');
+
+    // 4. Proporción 1x2 (Vertical: EMS. 0.50)
+    const geo1x2 = classifyGridGeometry(100, 200, 20000, 300);
+    assert.strictEqual(geo1x2.size, '1x2');
+    assert.strictEqual(geo1x2.orientation, 'vertical');
+
+    // 5. Proporción 1x3 (Vertical: Flauta de Jade. 0.33)
+    const geo1x3 = classifyGridGeometry(50, 150, 7500, 150);
+    assert.strictEqual(geo1x3.size, '1x3');
+    assert.strictEqual(geo1x3.orientation, 'vertical');
+
+    // 6. Proporción 2x2 (Cuadrada: Tetera, Jarrón. 1.00 - Área grande)
+    const geo2x2 = classifyGridGeometry(80, 80, 6400, 500);
+    assert.strictEqual(geo2x2.size, '2x2');
+    assert.strictEqual(geo2x2.orientation, 'square');
+
+    // 7. Proporción 1x1 (Cuadrada: Munición, Anillo. 1.00 - Área pequeña)
+    const geo1x1 = classifyGridGeometry(20, 20, 400, 80);
+    assert.strictEqual(geo1x1.size, '1x1');
+    assert.strictEqual(geo1x1.orientation, 'square');
+  });
+
+  it('la desambiguación bayesiana por orientación física debe distinguir ítems horizontales vs verticales', async () => {
+    const { computeBayesianVerdict } = await import('../src/radar/bayesEngine.js');
+    const fs = require('fs');
+    const path = require('path');
+    const appData = require('../app_data.js');
+    global.window = { ABI_DATA: appData };
+
+    const rawSigs = JSON.parse(fs.readFileSync(path.join(__dirname, '../radar_signatures.json'), 'utf8'));
+    const lionTmpl = rawSigs.find(t => t.sound.id === 28 && t.action === 'drop');
+    assert.ok(lionTmpl);
+
+    // Caso A: Sonido #28 + Tamaño 3x2 + Orientación HORIZONTAL (León Dorado confirmado)
+    const verdictLion = computeBayesianVerdict(lionTmpl, rawSigs, '3x2', 0.95, null, 'horizontal');
+    assert.strictEqual(verdictLion.topItem.nameEs, 'Estatua de León Dorado');
+    assert.strictEqual(verdictLion.orientationDetected, 'horizontal');
+    assert.ok(verdictLion.pRed >= 90, `León con orientación horizontal debe superar 90% (obtenido: ${verdictLion.pRed}%)`);
+
+    // Caso B: Sonido #36 + Tamaño 2x3 + Orientación VERTICAL (Escultura Majestuosa Roja)
+    const tmpl36 = rawSigs.find(t => t.sound.id === 36 && t.action === 'drop');
+    assert.ok(tmpl36);
+    const verdictStatue = computeBayesianVerdict(tmpl36, rawSigs, '2x3', 0.95, null, 'vertical');
+    assert.strictEqual(verdictStatue.topItem.nameEs, 'Escultura Majestuosa');
+    assert.strictEqual(verdictStatue.orientationDetected, 'vertical');
+    assert.ok(verdictStatue.pRed >= 75, `Escultura Majestuosa con orientación vertical debe superar 75% (obtenido: ${verdictStatue.pRed}%)`);
+
+    // Caso C: Mismo Sonido #36 pero con Orientación HORIZONTAL 2x1 (Cantimplora / Trampa no roja)
+    const verdictCanteen = computeBayesianVerdict(tmpl36, rawSigs, '2x1', 0.95, null, 'horizontal');
+    assert.strictEqual(verdictCanteen.topItem.nameEs, 'Military Canteen');
+    assert.strictEqual(verdictCanteen.isGuaranteedRed, false);
+    assert.ok(verdictCanteen.pRed <= 35, `Cantimplora 2x1 horizontal debe tener pRed <= 35% (obtenido: ${verdictCanteen.pRed}%)`);
+  });
+
 });
 

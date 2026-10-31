@@ -390,6 +390,13 @@ export function initDOMController() {
     });
   }
 
+  const selectOrientationFilter = document.getElementById('radar-orientation-filter');
+  if (selectOrientationFilter) {
+    selectOrientationFilter.addEventListener('change', (e) => {
+      state.radar.selectedOrientation = e.target.value;
+    });
+  }
+
   const selectBoxPrice = document.getElementById('radar-box-price');
   if (selectBoxPrice) {
     selectBoxPrice.addEventListener('change', (e) => {

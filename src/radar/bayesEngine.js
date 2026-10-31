@@ -15,9 +15,17 @@ import { scoreTemplateSimilarity } from '../dsp/similarity.js';
  * @param {string} detectedSize - Tamaño detectado por visión o asistente ('all', '2x2', '3x2', etc.)
  * @param {number} gridConfidence - Confianza visual o de selección (0.0 a 1.0)
  * @param {number|null} boxPrice - Precio simulado o detectado de la caja
+ * @param {string} detectedOrientation - Orientación física ('any', 'horizontal', 'vertical', 'square')
  * @returns {object} Veredicto bayesiano completo con probabilidades porcentuales
  */
-export function computeBayesianVerdict(liveFeat, templates, detectedSize = 'all', gridConfidence = 0.70, boxPrice = null) {
+export function computeBayesianVerdict(
+  liveFeat,
+  templates,
+  detectedSize = 'all',
+  gridConfidence = 0.70,
+  boxPrice = null,
+  detectedOrientation = 'any'
+) {
   const allItems = (typeof window !== 'undefined' && window.ABI_DATA) ? window.ABI_DATA.items : [];
   if (!templates || templates.length === 0 || allItems.length === 0) {
     return null;
@@ -90,16 +98,43 @@ export function computeBayesianVerdict(liveFeat, templates, detectedSize = 'all'
       const fullItem = allItems.find(it => it.id === ref.id);
       if (!fullItem) continue;
 
-      // A) Verosimilitud Geométrica (Tamaño de Casilla de Inventario)
+      // A) Verosimilitud Geométrica y Orientación Física (Tamaño y Forma de Casilla)
       let geoLikelihood = 1.0;
+      const sz = fullItem.sizeLabel || '';
+      const [iCols, iRows] = fullItem.size || [1, 1];
+      const itemOrientation = (iCols > iRows) ? 'horizontal' : (iRows > iCols ? 'vertical' : 'square');
+
       if (detectedSize !== 'all') {
-        const sz = fullItem.sizeLabel || '';
-        const szRev = sz.split('x').reverse().join('x');
-        if (sz === detectedSize || szRev === detectedSize) {
-          geoLikelihood = 1.0;
+        if (sz === detectedSize) {
+          // Coincidencia exacta de tamaño
+          if (detectedOrientation !== 'any' && detectedOrientation !== itemOrientation) {
+            geoLikelihood = 0.80; // Misma celda pero orientación ligeramente discordante
+          } else {
+            geoLikelihood = 1.0;
+          }
         } else {
-          // Penalización severa basada en certeza visual o de selección
-          geoLikelihood = Math.max(0.005, 1.0 - gridConfidence);
+          const szRev = sz.split('x').reverse().join('x');
+          if (szRev === detectedSize) {
+            // Misma dimensión pero rotado (ej. 3x2 vs 2x3)
+            if (detectedOrientation !== 'any') {
+              geoLikelihood = (detectedOrientation === itemOrientation) ? 0.95 : 0.05;
+            } else {
+              geoLikelihood = 0.55;
+            }
+          } else {
+            // Penalización severa basada en certeza visual o de selección
+            geoLikelihood = Math.max(0.002, 1.0 - gridConfidence);
+          }
+        }
+      } else if (detectedOrientation !== 'any') {
+        // Tamaño 'all', pero orientación detectada (Horizontal, Vertical o Cuadrada)
+        if (itemOrientation === detectedOrientation) {
+          geoLikelihood = 1.0;
+        } else if (itemOrientation === 'square') {
+          geoLikelihood = 0.30;
+        } else {
+          // Orientación opuesta (ej. detectado Horizontal pero ítem es Vertical)
+          geoLikelihood = 0.04;
         }
       }
 
@@ -197,6 +232,7 @@ export function computeBayesianVerdict(liveFeat, templates, detectedSize = 'all'
     t60Measured: liveFeat.t60 || 0,
     qFactorMeasured: liveFeat.qFactor || 0,
     gridDetected: detectedSize,
+    orientationDetected: detectedOrientation,
     gridConfidence: Math.round(gridConfidence * 100)
   };
 }

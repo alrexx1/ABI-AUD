@@ -55,6 +55,7 @@ export const state = {
     gainBoost: 4.0,
     detectMode: 'both', // 'both', 'chain', 'drop', 'pickup'
     selectedSize: 'all',
+    selectedOrientation: 'any', // 'any', 'horizontal', 'vertical', 'square'
     sensitivityPreset: 'ultra',
     scopeMode: 'waterfall', // 'waterfall', 'split', 'scope'
     stream: null,
@@ -102,6 +103,8 @@ export const state = {
     dragStartTimestamp: 0,
     lastDropTimestamp: 0,
     detectedSize: 'all',
+    detectedOrientation: 'any', // 'any', 'horizontal', 'vertical', 'square'
+    gridConfidence: 0.70,
     pipWindow: null
   }
 };
